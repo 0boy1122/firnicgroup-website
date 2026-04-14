@@ -252,7 +252,9 @@ function callGemini(messages) {
           if (text) resolve(text);
           else {
             console.error('[Gemini] Error response:', d.slice(0, 500));
-            reject(new Error(p.error?.message || 'No response from Gemini'));
+            const code = p.error?.code || 0;
+            const errMsg = p.error?.message || 'No response from Gemini';
+            reject(new Error(code === 429 ? '429 ' + errMsg : errMsg));
           }
         } catch (e) { console.error('[Gemini] Parse error:', d.slice(0, 500)); reject(e); }
       });
@@ -353,7 +355,14 @@ http.createServer(async (req, res) => {
       }));
       const reply = await callGemini(safe);
       json(res, 200, { reply });
-    } catch (e) { json(res, 500, { error: 'Chat error' }); }
+    } catch (e) {
+      const msg = e.message || '';
+      if (msg.includes('429') || msg.toLowerCase().includes('quota')) {
+        json(res, 503, { error: 'AI not configured' }); // triggers friendly fallback in widget
+      } else {
+        json(res, 500, { error: 'Chat error' });
+      }
+    }
     return;
   }
 
