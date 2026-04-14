@@ -7,7 +7,6 @@ const crypto = require('crypto');
 const { URL } = require('url');
 
 const ROOT     = __dirname;
-const PORT     = 3000;
 const DATA_DIR = path.join(ROOT, 'data');
 
 // Ensure data dir exists
@@ -35,9 +34,9 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-const _rawKey           = process.env.ANTHROPIC_API_KEY || '';
-const ANTHROPIC_API_KEY = _rawKey.startsWith('sk-ant-') ? _rawKey : ''; // reject placeholders
+const GEMINI_API_KEY    = process.env.GEMINI_API_KEY    || '';
 let   ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'firnic2024';
+const PORT              = parseInt(process.env.PORT, 10) || 3000;
 const SESSION_TTL_MS    = 24 * 60 * 60 * 1000; // 24 hours
 const MAX_BODY_BYTES    = 512 * 1024;           // 512 KB
 const LOGIN_MAX_TRIES   = 5;
@@ -219,31 +218,39 @@ function getClientIP(req) {
   return (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
 }
 
-function callAnthropic(messages) {
+function callGemini(messages) {
   return new Promise((resolve, reject) => {
+    // Convert messages: Anthropic format → Gemini format
+    // Anthropic: [{role:'user'|'assistant', content:'text'}]
+    // Gemini:    [{role:'user'|'model',     parts:[{text:'text'}]}]
+    const contents = messages.map(m => ({
+      role:  m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+
     const payload = JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 512,
-      system: ARIA_SYSTEM,
-      messages
+      system_instruction: { parts: [{ text: ARIA_SYSTEM }] },
+      contents,
+      generationConfig: { maxOutputTokens: 512, temperature: 0.7 }
     });
+
+    const model    = 'gemini-2.0-flash';
+    const apiPath  = `/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
     const opts = {
-      hostname: 'api.anthropic.com', path: '/v1/messages', method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-        'Content-Length': Buffer.byteLength(payload)
-      }
+      hostname: 'generativelanguage.googleapis.com',
+      path: apiPath, method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) }
     };
+
     const r = https.request(opts, res => {
       let d = '';
       res.on('data', c => d += c);
       res.on('end', () => {
         try {
           const p = JSON.parse(d);
-          if (p.content?.[0]) resolve(p.content[0].text);
-          else reject(new Error(p.error?.message || 'No response'));
+          const text = p.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) resolve(text);
+          else reject(new Error(p.error?.message || 'No response from Gemini'));
         } catch (e) { reject(e); }
       });
     });
@@ -287,6 +294,8 @@ const ALLOWED_ORIGINS = new Set([
   `http://localhost:${PORT}`,
   `http://127.0.0.1:${PORT}`,
   'null', // file:// protocol
+  // Render / production URL — auto-detected
+  ...(process.env.RENDER_EXTERNAL_URL ? [process.env.RENDER_EXTERNAL_URL] : []),
 ]);
 
 function setCORS(req, res) {
@@ -330,7 +339,7 @@ http.createServer(async (req, res) => {
 
   // ── POST /api/chat ──────────────────────────────────────────────────────────
   if (urlPath === '/api/chat' && req.method === 'POST') {
-    if (!ANTHROPIC_API_KEY) return json(res, 503, { error: 'AI not configured' });
+    if (!GEMINI_API_KEY) return json(res, 503, { error: 'AI not configured' });
     try {
       const { messages } = await parseBody(req);
       if (!Array.isArray(messages) || messages.length > 40) return json(res, 400, { error: 'Invalid messages' });
@@ -339,7 +348,7 @@ http.createServer(async (req, res) => {
         role:    m.role === 'assistant' ? 'assistant' : 'user',
         content: sanitizeString(String(m.content || ''), 1000)
       }));
-      const reply = await callAnthropic(safe);
+      const reply = await callGemini(safe);
       json(res, 200, { reply });
     } catch (e) { json(res, 500, { error: 'Chat error' }); }
     return;
@@ -578,7 +587,6 @@ http.createServer(async (req, res) => {
 }).listen(PORT, () => {
   console.log(`\n✓ Firnic website  → http://localhost:${PORT}`);
   console.log(`✓ Admin panel     → http://localhost:${PORT}/admin/`);
-  const aiStatus = ANTHROPIC_API_KEY ? 'enabled' : _rawKey && !_rawKey.startsWith('sk-ant-') ? 'disabled (API key looks invalid — get a real key at console.anthropic.com)' : 'disabled (add ANTHROPIC_API_KEY to .env)';
-  console.log(`✓ AI chat         → ${aiStatus}`);
+  console.log(`✓ AI chat (Gemini)→ ${GEMINI_API_KEY ? 'enabled' : 'disabled (add GEMINI_API_KEY to .env)'}`);
   console.log(`✓ Email           → ${transporter ? 'enabled' : 'disabled (add SMTP_USER + SMTP_PASS to .env)'}\n`);
 });

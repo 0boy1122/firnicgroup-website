@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: firnicgroup-website
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: NOTIFY_EMAIL
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
