@@ -34,7 +34,7 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-const GEMINI_API_KEY    = process.env.GEMINI_API_KEY    || '';
+const GROQ_API_KEY      = process.env.GROQ_API_KEY      || '';
 let   ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'firnic2024';
 const PORT              = parseInt(process.env.PORT, 10) || 3000;
 const SESSION_TTL_MS    = 24 * 60 * 60 * 1000; // 24 hours
@@ -218,28 +218,27 @@ function getClientIP(req) {
   return (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
 }
 
-function callGemini(messages) {
+function callGroq(messages) {
   return new Promise((resolve, reject) => {
-    // Convert messages: Anthropic format → Gemini format
-    // Anthropic: [{role:'user'|'assistant', content:'text'}]
-    // Gemini:    [{role:'user'|'model',     parts:[{text:'text'}]}]
-    const contents = messages.map(m => ({
-      role:  m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }]
-    }));
-
     const payload = JSON.stringify({
-      system_instruction: { parts: [{ text: ARIA_SYSTEM }] },
-      contents,
-      generationConfig: { maxOutputTokens: 512, temperature: 0.7 }
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: ARIA_SYSTEM },
+        ...messages
+      ],
+      max_tokens: 512,
+      temperature: 0.7
     });
 
-    const model    = 'gemini-2.0-flash';
-    const apiPath  = `/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
     const opts = {
-      hostname: 'generativelanguage.googleapis.com',
-      path: apiPath, method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) }
+      hostname: 'api.groq.com',
+      path: '/openai/v1/chat/completions',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Content-Length': Buffer.byteLength(payload)
+      }
     };
 
     const r = https.request(opts, res => {
@@ -248,15 +247,15 @@ function callGemini(messages) {
       res.on('end', () => {
         try {
           const p = JSON.parse(d);
-          const text = p.candidates?.[0]?.content?.parts?.[0]?.text;
+          const text = p.choices?.[0]?.message?.content;
           if (text) resolve(text);
           else {
-            console.error('[Gemini] Error response:', d.slice(0, 500));
-            const code = p.error?.code || 0;
-            const errMsg = p.error?.message || 'No response from Gemini';
-            reject(new Error(code === 429 ? '429 ' + errMsg : errMsg));
+            console.error('[Groq] Error response:', d.slice(0, 500));
+            const code = p.error?.code || '';
+            const errMsg = p.error?.message || 'No response from Groq';
+            reject(new Error(code === 'rate_limit_exceeded' ? '429 ' + errMsg : errMsg));
           }
-        } catch (e) { console.error('[Gemini] Parse error:', d.slice(0, 500)); reject(e); }
+        } catch (e) { console.error('[Groq] Parse error:', d.slice(0, 500)); reject(e); }
       });
     });
     r.on('error', reject);
@@ -344,7 +343,7 @@ http.createServer(async (req, res) => {
 
   // ── POST /api/chat ──────────────────────────────────────────────────────────
   if (urlPath === '/api/chat' && req.method === 'POST') {
-    if (!GEMINI_API_KEY) return json(res, 503, { error: 'AI not configured' });
+    if (!GROQ_API_KEY) return json(res, 503, { error: 'AI not configured' });
     try {
       const { messages } = await parseBody(req);
       if (!Array.isArray(messages) || messages.length > 40) return json(res, 400, { error: 'Invalid messages' });
@@ -353,7 +352,7 @@ http.createServer(async (req, res) => {
         role:    m.role === 'assistant' ? 'assistant' : 'user',
         content: sanitizeString(String(m.content || ''), 1000)
       }));
-      const reply = await callGemini(safe);
+      const reply = await callGroq(safe);
       json(res, 200, { reply });
     } catch (e) {
       const msg = e.message || '';
@@ -599,6 +598,6 @@ http.createServer(async (req, res) => {
 }).listen(PORT, () => {
   console.log(`\n✓ Firnic website  → http://localhost:${PORT}`);
   console.log(`✓ Admin panel     → http://localhost:${PORT}/admin/`);
-  console.log(`✓ AI chat (Gemini)→ ${GEMINI_API_KEY ? 'enabled' : 'disabled (add GEMINI_API_KEY to .env)'}`);
+  console.log(`✓ AI chat (Groq)  → ${GROQ_API_KEY ? 'enabled' : 'disabled (add GROQ_API_KEY to .env)'}`);
   console.log(`✓ Email           → ${transporter ? 'enabled' : 'disabled (add SMTP_USER + SMTP_PASS to .env)'}\n`);
 });
