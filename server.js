@@ -250,8 +250,11 @@ function callGemini(messages) {
           const p = JSON.parse(d);
           const text = p.candidates?.[0]?.content?.parts?.[0]?.text;
           if (text) resolve(text);
-          else reject(new Error(p.error?.message || 'No response from Gemini'));
-        } catch (e) { reject(e); }
+          else {
+            console.error('[Gemini] Error response:', d.slice(0, 500));
+            reject(new Error(p.error?.message || 'No response from Gemini'));
+          }
+        } catch (e) { console.error('[Gemini] Parse error:', d.slice(0, 500)); reject(e); }
       });
     });
     r.on('error', reject);
