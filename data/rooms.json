@@ -1,0 +1,34 @@
+[
+  {
+    "id": "classic-single",
+    "name": "Classic Single",
+    "price": 450,
+    "total": 4,
+    "available": 4,
+    "description": "A well-appointed single room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping."
+  },
+  {
+    "id": "superior-twin",
+    "name": "Superior Twin",
+    "price": 550,
+    "total": 3,
+    "available": 3,
+    "description": "Spacious twin room with premium bedding, minibar, work desk, and all the amenities for a comfortable stay."
+  },
+  {
+    "id": "deluxe-double",
+    "name": "Deluxe Double",
+    "price": 700,
+    "total": 2,
+    "available": 2,
+    "description": "Elegant double room with king-size bed, luxury toiletries, premium furnishings, and beautiful views of the estate."
+  },
+  {
+    "id": "prestige-suite",
+    "name": "Prestige Suite",
+    "price": 950,
+    "total": 1,
+    "available": 1,
+    "description": "Our finest accommodation — a spacious suite with separate living area, premium finishes, and exclusive amenities throughout."
+  }
+]

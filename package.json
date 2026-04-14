@@ -1,0 +1,19 @@
+{
+  "name": "firnicgroup-website",
+  "version": "1.0.0",
+  "main": "fix-links.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.88.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.5"
+  }
+}

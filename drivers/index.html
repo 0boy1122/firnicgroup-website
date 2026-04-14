@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Become a Firnic Driver | Drive. Earn. Grow.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --gold: #f5a623;
+            --gold2: #ffc107;
+            --black: #0d0d0d;
+            --dark: #1a1a1a;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --r: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ══ NAV ══ */
+        nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            height: 68px;
+            background: transparent;
+        }
+
+        .logo {
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+
+        @media (min-width: 768px) { .nav-links { display: flex; } }
+
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--gold);
+            color: var(--black);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-main:hover {
+            background: var(--gold2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(245, 166, 35, 0.35);
+        }
+
+        /* ══ HERO ══ */
+        #hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            z-index: 0;
+        }
+
+        /* Dark gradient from bottom — like Bolt */
+        #hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.05) 0%,
+                rgba(0,0,0,0.1) 35%,
+                rgba(0,0,0,0.72) 65%,
+                rgba(0,0,0,0.92) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 6% 3.5rem;
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245, 166, 35, 0.18);
+            border: 1px solid rgba(245, 166, 35, 0.4);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.38rem 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-chip::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: blink 1.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1 }
+            50% { opacity: 0.25 }
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.6rem, 10vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h1 span { color: var(--gold); }
+
+        .hero-text p {
+            font-size: clamp(1rem, 4vw, 1.15rem);
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 480px;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-ghost-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            transition: border-color 0.2s;
+        }
+
+        .btn-ghost-white:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            flex-wrap: wrap;
+        }
+
+        .ht-item { text-align: left; }
+
+        .ht-item .val {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .ht-item .lbl {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 500;
+            margin-top: 0.15rem;
+        }
+
+        .ht-divider {
+            width: 1px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Desktop: split layout */
+        @media (min-width: 900px) {
+            #hero {
+                flex-direction: row;
+                align-items: stretch;
+                min-height: 90vh;
+            }
+
+            #hero::after {
+                background: linear-gradient(
+                    to right,
+                    rgba(0,0,0,0.88) 0%,
+                    rgba(0,0,0,0.55) 50%,
+                    rgba(0,0,0,0.1) 100%
+                );
+            }
+
+            .hero-text {
+                padding: 8rem 5% 5rem 8%;
+                max-width: 600px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        /* ══ SECTION SHELL ══ */
+        section {
+            padding: 5.5rem 6%;
+        }
+
+        .sh {
+            margin-bottom: 3.5rem;
+        }
+
+        .sh.center {
+            text-align: center;
+        }
+
+        .sh.center .sub {
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+        }
+
+        .sub {
+            font-size: 1rem;
+            color: var(--gray-600);
+            max-width: 500px;
+            font-weight: 400;
+        }
+
+        /* ══ WHY ══ */
+        #why {
+            background: var(--gray-50);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .why-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r);
+            padding: 2rem 1.75rem;
+            transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+        }
+
+        .why-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+            transform: translateY(-3px);
+            border-color: rgba(245, 166, 35, 0.4);
+        }
+
+        .wc-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(245, 166, 35, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .why-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .why-card p {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            line-height: 1.65;
+        }
+
+        /* ══ HOW IT WORKS ══ */
+        #how {
+            background: var(--white);
+        }
+
+        .how-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (min-width: 860px) {
+            .how-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .how-img-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--gray-100);
+            position: relative;
+        }
+
+        .how-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .how-img-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 0.85rem 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hib-ico {
+            font-size: 1.5rem;
+        }
+
+        .hib-text .val {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        .hib-text .lbl {
+            font-size: 0.72rem;
+            color: var(--gray-400);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.25rem;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: -8px;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(245, 166, 35, 0.5), rgba(245, 166, 35, 0.05));
+        }
+
+        .step-dot {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--black);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 0 5px rgba(245, 166, 35, 0.1);
+        }
+
+        .step-body {
+            padding-bottom: 2.25rem;
+        }
+
+        .step-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-body p {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* ══ REQUIREMENTS ══ */
+        #requirements {
+            background: var(--black);
+        }
+
+        #requirements h2 {
+            color: var(--white);
+        }
+
+        #requirements .eyebrow {
+            color: var(--gold);
+        }
+
+        #requirements .sub {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--r);
+            overflow: hidden;
+        }
+
+        .req-card {
+            background: #111;
+            padding: 1.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+
+        .req-card:hover {
+            background: #181818;
+        }
+
+        .req-ico {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(245, 166, 35, 0.1);
+            border: 1px solid rgba(245, 166, 35, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 0.8rem;
+        }
+
+        .req-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+            line-height: 1.5;
+            padding-top: 0.5rem;
+        }
+
+        /* ══ EARNINGS BANNER ══ */
+        #earnings {
+            background: var(--gold);
+            padding: 5rem 6%;
+        }
+
+        .earnings-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 760px) {
+            .earnings-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        #earnings h2 {
+            color: var(--black);
+            font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+        }
+
+        #earnings .eyebrow {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        #earnings p {
+            color: rgba(0, 0, 0, 0.65);
+            font-size: 1rem;
+            margin-top: 0.75rem;
+            max-width: 420px;
+        }
+
+        .e-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .e-stat {
+            background: rgba(0, 0, 0, 0.07);
+            border-radius: var(--r);
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .e-stat .val {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--black);
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .e-stat .lbl {
+            font-size: 0.82rem;
+            color: rgba(0, 0, 0, 0.55);
+            font-weight: 500;
+        }
+
+        .e-stat .tag {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--black);
+            padding: 0.25rem 0.75rem;
+            white-space: nowrap;
+        }
+
+        /* ══ TESTIMONIALS ══ */
+        #testimonials {
+            background: var(--gray-50);
+        }
+
+        .t-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .t-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r);
+            padding: 1.75rem;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .t-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+            transform: translateY(-2px);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .t-card blockquote {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 1.25rem;
+        }
+
+        .t-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.78rem;
+            color: var(--black);
+            flex-shrink: 0;
+        }
+
+        .t-name {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--black);
+        }
+
+        .t-loc {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* ══ FORM ══ */
+        #apply {
+            background: var(--white);
+        }
+
+        .apply-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        @media (min-width: 960px) {
+            .apply-inner {
+                grid-template-columns: 380px 1fr;
+            }
+        }
+
+        .apply-sidebar h2 {
+            color: var(--black);
+        }
+
+        .apply-sidebar .sub {
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+
+        .sidebar-perks {
+            list-style: none;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar-perks li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .sidebar-perks li::before {
+            content: '✓';
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(245, 166, 35, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 0.7rem;
+        }
+
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-head {
+            padding: 1.75rem 2rem;
+            border-bottom: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+
+        .form-head h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 0.25rem;
+        }
+
+        .form-head p {
+            font-size: 0.82rem;
+            color: var(--gray-600);
+        }
+
+        form {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (max-width: 560px) {
+            form {
+                padding: 1.25rem;
+            }
+        }
+
+        .fsec-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 1.25rem;
+        }
+
+        .fgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 560px) {
+            .fgrid {
+                grid-template-columns: 1fr;
+            }
+
+            .fgrid .full {
+                grid-column: 1;
+            }
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 0.7rem 0.9rem;
+            color: var(--black);
+            font-size: 0.875rem;
+            font-family: inherit;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input::placeholder {
+            color: var(--gray-400);
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.12);
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            padding-right: 2.5rem;
+        }
+
+        .check-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            cursor: pointer;
+            margin-top: 0.35rem;
+            user-select: none;
+        }
+
+        .check-row input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .r-opt {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .r-opt input[type="radio"] {
+            display: none;
+        }
+
+        .r-opt label {
+            display: block;
+            text-align: center;
+            padding: 0.65rem 0.5rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.18s;
+        }
+
+        .r-opt input:checked+label {
+            border-color: var(--gold);
+            background: rgba(245, 166, 35, 0.06);
+            color: #a16207;
+        }
+
+        .r-opt label:hover {
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .upload-box {
+            border: 1.5px dashed var(--gray-200);
+            border-radius: 8px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .upload-box:hover {
+            border-color: var(--gold);
+            background: rgba(245, 166, 35, 0.02);
+        }
+
+        .upload-box input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-box .u-ico {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .upload-box .u-lbl {
+            font-size: 0.77rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .upload-box .u-lbl strong {
+            color: var(--gold);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .agree-wrap {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .agree-wrap input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--gold);
+            flex-shrink: 0;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .agree-wrap label {
+            font-size: 0.82rem;
+            color: var(--gray-600);
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: inherit;
+            cursor: pointer;
+            letter-spacing: 0.2px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold2);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(245, 166, 35, 0.35);
+        }
+
+        .form-notes {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-notes p {
+            font-size: 0.77rem;
+            color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .form-notes p::before {
+            content: 'ℹ';
+            color: var(--gold);
+        }
+
+        /* ══ FOOTER ══ */
+        footer {
+            background: var(--black);
+            padding: 2.5rem 6%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        footer p {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ══ REVEAL ══ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal.d1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal.d2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal.d3 {
+            transition-delay: 0.3s;
+        }
+
+        @media (max-width: 640px) {
+            nav { height: 56px; padding: 0 1rem; }
+            .hero { min-height: 60vh; padding: 3rem 1rem; }
+            .hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
+            section { padding: 3rem 1rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .apply-form { padding: 1.5rem 1rem; }
+            .form-row { grid-template-columns: 1fr; }
+            footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/index.html" class="logo" style="text-decoration:none;">Firnic<span>.</span></a>
+        <div class="nav-links">
+            <a href="/index.html">Home</a>
+            <a href="/index.html#hotel">Hotel</a>
+            <a href="/massage/index.html">Massage</a>
+            <a href="/events/index.html">Events</a>
+            <a href="/cars/index.html">Car Rental</a>
+            <a href="/contact/index.html">Contact</a>
+        </div>
+        <a href="#apply" class="btn-main">Apply Now →</a>
+    </nav>
+
+
+    <!-- HERO -->
+    <section id="hero">
+        <!-- Full-screen background photo -->
+        <img class="hero-bg-img" src="driver firnic.avif" alt="Smiling Firnic driver" />
+
+        <!-- Text overlaid at the bottom, just like Bolt -->
+        <div class="hero-text">
+            <div class="hero-chip">Now Onboarding Drivers Across Ghana</div>
+            <h1>Drive with Firnic.<br><span>Earn every week.</span></h1>
+            <p>Join a professional driver network with structured trips, premium clients, and consistent income — no more waiting.</p>
+            <div class="hero-actions">
+                <a href="#apply" class="btn-main">Apply Now →</a>
+                <a href="#how" class="btn-ghost-white">See how it works</a>
+            </div>
+            <div class="hero-trust">
+                <div class="ht-item">
+                    <div class="val">100%</div>
+                    <div class="lbl">Pre-arranged trips</div>
+                </div>
+                <div class="ht-divider"></div>
+                <div class="ht-item">
+                    <div class="val">24h</div>
+                    <div class="lbl">Application review</div>
+                </div>
+                <div class="ht-divider"></div>
+                <div class="ht-item">
+                    <div class="val">GH</div>
+                    <div class="lbl">Nationwide network</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- WHY FIRNIC -->
+    <section id="why">
+        <div class="sh reveal">
+            <div class="eyebrow">Benefits</div>
+            <h2>Why drivers choose Firnic</h2>
+            <p class="sub">Built to give drivers more control, more income, and less stress.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <div class="wc-icon">📅</div>
+                <h3>Consistent Bookings</h3>
+                <p>Pre-arranged trips delivered to you. No idle time, no waiting for pings from strangers.</p>
+            </div>
+            <div class="why-card reveal d1">
+                <div class="wc-icon">💰</div>
+                <h3>Better Earnings</h3>
+                <p>Structured longer-distance trips mean better pay per hour than typical ride-hailing.</p>
+            </div>
+            <div class="why-card reveal d2">
+                <div class="wc-icon">👥</div>
+                <h3>Premium Clients</h3>
+                <p>Verified, respectful passengers who value professional service — every time.</p>
+            </div>
+            <div class="why-card reveal d3">
+                <div class="wc-icon">😌</div>
+                <h3>Zero Street Stress</h3>
+                <p>No haggling, no last-minute cancellations, no unpredictable surges. Just clean trips.</p>
+            </div>
+            <div class="why-card reveal d1">
+                <div class="wc-icon">🚀</div>
+                <h3>Professional Growth</h3>
+                <p>Be part of a managed, trusted driver network that builds your reputation nationwide.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+        <div class="how-layout">
+            <div class="how-img-wrap reveal">
+                <img src="bornil-amin-L6Or6uTKKMg-unsplash.jpg" alt="Driver with vehicle" />
+                <div class="how-img-badge">
+                    <div class="hib-ico">🗺️</div>
+                    <div class="hib-text">
+                        <div class="val">Trips across Ghana</div>
+                        <div class="lbl">Nationwide coordination</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="sh reveal">
+                    <div class="eyebrow">Process</div>
+                    <h2>From application<br>to first trip</h2>
+                    <p class="sub">Simple, fast, and fully supported by our team.</p>
+                </div>
+                <div class="steps">
+                    <div class="step reveal">
+                        <div class="step-dot">1</div>
+                        <div class="step-body">
+                            <h3>Submit your application</h3>
+                            <p>Fill out the form with your details, vehicle info, and required documents.</p>
+                        </div>
+                    </div>
+                    <div class="step reveal d1">
+                        <div class="step-dot">2</div>
+                        <div class="step-body">
+                            <h3>We review and contact you</h3>
+                            <p>Our team reviews your application within 24–48 hours and reaches out directly.</p>
+                        </div>
+                    </div>
+                    <div class="step reveal d2">
+                        <div class="step-dot">3</div>
+                        <div class="step-body">
+                            <h3>Get approved and onboarded</h3>
+                            <p>Complete a brief onboarding and get set up with everything you need to start.</p>
+                        </div>
+                    </div>
+                    <div class="step reveal d3">
+                        <div class="step-dot">4</div>
+                        <div class="step-body">
+                            <h3>Start receiving trip requests</h3>
+                            <p>Structured trips come to you — no more waiting around for random bookings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- REQUIREMENTS -->
+    <section id="requirements">
+        <div class="sh reveal">
+            <div class="eyebrow">Eligibility</div>
+            <h2 style="color:var(--white)">What you need to join</h2>
+            <p class="sub">We maintain high standards to ensure the best experience for every passenger.</p>
+        </div>
+        <div class="req-grid reveal">
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Well-maintained vehicle in good condition</p>
+            </div>
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Valid Ghanaian driver's licence</p>
+            </div>
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Up-to-date vehicle documents</p>
+            </div>
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Fluent in English (spoken &amp; understood)</p>
+            </div>
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Professional attitude and communication</p>
+            </div>
+            <div class="req-card">
+                <div class="req-ico">✓</div>
+                <p>Available for trips across Ghana</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EARNINGS BANNER -->
+    <section id="earnings">
+        <div class="earnings-inner">
+            <div class="reveal">
+                <div class="eyebrow">Earnings</div>
+                <h2>What you can expect</h2>
+                <p>Firnic drivers earn from structured, pre-arranged trips — not random, unpredictable ride-hailing
+                    requests.</p>
+                <a href="#apply" class="btn-main" style="margin-top:1.75rem; display:inline-flex;">Start Earning →</a>
+            </div>
+            <div class="e-stats reveal d1">
+                <div class="e-stat">
+                    <div>
+                        <div class="val">100%</div>
+                        <div class="lbl">Pre-arranged trips</div>
+                    </div>
+                    <div class="tag">No waiting</div>
+                </div>
+                <div class="e-stat">
+                    <div>
+                        <div class="val">0</div>
+                        <div class="lbl">Unnecessary cancellations</div>
+                    </div>
+                    <div class="tag">Reliable</div>
+                </div>
+                <div class="e-stat">
+                    <div>
+                        <div class="val">16</div>
+                        <div class="lbl">Regions covered</div>
+                    </div>
+                    <div class="tag">Nationwide</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+        <div class="sh reveal">
+            <div class="eyebrow">Driver Stories</div>
+            <h2>What our drivers say</h2>
+            <p class="sub">Real experiences from drivers already on the Firnic network.</p>
+        </div>
+        <div class="t-grid">
+            <div class="t-card reveal">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Since joining Firnic, I no longer wait hours for trips. The bookings are consistent and the
+                    clients are respectful."</blockquote>
+                <div class="t-author">
+                    <div class="avatar">KA</div>
+                    <div>
+                        <div class="t-name">Kofi Asante</div>
+                        <div class="t-loc">Driver · Accra</div>
+                    </div>
+                </div>
+            </div>
+            <div class="t-card reveal d1">
+                <div class="stars">★★★★★</div>
+                <blockquote>"The structure here is different from any app I've used. I know when I'm working and how
+                    much I'll earn — no guessing."</blockquote>
+                <div class="t-author">
+                    <div class="avatar">EA</div>
+                    <div>
+                        <div class="t-name">Emmanuel Agyei</div>
+                        <div class="t-loc">Driver · Kumasi</div>
+                    </div>
+                </div>
+            </div>
+            <div class="t-card reveal d2">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Professional clients, planned trips — my earnings are higher and my car stays in better
+                    shape."</blockquote>
+                <div class="t-author">
+                    <div class="avatar">AB</div>
+                    <div>
+                        <div class="t-name">Abena Boateng</div>
+                        <div class="t-loc">Driver · Takoradi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- APPLY -->
+    <section id="apply">
+        <div class="apply-inner">
+            <div class="apply-sidebar reveal">
+                <div class="eyebrow">Apply</div>
+                <h2>Become a<br>Firnic Driver</h2>
+                <p class="sub">Join our professional driver network. Applications reviewed within 24–48 hours.</p>
+                <ul class="sidebar-perks">
+                    <li>Consistent, pre-arranged bookings</li>
+                    <li>Higher-quality passengers</li>
+                    <li>Nationwide trip opportunities</li>
+                    <li>Professional support team</li>
+                    <li>Limited spots per region</li>
+                </ul>
+            </div>
+
+            <div class="form-card reveal d1">
+                <div class="form-head">
+                    <h3>Driver Application</h3>
+                    <p>Complete all sections. Our team will review and contact you shortly.</p>
+                </div>
+                <form id="driverForm" novalidate>
+
+                    <!-- S1 -->
+                    <div>
+                        <div class="fsec-label">Section 1 — Driver Details</div>
+                        <div class="fgrid">
+                            <div class="field">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Kofi" required />
+                            </div>
+                            <div class="field">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Mensah" required />
+                            </div>
+                            <div class="field">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+233 24 000 0000" required />
+                            </div>
+                            <div class="field">
+                                <label for="whatsapp">WhatsApp Number</label>
+                                <input type="tel" id="whatsapp" name="whatsapp" placeholder="+233 24 000 0000" />
+                                <label class="check-row">
+                                    <input type="checkbox" id="samePhone" /> Same as phone number
+                                </label>
+                            </div>
+                            <div class="field full">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" />
+                            </div>
+                            <div class="field full">
+                                <label for="address">Residential Address *</label>
+                                <input type="text" id="address" name="address" placeholder="Street, area, city"
+                                    required />
+                            </div>
+                            <div class="field full">
+                                <label for="region">City / Region *</label>
+                                <select id="region" name="region" required>
+                                    <option value="" disabled selected>Select your region</option>
+                                    <option>Greater Accra</option>
+                                    <option>Ashanti</option>
+                                    <option>Western</option>
+                                    <option>Eastern</option>
+                                    <option>Central</option>
+                                    <option>Northern</option>
+                                    <option>Upper East</option>
+                                    <option>Upper West</option>
+                                    <option>Volta</option>
+                                    <option>Bono (Brong-Ahafo)</option>
+                                    <option>Savannah</option>
+                                    <option>North East</option>
+                                    <option>Oti</option>
+                                    <option>Bono East</option>
+                                    <option>Ahafo</option>
+                                    <option>Western North</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- S2 -->
+                    <div>
+                        <div class="fsec-label">Section 2 — Driving Experience</div>
+                        <div class="fgrid">
+                            <div class="field full">
+                                <label>Years of Driving Experience *</label>
+                                <div class="radio-group">
+                                    <div class="r-opt"><input type="radio" name="exp" id="e1" value="1-2 years"
+                                            required /><label for="e1">1–2 years</label></div>
+                                    <div class="r-opt"><input type="radio" name="exp" id="e2" value="3-5 years" /><label
+                                            for="e2">3–5 years</label></div>
+                                    <div class="r-opt"><input type="radio" name="exp" id="e3" value="5+ years" /><label
+                                            for="e3">5+ years</label></div>
+                                </div>
+                            </div>
+                            <div class="field full">
+                                <label>Commercial driving experience? *</label>
+                                <div class="radio-group">
+                                    <div class="r-opt"><input type="radio" name="commercial" id="cy" value="Yes"
+                                            required /><label for="cy">Yes</label></div>
+                                    <div class="r-opt"><input type="radio" name="commercial" id="cn" value="No" /><label
+                                            for="cn">No</label></div>
+                                </div>
+                            </div>
+                            <div class="field full">
+                                <label>Available for long-distance trips? *</label>
+                                <div class="radio-group">
+                                    <div class="r-opt"><input type="radio" name="longdist" id="ly" value="Yes"
+                                            required /><label for="ly">Yes</label></div>
+                                    <div class="r-opt"><input type="radio" name="longdist" id="ln" value="No" /><label
+                                            for="ln">No</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- S3 -->
+                    <div>
+                        <div class="fsec-label">Section 3 — Vehicle Details</div>
+                        <div class="fgrid">
+                            <div class="field">
+                                <label for="vMake">Vehicle Make *</label>
+                                <input type="text" id="vMake" name="vMake" placeholder="Toyota" required />
+                            </div>
+                            <div class="field">
+                                <label for="vModel">Vehicle Model *</label>
+                                <input type="text" id="vModel" name="vModel" placeholder="Corolla" required />
+                            </div>
+                            <div class="field">
+                                <label for="vYear">Year of Manufacture *</label>
+                                <input type="number" id="vYear" name="vYear" placeholder="2018" min="1995" max="2026"
+                                    required />
+                            </div>
+                            <div class="field">
+                                <label for="vPass">Passenger Capacity *</label>
+                                <select id="vPass" name="vPass" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option>1–3 passengers</option>
+                                    <option>4–5 passengers</option>
+                                    <option>6–8 passengers</option>
+                                    <option>9+ passengers</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="vPlate">License Plate Number *</label>
+                                <input type="text" id="vPlate" name="vPlate" placeholder="GR 1234-21" required />
+                            </div>
+                            <div class="field">
+                                <label for="vColor">Plate Color *</label>
+                                <input type="text" id="vColor" name="vColor" placeholder="Yellow / Black" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- S4 -->
+                    <div>
+                        <div class="fsec-label">Section 4 — Vehicle Condition</div>
+                        <div class="fgrid">
+                            <div class="field full">
+                                <label>Air-conditioned vehicle? *</label>
+                                <div class="radio-group">
+                                    <div class="r-opt"><input type="radio" name="aircon" id="ay" value="Yes"
+                                            required /><label for="ay">Yes</label></div>
+                                    <div class="r-opt"><input type="radio" name="aircon" id="an" value="No" /><label
+                                            for="an">No</label></div>
+                                </div>
+                            </div>
+                            <div class="field full">
+                                <label>Good interior condition? *</label>
+                                <div class="radio-group">
+                                    <div class="r-opt"><input type="radio" name="interior" id="iy" value="Yes"
+                                            required /><label for="iy">Yes</label></div>
+                                    <div class="r-opt"><input type="radio" name="interior" id="in2" value="No" /><label
+                                            for="in2">No</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- S5 -->
+                    <div>
+                        <div class="fsec-label">Section 5 — Document Uploads</div>
+                        <div class="fgrid">
+                            <div class="field">
+                                <label>Driver's Licence *</label>
+                                <div class="upload-box">
+                                    <input type="file" name="docLicence" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <div class="u-ico">📄</div>
+                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Vehicle Registration *</label>
+                                <div class="upload-box">
+                                    <input type="file" name="docReg" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <div class="u-ico">📋</div>
+                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Roadworthiness Certificate *</label>
+                                <div class="upload-box">
+                                    <input type="file" name="docRoadworthy" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <div class="u-ico">🔧</div>
+                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Insurance Certificate *</label>
+                                <div class="upload-box">
+                                    <input type="file" name="docInsurance" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <div class="u-ico">🛡️</div>
+                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:1.25rem">
+                            <label style="display:block;margin-bottom:0.75rem;">Vehicle Photos (4 required) *</label>
+                            <div class="photo-grid">
+                                <div class="upload-box">
+                                    <input type="file" name="photoFront" accept="image/*" required />
+                                    <div class="u-ico">🚗</div>
+                                    <div class="u-lbl"><strong>Front View</strong></div>
+                                </div>
+                                <div class="upload-box">
+                                    <input type="file" name="photoBack" accept="image/*" required />
+                                    <div class="u-ico">🚙</div>
+                                    <div class="u-lbl"><strong>Back View</strong></div>
+                                </div>
+                                <div class="upload-box">
+                                    <input type="file" name="photoIntF" accept="image/*" required />
+                                    <div class="u-ico">💺</div>
+                                    <div class="u-lbl"><strong>Interior – Front</strong></div>
+                                </div>
+                                <div class="upload-box">
+                                    <input type="file" name="photoIntB" accept="image/*" required />
+                                    <div class="u-ico">🪑</div>
+                                    <div class="u-lbl"><strong>Interior – Back</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AGREEMENT -->
+                    <div class="agree-wrap">
+                        <input type="checkbox" id="agree" name="agree" required />
+                        <label for="agree">I confirm that all information provided is accurate and I am willing to
+                            comply with Firnic's driver standards and code of conduct.</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Application →</button>
+
+                    <div class="form-notes">
+                        <p>Applications are reviewed within 24–48 hours.</p>
+                        <p>Limited driver spots available per region.</p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Firnic<span>.</span></div>
+        <div>
+          <p style="font-size:0.62rem;color:#3a3a3a;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.5rem;">We accept the following payment methods</p>
+          <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+            <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Visa" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#FFFFFF">VISA</text></svg>
+            <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Mastercard" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+            <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="American Express" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" letter-spacing="0.5">AMEX</text></svg>
+            <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="MTN Mobile Money" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+            <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Airtel Tigo Money" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#FFFFFF">AIRTEL</text></svg>
+            <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Telecel Cash" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#FFFFFF">TELECEL</text></svg>
+            <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Paystack" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+            <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="PayPal" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+          </div>
+          <p style="margin-top:0.75rem;font-size:0.72rem;color:#3a3a3a;">&copy; 2026 Firnic Group of Companies Limited</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // WhatsApp sync
+        const phoneEl = document.getElementById('phone');
+        const waEl = document.getElementById('whatsapp');
+        const sameCb = document.getElementById('samePhone');
+        phoneEl.addEventListener('input', () => { if (sameCb.checked) waEl.value = phoneEl.value; });
+        sameCb.addEventListener('change', () => { if (sameCb.checked) waEl.value = phoneEl.value; });
+
+        // Upload feedback
+        document.querySelectorAll('.upload-box input[type="file"]').forEach(inp => {
+            inp.addEventListener('change', function () {
+                if (!this.files.length) return;
+                const lbl = this.closest('.upload-box').querySelector('.u-lbl');
+                lbl.innerHTML = '<strong style="color:#f5a623">✓ ' + this.files[0].name + '</strong>';
+            });
+        });
+
+        // Submit
+        document.getElementById('driverForm').addEventListener('submit', function (e) {
+            if (typeof firnicSubmit === 'function') {
+                firnicSubmit(e, 'driver');
+            } else {
+                e.preventDefault();
+                const btn = this.querySelector('.submit-btn');
+                btn.textContent = '✓ Application Submitted!';
+                btn.style.background = '#16a34a';
+                btn.disabled = true;
+            }
+        });
+
+        // Scroll reveal
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
+  <!-- Aria AI Widget -->
+  <script src="../assets/js/form-submit.js"></script>
+  <script src="../assets/js/aria-widget.js"></script>
+</body>
+
+</html>

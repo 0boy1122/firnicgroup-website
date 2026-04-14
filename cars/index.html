@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Car Rental Service | Safe, Reliable & Professional | Accra, Ghana</title>
+  <meta name="description" content="Firnic Car Rental Service offers daily, corporate, event and airport car hire in Accra, Ghana. Simple booking, transparent pricing, well-maintained vehicles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a84c; --gold-lt: #e8c97a; --black: #080808;
+      --dark: #0e0e0e; --surface: #141414; --surface2: #1c1c1c;
+      --border: rgba(201,168,76,0.15); --text: #f0ebe0; --muted: #9b9080;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      background: rgba(8,8,8,0.92); backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text); letter-spacing: 1px; }
+    .logo em { color: var(--gold); font-style: normal; }
+    .nav-links { display: none; gap: 2rem; align-items: center; }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-book { border: 1px solid var(--gold); color: var(--gold) !important; padding: 0.45rem 1.2rem !important; border-radius: 4px; font-weight: 600 !important; transition: background 0.2s, color 0.2s !important; }
+    .nav-book:hover { background: var(--gold) !important; color: var(--black) !important; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+    @media (min-width: 900px) { .hamburger { display: none; } }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; z-index: 299; flex-direction: column; gap: 1.25rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; min-height: 90vh;
+      display: flex; align-items: flex-end;
+      overflow: hidden; background: var(--black);
+    }
+    #hero img.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
+    #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 5rem 5% 4rem; max-width: 750px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(201,168,76,0.4); color: var(--gold-lt); font-size: 0.68rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 600; line-height: 1.1; color: var(--text); margin-bottom: 1.25rem; }
+    .hero-content h1 em { color: var(--gold-lt); font-style: italic; }
+    .hero-content p { font-size: 1rem; color: rgba(255,255,255,0.7); font-weight: 300; max-width: 500px; margin-bottom: 2rem; line-height: 1.8; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-badges { display: flex; gap: 1.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+    .h-badge { display: flex; align-items: center; gap: 0.5rem; }
+    .h-badge .ico { font-size: 1.2rem; }
+    .h-badge span { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── BUTTONS ── */
+    .btn-gold { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--black); padding: 0.9rem 2.25rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s; }
+    .btn-gold:hover { background: var(--gold-lt); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.22); color: var(--text); padding: 0.9rem 2.25rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5.5rem 5%; }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; color: var(--text); margin-bottom: 1rem; line-height: 1.15; }
+    .sec-sub { color: var(--muted); font-size: 0.95rem; max-width: 600px; font-weight: 300; line-height: 1.8; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .about-img { border-radius: 8px; overflow: hidden; height: 420px; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-text p { color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 1.25rem; font-size: 0.95rem; }
+    .divider-line { width: 40px; height: 1px; background: var(--gold); margin: 1.25rem 0; }
+
+    /* ── WHY CHOOSE ── */
+    #why { background: var(--dark); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 3rem; }
+    .why-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; }
+    .why-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .why-card .ico { font-size: 1.6rem; margin-bottom: 0.85rem; }
+    .why-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+    .why-tagline { font-size: 0.95rem; color: var(--muted); font-style: italic; font-weight: 300; margin-top: 2.5rem; border-left: 2px solid var(--gold); padding-left: 1.25rem; max-width: 600px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--surface); }
+    .services-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+    @media (max-width: 820px) { .services-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+    .services-img { border-radius: 8px; overflow: hidden; height: 380px; }
+    .services-img img { width: 100%; height: 100%; object-fit: cover; }
+    .services-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .svc-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.2s; }
+    .svc-item:hover { border-color: rgba(201,168,76,0.35); }
+    .svc-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 5px; flex-shrink: 0; }
+    .svc-item p { font-size: 0.85rem; color: var(--text); line-height: 1.55; }
+    .svc-note { margin-top: 1.25rem; padding: 1rem 1.25rem; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+    .svc-note strong { color: var(--gold); }
+
+    /* ── STEPS ── */
+    #steps { background: var(--dark); }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem 1.5rem; text-align: center; position: relative; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--gold); color: var(--black); font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+    .step-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .step-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .steps-cta { text-align: center; margin-top: 3rem; }
+    .steps-cta p { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; font-weight: 300; }
+
+    /* ── BOOK FORM ── */
+    #book { background: var(--surface); }
+    .book-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 820px) { .book-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+    .book-info p { color: var(--muted); font-weight: 300; line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .book-contact-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .bc-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--muted); }
+    .bc-item .bc-ico { font-size: 1.1rem; }
+    .bc-item a { color: var(--muted); transition: color 0.2s; }
+    .bc-item a:hover { color: var(--gold); }
+    .book-form { background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; padding: 2.25rem; }
+    .book-form h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem; }
+    .book-form p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .f-group label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 0.35rem; }
+    .f-group input, .f-group select, .f-group textarea {
+      width: 100%; background: #111; border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.8rem 1rem; color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+    }
+    .f-group input:focus, .f-group select:focus, .f-group textarea:focus { border-color: var(--gold); }
+    .f-group select option { background: #111; }
+    .f-group textarea { resize: vertical; min-height: 80px; }
+    .form-stack { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+    .submit-btn { width: 100%; background: var(--gold); border: none; border-radius: 8px; padding: 1rem; color: var(--black); font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: opacity 0.2s; }
+    .submit-btn:hover { opacity: 0.88; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--black); border-top: 1px solid var(--border); padding: 3.5rem 5% 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 2.5rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+    .f-brand .logo { margin-bottom: 1rem; }
+    .f-brand p { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.75; margin-bottom: 0.5rem; }
+    .f-col h4 { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gold); margin-bottom: 1rem; }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .f-col ul li a { font-size: 0.82rem; color: var(--muted); font-weight: 300; transition: color 0.2s; }
+    .f-col ul li a:hover { color: var(--text); }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    .pay-methods { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .pay-methods svg { border-radius: 4px; opacity: 0.72; transition: opacity 0.2s; }
+    .pay-methods svg:hover { opacity: 1; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { height: 60px; padding: 0 4%; }
+      .mobile-menu { top: 60px; }
+      section { padding: 4rem 4%; }
+      .hero-content { padding: 4rem 4% 3rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="logo">Firnic<em>.</em></a>
+  <div class="nav-links">
+    <a href="/index.html">Home</a>
+    <a href="#services">Our Services</a>
+    <a href="#book" class="nav-book">Book Your Car Now</a>
+    <a href="/drivers/index.html">Become a Driver</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/index.html" onclick="toggleMenu()">Home</a>
+  <a href="#services" onclick="toggleMenu()">Our Services</a>
+  <a href="/drivers/index.html" onclick="toggleMenu()">Become a Driver</a>
+  <a href="#book" onclick="toggleMenu()">Book Your Car Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1800&q=80" alt="Firnic Car Rental" fetchpriority="high" />
+  <div class="hero-content">
+    <div class="hero-tag">Firnic Car Rental Service · Accra, Ghana</div>
+    <h1>Safety, Accessibility<br>&amp; <em>Discretion</em> Assured</h1>
+    <p>A trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs — simple, reliable, and professional.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-gold">Book A Car Now →</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-badges">
+      <div class="h-badge"><span class="ico">✈️</span><span>Airport Pickup</span></div>
+      <div class="h-badge"><span class="ico">🛡️</span><span>Safe &amp; Convenient</span></div>
+      <div class="h-badge"><span class="ico">📞</span><span>24/7 Support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="eyebrow">About Us</div>
+    <h2>About Firnic Car Rental Service</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80" alt="Firnic Rental Vehicle" loading="lazy" />
+    </div>
+    <div class="about-text reveal">
+      <p>Firnic Car Rental Service is a trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs. Whether you're running daily errands, attending events, travelling for business, or heading out of town, we make vehicle rental simple, reliable, and professional.</p>
+      <div class="divider-line"></div>
+      <p>Our focus is on quality vehicles, transparent pricing, and seamless booking, so you can move with confidence wherever your journey takes you.</p>
+      <a href="#book" class="btn-gold" style="margin-top:1.5rem;display:inline-flex;">Book Your Car →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="reveal">
+    <div class="eyebrow">Why Choose Us</div>
+    <h2>Why Choose Firnic Car Rental Service?</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="ico">🚗</div>
+      <h3>Well-Maintained Vehicles</h3>
+      <p>All our vehicles are regularly serviced and kept in excellent condition for a smooth, safe journey.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="ico">📅</div>
+      <h3>Flexible Hire Options</h3>
+      <p>Flexible hire options for both short-term and long-term needs — hours, days, or months.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="ico">✅</div>
+      <h3>Simple Booking Process</h3>
+      <p>Our booking process is straightforward and fast. Choose, select dates, submit and confirm.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="ico">💰</div>
+      <h3>Transparent Pricing</h3>
+      <p>Competitive and transparent pricing — no hidden fees, no surprises. What you see is what you pay.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="ico">🏢</div>
+      <h3>Personal, Corporate &amp; Events</h3>
+      <p>Suitable for personal errands, corporate travel, and special occasions including weddings.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="ico">📞</div>
+      <h3>24/7 Support</h3>
+      <p>Our team is available around the clock to assist you throughout your booking and journey.</p>
+    </div>
+  </div>
+  <p class="why-tagline reveal">"At Firnic, we believe car hire should be stress-free, straightforward, and tailored to your needs."</p>
+</section>
+
+<!-- OUR SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="eyebrow">Car Rental Services</div>
+    <h2>Our Car Rental Services</h2>
+    <p class="sec-sub">We offer car rental services designed to suit different purposes and schedules. Whether you need a vehicle for a few hours, a full day, or an extended period, our options are structured to give you maximum convenience.</p>
+  </div>
+  <div class="services-wrap">
+    <div class="services-img reveal">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Firnic Car Rental Fleet" loading="lazy" />
+    </div>
+    <div>
+      <div class="eyebrow reveal" style="margin-bottom:1rem;">Our Services Include</div>
+      <div class="services-list">
+        <div class="svc-item reveal"><div class="dot"></div><p>Daily and short-term car hire</p></div>
+        <div class="svc-item reveal"><div class="dot"></div><p>Long-term and corporate rentals</p></div>
+        <div class="svc-item reveal"><div class="dot"></div><p>Event and special-occasion car hire</p></div>
+        <div class="svc-item reveal"><div class="dot"></div><p>Airport and city travel vehicle hire</p></div>
+        <div class="svc-item reveal"><div class="dot"></div><p>Out-of-Accra rentals with a professional driver provided</p></div>
+      </div>
+      <div class="svc-note reveal">
+        <strong>Self-drive</strong> is available for rentals within Accra.<br>
+        <span style="font-size:0.78rem;opacity:0.75;">(Availability may vary by vehicle and booking arrangement.)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps">
+  <div class="reveal">
+    <div class="eyebrow">How It Works</div>
+    <h2>Book Your Car in Simple Steps</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">1</div>
+      <h3>Choose Your Vehicle</h3>
+      <p>Choose your preferred vehicle from our available fleet.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">2</div>
+      <h3>Select Your Dates</h3>
+      <p>Select your pickup date, return date, and preferred time.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">3</div>
+      <h3>Submit Your Request</h3>
+      <p>Submit your booking request through the form or via WhatsApp.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">4</div>
+      <h3>Get Confirmation</h3>
+      <p>Receive your confirmation and all the next steps from our team.</p>
+    </div>
+  </div>
+  <div class="steps-cta reveal">
+    <a href="#book" class="btn-gold">Book a Car Now →</a>
+    <p>Our team is available to assist you throughout the booking process.</p>
+  </div>
+</section>
+
+<!-- BOOK / CONTACT -->
+<section id="book">
+  <div class="reveal" style="margin-bottom:3rem;">
+    <div class="eyebrow">Make a Booking</div>
+    <h2>Book Your Car Now</h2>
+  </div>
+  <div class="book-wrap">
+    <div class="book-info reveal">
+      <p>Ready to get moving? Fill in the booking form and our team will confirm your reservation within a few hours. You can also reach us directly via WhatsApp, phone, or email.</p>
+      <div class="book-contact-list">
+        <div class="bc-item"><span class="bc-ico">📍</span><span>Ofankor Hills Estate, Accra, Ghana</span></div>
+        <div class="bc-item"><span class="bc-ico">✉️</span><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></div>
+        <div class="bc-item"><span class="bc-ico">✉️</span><a href="mailto:sales@firnicgroup.com">sales@firnicgroup.com</a></div>
+        <div class="bc-item"><span class="bc-ico">📞</span><a href="tel:+233592997811">+233 592 997 811</a></div>
+        <div class="bc-item"><span class="bc-ico">💬</span><a href="https://wa.me/233592997811?text=Hello%2C%20I%20would%20like%20to%20book%20a%20car%20with%20Firnic%20Car%20Rental." target="_blank" rel="noopener">WhatsApp Us</a></div>
+      </div>
+    </div>
+    <form class="book-form reveal" data-firnic-form="car" onsubmit="firnicSubmit(event,'car')">
+      <h3>Car Booking Request</h3>
+      <p>We'll confirm within 2 hours and send you full details.</p>
+      <div class="form-stack">
+        <div class="form-row">
+          <div class="f-group">
+            <label for="car-name">Full Name *</label>
+            <input type="text" id="car-name" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="f-group">
+            <label for="car-phone">Phone / WhatsApp *</label>
+            <input type="tel" id="car-phone" name="phone" placeholder="+233 xxx xxx xxx" required />
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="car-email">Email Address</label>
+          <input type="email" id="car-email" name="email" placeholder="your@email.com" />
+        </div>
+        <div class="f-group">
+          <label for="car-type">Rental Type *</label>
+          <select id="car-type" name="rental_type" required>
+            <option value="">— Select rental type —</option>
+            <option value="Daily / Short-term">Daily / Short-term Hire</option>
+            <option value="Long-term / Corporate">Long-term / Corporate Rental</option>
+            <option value="Event / Occasion">Event &amp; Special-Occasion Hire</option>
+            <option value="Airport Pickup">Airport Pickup / Drop-off</option>
+            <option value="City Travel">City Travel</option>
+            <option value="Out-of-Accra">Out-of-Accra Trip (Driver Provided)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="f-group">
+            <label for="car-pickup">Pickup Date *</label>
+            <input type="date" id="car-pickup" name="pickup_date" required />
+          </div>
+          <div class="f-group">
+            <label for="car-return">Return Date</label>
+            <input type="date" id="car-return" name="return_date" />
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="car-notes">Additional Details</label>
+          <textarea id="car-notes" name="notes" placeholder="Pickup location, destination, special requests, vehicle preference…"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Send Booking Request →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <a href="/index.html" class="logo">Firnic<em style="color:var(--gold);font-style:normal;">.</em></a>
+      <p>Firnic Car Rental Service · Ofankor Hills Estate, Accra, Ghana</p>
+      <p><a href="mailto:info@firnicgroup.com" style="color:var(--muted);transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">info@firnicgroup.com</a></p>
+      <p><a href="mailto:sales@firnicgroup.com" style="color:var(--muted);transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">sales@firnicgroup.com</a></p>
+      <p><a href="tel:+233592997811" style="color:var(--muted);transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">+233 592 997 811</a></p>
+    </div>
+    <div class="f-col">
+      <h4>Subsidiaries</h4>
+      <ul>
+        <li><a href="/index.html#hotel">Firnic Luxurious Private Hotel</a></li>
+        <li><a href="/massage/index.html">Firnic Prestige Massage</a></li>
+        <li><a href="/events/index.html">Firnic Events</a></li>
+        <li><a href="/index.html">Firnic Digital Marketing</a></li>
+        <li><a href="/cars/index.html">Firnic Car Rental Service</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Car Hire &amp; Rentals</a></li>
+        <li><a href="#services">Corporate Vehicle Rentals</a></li>
+        <li><a href="#services">Event &amp; Special-Occasion Hire</a></li>
+        <li><a href="#services">Short-Term &amp; Long-Term Rentals</a></li>
+        <li><a href="/drivers/index.html">Become a Driver</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms &amp; Conditions</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="/contact/index.html">Customer Care</a></li>
+        <li><a href="/index.html">Firnic Group</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>
+      <p style="font-size:0.62rem;color:#3a3a3a;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.6rem;">We accept the following payment methods</p>
+      <div class="pay-methods">
+        <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Visa"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#FFFFFF">VISA</text></svg>
+        <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Mastercard"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+        <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="American Express"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" letter-spacing="0.5">AMEX</text></svg>
+        <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="MTN Mobile Money"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+        <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Airtel Tigo Money"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#FFFFFF">AIRTEL</text></svg>
+        <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Telecel Cash"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#FFFFFF">TELECEL</text></svg>
+        <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Paystack"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+        <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="PayPal"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+      </div>
+    </div>
+    <p style="font-size:0.72rem;color:#3a3a3a;">&copy; Firnic Group of Companies · 2026</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>

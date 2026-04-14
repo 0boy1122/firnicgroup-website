@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Group of Companies — Commerce, Hospitality &amp; Wellness | Accra, Ghana</title>
+  <meta name="description" content="Firnic Group specializes in commerce, digital marketing, hospitality and wellness. Hotel, Massage Studio, Car Rental, Events &amp; more in Accra, Ghana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a84c; --gold-lt: #e8c97a; --black: #080808;
+      --dark: #0e0e0e; --surface: #161616; --surface2: #1e1e1e;
+      --border: rgba(201,168,76,0.15); --text: #f0ebe0; --muted: #9b9080;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      background: rgba(8,8,8,0.88); backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text); letter-spacing: 1px; }
+    .logo em { color: var(--gold); font-style: normal; }
+    .nav-links { display: none; gap: 2rem; align-items: center; }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-book { border: 1px solid var(--gold); color: var(--gold) !important; padding: 0.45rem 1.2rem !important; border-radius: 4px; font-weight: 600 !important; transition: background 0.2s, color 0.2s !important; }
+    .nav-book:hover { background: var(--gold) !important; color: var(--black) !important; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+    @media (min-width: 900px) { .hamburger { display: none; } }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; z-index: 299; flex-direction: column; gap: 1.25rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden; background: var(--black);
+    }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0; opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+    #hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.97) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 3rem 5% 5rem; max-width: 820px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(201,168,76,0.4); color: var(--gold-lt);
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 9vw, 6rem); font-weight: 600; line-height: 1.02;
+      color: var(--text); margin-bottom: 1.25rem;
+    }
+    .hero-content h1 em { color: var(--gold-lt); font-style: italic; }
+    .hero-content p { font-size: 1rem; color: rgba(255,255,255,0.6); max-width: 500px; margin-bottom: 2rem; font-weight: 300; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn-gold { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--black); padding: 0.9rem 2.25rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s; }
+    .btn-gold:hover { background: var(--gold-lt); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.22); color: var(--text); padding: 0.9rem 2.25rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Slide dots */
+    .hero-dots { position: absolute; bottom: 2rem; right: 5%; z-index: 3; display: flex; gap: 0.5rem; }
+    .hero-dots button { width: 7px; height: 7px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
+    .hero-dots button.active { background: var(--gold); transform: scale(1.3); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5.5rem 5%; }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 600; color: var(--text); margin-bottom: 0.75rem; line-height: 1.15; }
+    .sec-sub { color: var(--muted); font-size: 0.95rem; max-width: 520px; font-weight: 300; line-height: 1.75; }
+
+    /* ── WELCOME STRIP / ABOUT ── */
+    #welcome, #about {
+      background: var(--surface);
+      display: grid; grid-template-columns: 1fr; gap: 3rem;
+      align-items: center; padding: 5rem 5%;
+    }
+    @media (min-width: 900px) { #welcome, #about { grid-template-columns: 1fr 1fr; } }
+    .welcome-img { border-radius: 4px; overflow: hidden; height: 440px; }
+    .welcome-img img { width: 100%; height: 100%; object-fit: cover; }
+    .welcome-text { display: flex; flex-direction: column; gap: 1.25rem; }
+    .welcome-text p { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.85; }
+    .divider-line { width: 40px; height: 1px; background: var(--gold); }
+
+    /* ── ROOMS ── */
+    #rooms { background: var(--dark); }
+    .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .room-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; transition: border-color 0.25s, transform 0.25s;
+    }
+    .room-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); }
+    .room-img { height: 220px; overflow: hidden; }
+    .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .room-card:hover .room-img img { transform: scale(1.04); }
+    .room-body { padding: 1.5rem; }
+    .room-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .room-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .room-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .room-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .room-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+    .room-price span { font-size: 0.72rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 300; }
+    .btn-sm { font-size: 0.72rem; font-weight: 600; color: var(--gold); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 4px; transition: border-color 0.2s; }
+    .btn-sm:hover { border-color: var(--gold); }
+    .room-avail-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 0.6rem; }
+    .room-avail-pill.available { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .room-avail-pill.limited   { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .room-avail-pill.booked    { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+    .room-avail-pill::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .room-card.booked { opacity: 0.72; }
+    .room-card.booked .room-book-btn { pointer-events:none; opacity:0.35; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--surface); padding: 5.5rem 5%; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 240px);
+      gap: 6px; margin-top: 2.5rem; border-radius: 8px; overflow: hidden;
+    }
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 180px); }
+      .gallery-grid .span2 { grid-column: span 1; }
+    }
+    .g-img { overflow: hidden; cursor: pointer; }
+    .g-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s, filter 0.3s; filter: brightness(0.88); }
+    .g-img:hover img { transform: scale(1.06); filter: brightness(1); }
+    .g-img.span2 { grid-column: span 2; }
+    .gallery-more { text-align: center; margin-top: 2rem; }
+
+    /* ── AMENITIES ── */
+    #amenities { background: var(--dark); }
+    .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 3rem; }
+    .amenity { background: var(--surface2); padding: 2rem 1.5rem; transition: background 0.2s; }
+    .amenity:hover { background: #1c1c1c; }
+    .amenity .ico { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .amenity h3 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .amenity p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── SUBSIDIARIES ── */
+    #subsidiaries { background: var(--surface); }
+    .subs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .sub-card {
+      position: relative; height: 320px; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border); transition: border-color 0.3s, transform 0.3s;
+    }
+    .sub-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-4px); }
+    .sub-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.55); }
+    .sub-card:hover img { transform: scale(1.05); filter: brightness(0.7); }
+    .sub-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.75rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%); }
+    .sub-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .sub-overlay h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .sub-overlay p { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.55; font-weight: 300; margin-bottom: 1rem; }
+    .sub-link { font-size: 0.72rem; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* ── BOOK SECTION ── */
+    #book { background: var(--dark); text-align: center; }
+    .book-inner { max-width: 700px; margin: 0 auto; }
+    .book-inner p { color: var(--muted); font-weight: 300; margin: 0.75rem auto 3rem; font-size: 0.95rem; }
+    .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .book-opt {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.75rem 2rem; min-width: 150px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .book-opt:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-3px); }
+    .book-opt .b-ico { font-size: 1.6rem; }
+    .book-opt .b-lbl { font-size: 0.78rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+    .book-opt .b-sub { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); border-top: 1px solid var(--border);
+      padding: 3.5rem 5% 2rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 2rem; margin-bottom: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+    @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 400px) { .footer-grid { grid-template-columns: 1fr; } }
+    .f-brand { display: flex; flex-direction: column; gap: 1rem; }
+    .f-brand p { font-size: 0.83rem; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 280px; }
+    .f-col h4 { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gold); margin-bottom: 1rem; }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .f-col ul li a { font-size: 0.82rem; color: var(--muted); font-weight: 300; transition: color 0.2s; }
+    .f-col ul li a:hover { color: var(--text); }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    .footer-bottom p { font-size: 0.72rem; color: #3a3a3a; }
+    .footer-socials { display: flex; gap: 0.75rem; }
+    .footer-socials a { width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--muted); transition: border-color 0.2s, color 0.2s; }
+    .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
+    .pay-methods { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .pay-methods svg { border-radius: 4px; opacity: 0.75; transition: opacity 0.2s; cursor: default; }
+    .pay-methods svg:hover { opacity: 1; }
+    .pay-label { font-size: 0.62rem; color: #3a3a3a; text-transform: uppercase; letter-spacing: 1.5px; margin-right: 0.25rem; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay { transition-delay: 0.15s; }
+    .reveal-delay2 { transition-delay: 0.3s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { height: 60px; padding: 0 4%; }
+      .mobile-menu { top: 60px; padding: 1.25rem 4%; }
+      #hero { min-height: 100svh; }
+      .hero-content { padding: 5rem 4% 3rem; }
+      .hero-badges { flex-wrap: wrap; gap: 0.5rem; }
+      .hero-badge { font-size: 0.7rem; padding: 0.4rem 0.75rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { text-align: center; justify-content: center; }
+      .hero-dots { bottom: 1.5rem; }
+      section { padding: 4rem 4%; }
+      .sec-label { font-size: 0.6rem; }
+      #welcome { padding: 4rem 4%; }
+      .welcome-img { height: 260px; }
+      .rooms-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+      .room-img { height: 200px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 140px); }
+      .amenities-grid { grid-template-columns: 1fr 1fr; }
+      .subs-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+      .sub-card { height: 260px; }
+      .book-options { flex-direction: column; align-items: stretch; }
+      .book-opt { justify-content: flex-start; }
+      .footer-grid { gap: 1.5rem; }
+      footer { padding: 3rem 4% 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="logo">Firnic<em>.</em></a>
+  <div class="nav-links">
+    <a href="/index.html">Home</a>
+    <a href="#hotel">Hotel</a>
+    <a href="/massage/index.html">Massage</a>
+    <a href="/cars/index.html">Car Rental</a>
+    <a href="/events/index.html">Events</a>
+    <a href="#about">Our Story</a>
+    <a href="/contact/index.html">Contact</a>
+    <a href="#book" class="nav-book">Book Now</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/index.html" onclick="toggleMenu()">Home</a>
+  <a href="#hotel" onclick="toggleMenu()">Hotel</a>
+  <a href="/massage/index.html" onclick="toggleMenu()">Massage</a>
+  <a href="/cars/index.html" onclick="toggleMenu()">Car Rental</a>
+  <a href="/events/index.html" onclick="toggleMenu()">Events</a>
+  <a href="#about" onclick="toggleMenu()">Our Story</a>
+  <a href="/contact/index.html" onclick="toggleMenu()">Contact</a>
+  <a href="#book" onclick="toggleMenu()">Book Now</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active"><img src="assets/exterior/IMG_1088.jpeg" alt="Firnic Hotel Exterior" /></div>
+    <div class="hero-slide"><img src="assets/exterior/IMG_1091.jpeg" alt="Firnic Hotel" /></div>
+    <div class="hero-slide"><img src="assets/interior/IMG_0961-1.jpeg" alt="Firnic Hotel Interior" /></div>
+    <div class="hero-slide"><img src="assets/interior/IMG_0966-1.jpeg" alt="Firnic Hotel Room" /></div>
+    <div class="hero-slide"><img src="assets/exterior/IMG_1096.jpeg" alt="Firnic Hotel" /></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">Accra, Ghana &nbsp;·&nbsp; Firnic Group of Companies</div>
+    <h1>Experience<br><em>Excellence</em><br>Across Commerce,<br>Hospitality &amp; Wellness</h1>
+    <p>Firnic Group specializes in commerce, digital marketing, hospitality and wellness — delivering world-class experiences across Ghana and beyond.</p>
+    <div class="hero-actions">
+      <a href="#about" class="btn-gold">Our Story →</a>
+      <a href="#subsidiaries" class="btn-outline">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots"></div>
+</section>
+
+<!-- ── ABOUT / OUR STORY ── -->
+<section id="about" class="reveal">
+  <div class="welcome-img">
+    <img src="assets/exterior/IMG_1095.jpeg" alt="Firnic Group" />
+  </div>
+  <div class="welcome-text">
+    <div class="eyebrow">Get to Know Us</div>
+    <h2>A Bold Vision for Commerce, Hospitality &amp; Wellness</h2>
+    <div class="divider-line"></div>
+    <p>Firnic Group specializes in commerce, digital marketing, hospitality and wellness. At Firnic Group, we have a bold vision to revolutionize the digital marketing industry and improve the hospitality and wellness space.</p>
+    <p>We are confident in our ability to meet the needs of our clients and make a positive impact on society. With our innovative solutions and outstanding customer service, we are committed to leading the way in today's dynamic business landscape.</p>
+    <a href="#subsidiaries" class="btn-gold" style="align-self:flex-start;">Explore Our Services →</a>
+  </div>
+</section>
+
+<!-- ── HOTEL FEATURE ── -->
+<section id="hotel" style="background:var(--dark);padding:0;position:relative;min-height:500px;display:flex;align-items:flex-end;overflow:hidden;">
+  <img src="assets/exterior/IMG_1088.jpeg" alt="Firnic Luxurious Private Hotel" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.45);" />
+  <div style="position:relative;z-index:2;padding:4rem 5%;max-width:700px;">
+    <div class="eyebrow" style="color:var(--gold-lt);">Hospitality</div>
+    <h2 style="font-size:clamp(2rem,6vw,4rem);margin-bottom:1rem;">FIRNIC LUXURIOUS<br>PRIVATE HOTEL</h2>
+    <p style="color:rgba(255,255,255,0.7);font-size:1rem;font-weight:300;max-width:480px;margin-bottom:2rem;line-height:1.8;">Redefining hospitality with elegance and exclusivity. Experience the ultimate retreat at our private hotel, where your safety and privacy are our top priorities.</p>
+    <a href="#book" class="btn-gold">BOOK YOUR STAY →</a>
+  </div>
+</section>
+
+<!-- ── ROOMS ── -->
+<section id="rooms">
+  <div class="reveal">
+    <div class="eyebrow">Accommodation</div>
+    <h2>Our Rooms &amp; Suites</h2>
+    <p class="sec-sub">Each room is thoughtfully designed to blend comfort with elegance — offering everything you need for a perfect stay.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card reveal" data-room="classic-single">
+      <div class="room-img"><img src="assets/interior/IMG_0961-1.jpeg" alt="Classic Single Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room Type</div>
+        <h3>Classic Single</h3>
+        <p>A well-appointed single room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping.</p>
+        <div class="room-footer">
+          <div class="room-price">GHS 450 <span>/ night</span></div>
+          <a href="#book" class="btn-sm room-book-btn">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-delay" data-room="superior-twin">
+      <div class="room-img"><img src="assets/interior/IMG_0966-1.jpeg" alt="Superior Twin Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room Type</div>
+        <h3>Superior Twin</h3>
+        <p>Spacious twin room with premium bedding, minibar, work desk, and all the amenities for a comfortable stay.</p>
+        <div class="room-footer">
+          <div class="room-price">GHS 550 <span>/ night</span></div>
+          <a href="#book" class="btn-sm room-book-btn">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-delay" data-room="deluxe-double">
+      <div class="room-img"><img src="assets/interior/IMG_0971-1.jpeg" alt="Deluxe Double Room" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room Type</div>
+        <h3>Deluxe Double</h3>
+        <p>Elegant double room with king-size bed, luxury toiletries, premium furnishings, and beautiful views of the estate.</p>
+        <div class="room-footer">
+          <div class="room-price">GHS 700 <span>/ night</span></div>
+          <a href="#book" class="btn-sm room-book-btn">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-delay2" data-room="prestige-suite">
+      <div class="room-img"><img src="assets/interior/IMG_0977-1.jpeg" alt="Prestige Suite" /></div>
+      <div class="room-body">
+        <div class="room-tag">Suite</div>
+        <h3>Prestige Suite</h3>
+        <p>Our finest accommodation — a spacious suite with separate living area, premium finishes, and exclusive amenities throughout.</p>
+        <div class="room-footer">
+          <div class="room-price">GHS 950 <span>/ night</span></div>
+          <a href="#book" class="btn-sm room-book-btn">Book →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="reveal">
+    <div class="eyebrow">Photo Gallery</div>
+    <h2>See Our Hotel</h2>
+    <p class="sec-sub">A glimpse into the spaces, rooms, and surroundings that make Firnic truly special.</p>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="g-img span2"><img src="assets/exterior/IMG_1089.jpeg" alt="Hotel Exterior" /></div>
+    <div class="g-img"><img src="assets/interior/IMG_0964-1.jpeg" alt="Hotel Interior" /></div>
+    <div class="g-img"><img src="assets/interior/IMG_0967-1.jpeg" alt="Hotel Room" /></div>
+    <div class="g-img"><img src="assets/interior/IMG_0969-1.jpeg" alt="Hotel Room" /></div>
+    <div class="g-img"><img src="assets/interior/IMG_0972-1.jpeg" alt="Hotel Interior" /></div>
+    <div class="g-img"><img src="assets/exterior/IMG_1092.jpeg" alt="Hotel Exterior" /></div>
+    <div class="g-img span2"><img src="assets/exterior/IMG_1099.jpeg" alt="Hotel Building" /></div>
+  </div>
+  <div class="gallery-more reveal">
+    <a href="#book" class="btn-outline" style="display:inline-flex;">View All &amp; Book a Room →</a>
+  </div>
+</section>
+
+<!-- ── AMENITIES ── -->
+<section id="amenities">
+  <div class="reveal">
+    <div class="eyebrow">Facilities</div>
+    <h2>Hotel Amenities</h2>
+    <p class="sec-sub">Everything you need for a seamless and memorable stay, under one roof.</p>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity reveal"><div class="ico">❄️</div><h3>Air Conditioning</h3><p>All rooms are fully air-conditioned for your comfort throughout your stay.</p></div>
+    <div class="amenity reveal"><div class="ico">📶</div><h3>Free Wi-Fi</h3><p>High-speed internet access throughout the hotel — rooms, lounge, and common areas.</p></div>
+    <div class="amenity reveal"><div class="ico">🍽️</div><h3>In-Room Dining</h3><p>Order meals to your room at any time. Fresh, quality food prepared on request.</p></div>
+    <div class="amenity reveal"><div class="ico">🔒</div><h3>24/7 Security</h3><p>Our dedicated security team ensures a safe and peaceful environment around the clock.</p></div>
+    <div class="amenity reveal"><div class="ico">🧹</div><h3>Daily Housekeeping</h3><p>Professional housekeeping service provided daily to maintain immaculate rooms.</p></div>
+    <div class="amenity reveal"><div class="ico">🚗</div><h3>Parking</h3><p>Secure, on-site parking available for all hotel guests at no extra charge.</p></div>
+    <div class="amenity reveal"><div class="ico">🌿</div><h3>Private Gardens</h3><p>Beautiful, well-maintained gardens and outdoor spaces to relax and unwind.</p></div>
+    <div class="amenity reveal"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a variety of channels.</p></div>
+  </div>
+</section>
+
+<!-- ── SUBSIDIARIES ── -->
+<section id="subsidiaries">
+  <div class="reveal">
+    <div class="eyebrow">Our Subsidiaries</div>
+    <h2>What We Do</h2>
+    <p class="sec-sub">From luxury hospitality to digital commerce, wellness and transport — Firnic Group covers every dimension of modern living.</p>
+  </div>
+  <div class="subs-grid">
+    <a href="#hotel" class="sub-card reveal">
+      <img src="assets/exterior/IMG_1088.jpeg" alt="Firnic Luxurious Private Hotel" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Hospitality</div>
+        <h3>Firnic Luxurious Private Hotel</h3>
+        <p>Experience the ultimate retreat at our private hotel, where your safety and privacy are our top priorities.</p>
+        <span class="sub-link">Book a Room →</span>
+      </div>
+    </a>
+    <a href="/massage/index.html" class="sub-card reveal reveal-delay">
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80" alt="Massage Studio" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Wellness</div>
+        <h3>Firnic Prestige Massage Studio</h3>
+        <p>Experience the ultimate relaxation and rejuvenation for your body and mind.</p>
+        <span class="sub-link">Book a Session →</span>
+      </div>
+    </a>
+    <a href="https://firnicgroup.com/market" target="_blank" rel="noopener" class="sub-card reveal reveal-delay2">
+      <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80" alt="Firnic Market" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Commerce</div>
+        <h3>Firnic Market</h3>
+        <p>Our one-stop shop has you covered. Shop now for quality products at affordable prices.</p>
+        <span class="sub-link">Shop Now →</span>
+      </div>
+    </a>
+    <a href="/events/index.html" class="sub-card reveal">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="Firnic Events" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Events</div>
+        <h3>Firnic Events</h3>
+        <p>From grand receptions to cozy gatherings, Firnic Luxurious Private Hotel is all yours.</p>
+        <span class="sub-link">Plan Your Event →</span>
+      </div>
+    </a>
+    <a href="/drivers/index.html" class="sub-card reveal reveal-delay">
+      <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80" alt="Careers at Firnic" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Careers</div>
+        <h3>Careers at Firnic</h3>
+        <p>Explore opportunities. Become a part of our warm and welcoming team.</p>
+        <span class="sub-link">Apply Now →</span>
+      </div>
+    </a>
+    <a href="/contact/index.html" class="sub-card reveal reveal-delay2">
+      <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80" alt="Investor Relations" loading="lazy" />
+      <div class="sub-overlay">
+        <div class="sub-tag">Investor Relations</div>
+        <h3>Empowering Growth Together</h3>
+        <p>Stay informed about investment strategies, shareholding structure, and the financial health of Firnic Group.</p>
+        <span class="sub-link">Learn More →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── BOOK ── -->
+<section id="book">
+  <div class="book-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Reserve Your Room</div>
+    <h2 class="reveal">Book Your Stay</h2>
+    <p class="reveal">Contact us directly to make a reservation — we respond promptly via WhatsApp, phone, or email.</p>
+    <div class="book-options reveal">
+      <a href="https://wa.me/233592997811?text=Hello%2C%20I%20would%20like%20to%20book%20a%20room%20at%20Firnic%20Hotel." target="_blank" class="book-opt">
+        <span class="b-ico">💬</span>
+        <span class="b-lbl">WhatsApp</span>
+        <span class="b-sub">+233 592 997 811</span>
+      </a>
+      <a href="tel:+233592997811" class="book-opt">
+        <span class="b-ico">📞</span>
+        <span class="b-lbl">Call Us</span>
+        <span class="b-sub">+233 592 997 811</span>
+      </a>
+      <a href="mailto:info@firnicgroup.com" class="book-opt">
+        <span class="b-ico">✉️</span>
+        <span class="b-lbl">Email Us</span>
+        <span class="b-sub">info@firnicgroup.com</span>
+      </a>
+      <a href="https://www.booking.com" target="_blank" class="book-opt">
+        <span class="b-ico">🌐</span>
+        <span class="b-lbl">Booking.com</span>
+        <span class="b-sub">Reserve Online</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <a href="/" class="logo">Firnic<em style="color:var(--gold);font-style:normal;">.</em></a>
+      <p>Firnic Group of Companies. Ofankor Hills, Accra, Ghana.<br>info@firnicgroup.com &nbsp;·&nbsp; +233 592 997 811</p>
+      <div style="margin-top:0.75rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:0.5rem;">Firnic Group</div>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/p/Finic-Ghana-100064940863358/" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">ig</a>
+          <a href="https://x.com/" target="_blank" rel="noopener" title="X (Twitter)" aria-label="X">𝕏</a>
+        </div>
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-top:0.75rem;margin-bottom:0.5rem;">Firnic Hotel</div>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/p/Finic-Ghana-100064940863358/" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">ig</a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">tt</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="#hotel">Hotel</a></li>
+        <li><a href="/massage/index.html">Massage</a></li>
+        <li><a href="https://firnicgroup.com/market" target="_blank" rel="noopener">Firnic Market</a></li>
+        <li><a href="/events/index.html">Events</a></li>
+        <li><a href="#about">Our Story</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Customer Support</h4>
+      <ul>
+        <li><a href="/contact/index.html">Contact Us</a></li>
+        <li><a href="/contact/index.html">Help Center</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="/drivers/index.html">Careers</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Delivery &amp; Returns</a></li>
+        <li><a href="#">Terms &amp; Conditions</a></li>
+        <li><a href="#">Payment Methods</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact Info</h4>
+      <ul>
+        <li><a href="https://maps.google.com/?q=Ofankor+Hills+Accra+Ghana" target="_blank" rel="noopener">Ofankor Hills, Accra, Ghana</a></li>
+        <li><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></li>
+        <li><a href="tel:+233592997811">+233 592 997 811</a></li>
+        <li><a href="https://wa.me/233592997811" target="_blank" rel="noopener">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--border);padding-top:1.5rem;">
+    <div style="font-size:0.62rem;color:#3a3a3a;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.75rem;">We accept the following payment methods</div>
+    <div class="pay-methods" style="margin-bottom:1.25rem;">
+      <svg width="52" height="28" viewBox="0 0 52 28" fill="none" title="Visa"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#FFFFFF">VISA</text></svg>
+      <svg width="52" height="28" viewBox="0 0 52 28" fill="none" title="Mastercard"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="52" height="28" viewBox="0 0 52 28" fill="none" title="American Express"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" letter-spacing="0.5">AMEX</text></svg>
+      <svg width="52" height="28" viewBox="0 0 52 28" fill="none" title="MTN Mobile Money"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="62" height="28" viewBox="0 0 68 28" fill="none" title="Airtel Tigo Money"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#FFFFFF">AIRTEL</text></svg>
+      <svg width="62" height="28" viewBox="0 0 68 28" fill="none" title="Telecel Cash"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#FFFFFF">TELECEL</text></svg>
+      <svg width="62" height="28" viewBox="0 0 68 28" fill="none" title="Paystack"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+      <svg width="52" height="28" viewBox="0 0 52 28" fill="none" title="PayPal"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+    </div>
+    <p style="font-size:0.72rem;color:#3a3a3a;">&copy; 2026 Firnic Group of Companies Limited</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  // Hero slideshow
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.getElementById('heroDots');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    if (i === 0) btn.classList.add('active');
+    btn.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(btn);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+  }
+
+  setInterval(() => goTo((current + 1) % slides.length), 5000);
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+  <!-- Live Room Availability -->
+  <script>
+  (function(){
+    const API = location.protocol === 'file:' ? 'http://localhost:3000' : '';
+    function applyAvailability(rooms) {
+      rooms.forEach(function(room) {
+        var card = document.querySelector('[data-room="' + room.id + '"]');
+        if (!card) return;
+        // Remove old pill if any
+        var old = card.querySelector('.room-avail-pill');
+        if (old) old.remove();
+        // Insert pill above room-footer
+        var footer = card.querySelector('.room-footer');
+        var pill = document.createElement('div');
+        pill.className = 'room-avail-pill ' + room.status;
+        var labels = { available: room.available + ' Available', limited: 'Only ' + room.available + ' Left', booked: 'Fully Booked' };
+        pill.textContent = labels[room.status] || '';
+        if (footer) card.querySelector('.room-body').insertBefore(pill, footer);
+        // Disable book button if fully booked
+        card.classList.toggle('booked', room.status === 'booked');
+        var btn = card.querySelector('.room-book-btn');
+        if (btn && room.status === 'booked') btn.textContent = 'Fully Booked';
+      });
+    }
+    fetch(API + '/api/availability')
+      .then(function(r){ return r.json(); })
+      .then(applyAvailability)
+      .catch(function(){});
+  })();
+  </script>
+
+  <!-- Aria AI Widget -->
+  <script src="./assets/js/form-submit.js"></script>
+  <script src="./assets/js/aria-widget.js"></script>
+</body>
+</html>

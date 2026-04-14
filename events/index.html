@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Events | Weddings, Corporate & Private Events — Accra, Ghana</title>
+  <meta name="description" content="Host your wedding, corporate event, or private celebration at Firnic Group, Accra. Professional planning, stunning venue, full catering and decor support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a84c; --gold-lt: #e8c97a; --black: #080808;
+      --dark: #0e0e0e; --surface: #161616; --surface2: #1e1e1e;
+      --border: rgba(201,168,76,0.15); --text: #f0ebe0; --muted: #9b9080;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 70px; background: rgba(8,8,8,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text); letter-spacing: 1px; }
+    .logo em { color: var(--gold); font-style: normal; }
+    .back-link { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; }
+    .back-link:hover { color: var(--gold); }
+    .nav-cta { border: 1px solid var(--gold); color: var(--gold); font-size: 0.8rem; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+    #hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.95) 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding: 3rem 5% 4rem; max-width: 760px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(201,168,76,0.4); color: var(--gold-lt); font-size: 0.68rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+    .hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 9vw, 5.5rem); font-weight: 600; line-height: 1.05; color: var(--text); margin-bottom: 1.25rem; }
+    .hero-content h1 em { color: var(--gold-lt); font-style: italic; }
+    .hero-content p { font-size: 1rem; color: rgba(255,255,255,0.6); max-width: 480px; margin-bottom: 2rem; font-weight: 300; }
+    .btn-gold { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--black); padding: 0.85rem 2rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s; }
+    .btn-gold:hover { background: var(--gold-lt); }
+
+    section { padding: 5.5rem 5%; }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; color: var(--text); margin-bottom: 0.75rem; line-height: 1.15; }
+    .sec-sub { color: var(--muted); font-size: 0.95rem; max-width: 500px; font-weight: 300; }
+
+    #events-types { background: var(--surface); }
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .ev-card { background: var(--dark); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.25s, transform 0.25s; }
+    .ev-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .ev-img { width: 100%; height: 200px; object-fit: cover; }
+    .ev-body { padding: 1.5rem; }
+    .ev-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .ev-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .ev-body p { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+
+    #why { background: var(--dark); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 3rem; }
+    .why-item { background: var(--surface2); padding: 2rem 1.5rem; }
+    .why-item .ico { font-size: 1.4rem; margin-bottom: 1rem; }
+    .why-item h3 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .why-item p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    #cta-section { background: linear-gradient(135deg, #0e0a02, var(--surface)); }
+    .cta-inner { max-width: 800px; margin: 0 auto; }
+    .cta-inner > p { color: var(--muted); margin: 1rem 0 2.5rem; font-weight: 300; }
+    .cta-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.2); color: var(--text); padding: 0.85rem 2rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .ev-form { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; text-align: left; }
+    .ev-form h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem; }
+    .ev-form p { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    .ev-form label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 0.35rem; }
+    .ev-form input, .ev-form select, .ev-form textarea {
+      width: 100%; background: #1a1a1a; border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.8rem 1rem; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .ev-form input:focus, .ev-form select:focus, .ev-form textarea:focus { border-color: var(--gold); }
+    .ev-form select option { background: #1a1a1a; }
+    .ev-form textarea { resize: vertical; min-height: 100px; }
+    .ev-submit { background: var(--gold); border: none; border-radius: 8px; padding: 0.95rem; color: #0e0e0e; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: opacity 0.2s; }
+    .ev-submit:hover { opacity: 0.88; }
+    .ev-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    footer { background: var(--black); border-top: 1px solid var(--border); padding: 2rem 5%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    footer p { font-size: 0.75rem; color: #444; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      nav { height: 56px; padding: 0 1rem; }
+      section { padding: 3rem 1rem; }
+      .hero { min-height: 60vh; padding: 3rem 1rem; }
+      .hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      .ev-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .cta-btns { flex-direction: column; align-items: stretch; }
+      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="logo">Firnic<em>.</em></a>
+  <div class="nav-links" style="display:none;gap:2rem;align-items:center;">
+    <a href="/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Home</a>
+    <a href="/index.html#hotel" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Hotel</a>
+    <a href="/massage/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Massage</a>
+    <a href="/events/index.html" style="font-size:0.78rem;font-weight:500;color:var(--gold);letter-spacing:0.5px;text-transform:uppercase;">Events</a>
+    <a href="/cars/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Car Rental</a>
+    <a href="/contact/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Contact</a>
+    <a href="#cta-section" class="nav-cta">Plan Your Event</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" style="display:none;position:fixed;top:70px;left:0;right:0;background:rgba(8,8,8,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1.5rem 5%;z-index:299;flex-direction:column;gap:1.25rem;">
+  <a href="/index.html#rooms" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Rooms</a>
+  <a href="/massage/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Massage</a>
+  <a href="/events/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Events</a>
+  <a href="/cars/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Transport</a>
+  <a href="/contact/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Contact</a>
+  <a href="#cta-section" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:0.5px;">Plan Your Event</a>
+</div>
+<style>
+  @media (min-width: 900px) { nav .nav-links { display: flex !important; } nav .hamburger { display: none; } }
+  .mobile-menu.open { display: flex !important; }
+</style>
+
+<section id="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" fetchpriority="high" alt="Firnic Events" />
+  <div class="hero-content">
+    <div class="hero-tag">Firnic Group · Events Division</div>
+    <h1>Your Perfect<br><em>Event Starts Here</em></h1>
+    <p>Dream weddings, milestone birthdays, corporate retreats, and unforgettable family reunions — planned and executed with precision and elegance.</p>
+    <a href="#cta-section" class="btn-gold">Plan Your Event →</a>
+  </div>
+</section>
+
+<section id="events-types">
+  <div class="reveal">
+    <div class="eyebrow">What We Host</div>
+    <h2>Every Occasion, Perfected</h2>
+    <p class="sec-sub">From intimate gatherings to grand celebrations — we handle every detail so you don't have to.</p>
+  </div>
+  <div class="events-grid">
+    <div class="ev-card reveal">
+      <img class="ev-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Weddings" />
+      <div class="ev-body">
+        <div class="ev-tag">Weddings</div>
+        <h3>Dream Weddings</h3>
+        <p>Your special day deserves an extraordinary setting. We create bespoke wedding experiences with every detail meticulously curated.</p>
+      </div>
+    </div>
+    <div class="ev-card reveal">
+      <img class="ev-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Birthdays" />
+      <div class="ev-body">
+        <div class="ev-tag">Private Celebrations</div>
+        <h3>Milestone Birthdays</h3>
+        <p>Celebrate in style. Whether intimate or grand, we transform your vision into a celebration you'll remember forever.</p>
+      </div>
+    </div>
+    <div class="ev-card reveal">
+      <img class="ev-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Corporate Events" />
+      <div class="ev-body">
+        <div class="ev-tag">Corporate</div>
+        <h3>Corporate Retreats</h3>
+        <p>Productive yet relaxing corporate retreats in a private, secure setting. Meeting rooms, catering, and full event support included.</p>
+      </div>
+    </div>
+    <div class="ev-card reveal">
+      <img class="ev-img" src="https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80" alt="Family Reunions" />
+      <div class="ev-body">
+        <div class="ev-tag">Family & Social</div>
+        <h3>Family Reunions</h3>
+        <p>Bring loved ones together in a warm, private, and beautifully appointed venue. We handle the logistics — you make the memories.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="reveal">
+    <div class="eyebrow">Why Choose Us</div>
+    <h2>The Firnic Events Difference</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="ico">🔒</div>
+      <h3>Private & Secure Venue</h3>
+      <p>Full-day security and CCTV ensure your event stays exclusive and safe.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="ico">🍽️</div>
+      <h3>In-House Catering</h3>
+      <p>Custom menus and dining experiences tailored to your event.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="ico">🚘</div>
+      <h3>Transport Included</h3>
+      <p>Executive car hire available for guests and the wedding party.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="ico">🌿</div>
+      <h3>Wellness Add-Ons</h3>
+      <p>Prestige massage treatments available for guests during the event.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="ico">🎯</div>
+      <h3>End-to-End Planning</h3>
+      <p>From concept to execution — we manage every detail for you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cta-section">
+  <div class="cta-inner reveal">
+    <div class="eyebrow">Get In Touch</div>
+    <h2>Let's Plan Your Event</h2>
+    <p>Contact us or fill in the form below — we'll put together a bespoke proposal just for you within 24 hours.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/233592997811?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20planning%20an%20event%20with%20Firnic." target="_blank" class="btn-gold">💬 WhatsApp Us →</a>
+      <a href="tel:+233592997811" class="btn-outline">📞 Call Us</a>
+      <a href="mailto:info@firnicgroup.com" class="btn-outline">✉️ Email Us</a>
+    </div>
+
+    <!-- EVENT ENQUIRY FORM -->
+    <form class="ev-form reveal" data-firnic-form="event" onsubmit="firnicSubmit(event,'event')">
+      <h3>Send Us Your Event Details</h3>
+      <p>We'll review your request and contact you within 24 hours with a personalised proposal.</p>
+      <div class="form-row">
+        <div>
+          <label for="ev-name">Full Name *</label>
+          <input type="text" id="ev-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div>
+          <label for="ev-phone">Phone / WhatsApp *</label>
+          <input type="tel" id="ev-phone" name="phone" placeholder="+233 xxx xxx xxx" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="ev-email">Email Address</label>
+          <input type="email" id="ev-email" name="email" placeholder="your@email.com" />
+        </div>
+        <div>
+          <label for="ev-type">Event Type *</label>
+          <select id="ev-type" name="event_type" required>
+            <option value="">— Select event type —</option>
+            <option value="Wedding">Wedding / Reception</option>
+            <option value="Corporate">Corporate Event</option>
+            <option value="Birthday">Birthday Party</option>
+            <option value="Engagement">Engagement Party</option>
+            <option value="Graduation">Graduation Celebration</option>
+            <option value="Conference">Conference / Meeting</option>
+            <option value="Private Party">Private Party</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="ev-date">Preferred Event Date *</label>
+          <input type="date" id="ev-date" name="event_date" required />
+        </div>
+        <div>
+          <label for="ev-guests">Expected Guests *</label>
+          <select id="ev-guests" name="guest_count" required>
+            <option value="">— Select range —</option>
+            <option value="1-20">1 – 20 guests</option>
+            <option value="21-50">21 – 50 guests</option>
+            <option value="51-100">51 – 100 guests</option>
+            <option value="101-200">101 – 200 guests</option>
+            <option value="200+">200+ guests</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="ev-msg">Additional Details</label>
+        <textarea id="ev-msg" name="message" placeholder="Describe your event, any special requirements, theme, catering needs, etc."></textarea>
+      </div>
+      <button type="submit" class="ev-submit">Send Event Enquiry →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="logo">Firnic<em style="color:var(--gold);font-style:normal;">.</em></a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="/index.html" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">Home</a>
+    <a href="/massage/index.html" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">Massage</a>
+    <a href="/cars/index.html" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">Car Rental</a>
+    <a href="https://www.facebook.com/p/Finic-Ghana-100064940863358/" target="_blank" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">Facebook</a>
+    <a href="https://wa.me/233592997811" target="_blank" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">WhatsApp</a>
+    <a href="mailto:info@firnicgroup.com" style="color:#9b9080;font-size:0.78rem;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#9b9080'">Email</a>
+  </div>
+  <div>
+    <p style="font-size:0.62rem;color:#3a3a3a;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.5rem;">We accept the following payment methods</p>
+    <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Visa" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#FFFFFF">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Mastercard" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="American Express" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" letter-spacing="0.5">AMEX</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="MTN Mobile Money" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Airtel Tigo Money" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#FFFFFF">AIRTEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Telecel Cash" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#FFFFFF">TELECEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Paystack" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="PayPal" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+    </div>
+    <p style="margin-top:0.75rem;font-size:0.72rem;color:#3a3a3a;">&copy; 2025 Firnic Group of Companies Limited</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+  <!-- Aria AI Widget -->
+  <script src="../assets/js/form-submit.js"></script>
+  <script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>
