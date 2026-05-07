@@ -181,7 +181,7 @@
 
     /* BECOME A DRIVER */
     #drive { background: var(--dark); }
-    .drive-inner { display: grid; gap: 4rem; align-items: center; }
+    .drive-inner { display: grid; gap: 4rem; align-items: start; }
     @media (min-width: 900px) { .drive-inner { grid-template-columns: 1fr 1fr; } }
     .drive-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1.25rem; }
     .driver-perks { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
@@ -192,8 +192,15 @@
     }
     .perk .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .perk p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
-    .drive-cta { background: var(--surface); border: 1px solid var(--border); padding: 2rem; }
-    .drive-cta p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; margin-bottom: 1.5rem; }
+    .driver-form {
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 2.25rem;
+    }
+    .driver-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem;
+    }
+    .driver-form > p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
 
     @media (max-width: 640px) {
       #hero { min-height: 88svh; }
@@ -409,16 +416,66 @@
         <div class="perk"><span class="ico">🌟</span><p>Build your reputation under a trusted, growing brand</p></div>
       </div>
     </div>
-    <div class="drive-cta reveal reveal-d1">
-      <div class="eyebrow" style="margin-bottom:1rem;">Apply Now</div>
-      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:0.75rem;">Ready to Join?</h2>
-      <p>Send us your name, experience, and vehicle details. We'll get back to you within 24 hours.</p>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;">
-        <a href="https://wa.me/233592997811?text=Hello%2C%20I%20would%20like%20to%20become%20a%20Firnic%20driver." target="_blank" class="btn-gold">💬 Apply via WhatsApp →</a>
-        <a href="mailto:sales@firnicgroup.com?subject=Driver%20Application%20-%20Firnic%20Car%20Rental" class="btn-outline">✉️ Email Your Application</a>
-        <a href="tel:+233592997811" class="btn-outline">📞 Call Us</a>
+    <form class="driver-form reveal reveal-d1" data-firnic-form="driver" onsubmit="firnicSubmit(event,'driver')">
+      <h3>Driver Application</h3>
+      <p>Fill in the form — we'll review your details and get back to you within 24 hours.</p>
+      <div class="form-stack">
+        <div class="form-row">
+          <div class="f-group">
+            <label for="drv-name">Full Name *</label>
+            <input type="text" id="drv-name" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="f-group">
+            <label for="drv-phone">Phone / WhatsApp *</label>
+            <input type="tel" id="drv-phone" name="phone" placeholder="+233 xxx xxx xxx" required />
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="drv-email">Email Address</label>
+          <input type="email" id="drv-email" name="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-row">
+          <div class="f-group">
+            <label for="drv-exp">Years of Experience *</label>
+            <select id="drv-exp" name="experience" required>
+              <option value="">— Select —</option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1–3 years">1 – 3 years</option>
+              <option value="3–5 years">3 – 5 years</option>
+              <option value="5+ years">5+ years</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label for="drv-license">License Type *</label>
+            <select id="drv-license" name="license_type" required>
+              <option value="">— Select —</option>
+              <option value="Class B (Cars)">Class B — Cars</option>
+              <option value="Class C (Light trucks)">Class C — Light trucks</option>
+              <option value="Class D (Minibus)">Class D — Minibus</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="drv-vehicle">Do you own a vehicle?</label>
+          <select id="drv-vehicle" name="own_vehicle">
+            <option value="">— Select —</option>
+            <option value="Yes — sedan/saloon">Yes — sedan / saloon</option>
+            <option value="Yes — SUV">Yes — SUV</option>
+            <option value="Yes — minivan">Yes — minivan / van</option>
+            <option value="No">No, I will use Firnic vehicles</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label for="drv-area">Area of Operation *</label>
+          <input type="text" id="drv-area" name="area" placeholder="e.g. Accra Central, Airport, Tema…" required />
+        </div>
+        <div class="f-group">
+          <label for="drv-notes">Anything else we should know?</label>
+          <textarea id="drv-notes" name="notes" placeholder="Previous employer, languages spoken, availability, etc."></textarea>
+        </div>
       </div>
-    </div>
+      <button type="submit" class="submit-btn">Submit Application →</button>
+    </form>
   </div>
 </section>
 
