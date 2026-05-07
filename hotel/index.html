@@ -170,19 +170,62 @@
 
     /* BOOK */
     #book { text-align: center; }
-    .book-inner { max-width: 700px; margin: 0 auto; }
-    .book-inner p { color: var(--muted); margin: 0.75rem 0 3rem; font-size: 0.95rem; line-height: 1.8; }
+    .book-inner { max-width: 760px; margin: 0 auto; }
+    .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; font-size: 0.95rem; line-height: 1.8; }
+
+    .hotel-form {
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
+    }
+    .hotel-form h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 600; margin-bottom: 1.75rem; color: var(--text);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--dark); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: inherit; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .submit-btn {
+      margin-top: 1.25rem; width: 100%; padding: 1rem;
+      background: var(--gold); color: #080808;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    .book-divider {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .book-divider::before, .book-divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
     .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
     .book-opt {
       display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
       background: var(--surface); border: 1px solid var(--border2);
-      padding: 1.5rem 2rem; min-width: 150px;
+      padding: 1.25rem 1.75rem; min-width: 140px;
       transition: border-color 0.2s, transform 0.2s;
     }
     .book-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .b-ico { font-size: 1.5rem; }
+    .b-ico { font-size: 1.4rem; }
     .b-lbl { font-size: 0.78rem; font-weight: 600; color: var(--text); }
     .b-sub { font-size: 0.7rem; color: var(--muted); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .hotel-form { padding: 1.5rem; } }
 
     @media (max-width: 640px) {
       #hero { min-height: 92svh; }
@@ -398,7 +441,71 @@
   <div class="book-inner">
     <div class="eyebrow reveal" style="justify-content:center;">Reservations</div>
     <h2 class="reveal">Book Your Stay</h2>
-    <p class="reveal">Contact us directly to make a reservation. We respond promptly via WhatsApp, phone, or email — your inquiry is always welcome.</p>
+    <p class="reveal">Fill in your details and we'll confirm your reservation within the hour. Prefer to reach us directly? Use the options below.</p>
+
+    <form class="hotel-form reveal reveal-d1" data-firnic-form="hotel" onsubmit="firnicSubmit(event,'hotel')">
+      <h3>Reservation Request</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-name">Full Name</label>
+          <input type="text" id="h-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="h-phone">Phone Number</label>
+          <input type="tel" id="h-phone" name="phone" placeholder="+233 ..." required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-email">Email Address</label>
+          <input type="email" id="h-email" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="h-room">Room Type</label>
+          <select id="h-room" name="room_type" required>
+            <option value="" disabled selected>Select a room</option>
+            <option value="Classic Single — GHS 450/night">Classic Single — GHS 450 / night</option>
+            <option value="Superior Twin — GHS 550/night">Superior Twin — GHS 550 / night</option>
+            <option value="Deluxe Double — GHS 700/night">Deluxe Double — GHS 700 / night</option>
+            <option value="Prestige Suite — GHS 950/night">Prestige Suite — GHS 950 / night</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-checkin">Check-In Date</label>
+          <input type="date" id="h-checkin" name="checkin_date" required />
+        </div>
+        <div class="form-group">
+          <label for="h-checkout">Check-Out Date</label>
+          <input type="date" id="h-checkout" name="checkout_date" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-guests">Number of Guests</label>
+          <select id="h-guests" name="guest_count">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="h-requests">Special Requests</label>
+          <input type="text" id="h-requests" name="special_requests" placeholder="Early check-in, dietary needs, etc." />
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Request Reservation →</button>
+    </form>
+
+    <div class="book-divider reveal">Or reach us directly</div>
+
     <div class="book-options reveal">
       <a href="https://wa.me/233592997811?text=Hello%2C%20I%20would%20like%20to%20book%20a%20room%20at%20Firnic%20Hotel." target="_blank" class="book-opt">
         <span class="b-ico">💬</span>
@@ -499,6 +606,7 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>
 </html>
