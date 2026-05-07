@@ -7,105 +7,116 @@
   <meta name="description" content="Firnic Luxurious Private Hotel in Accra, Ghana. Experience elegance, exclusivity, and total privacy. Book your stay today." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/firnic.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --black:   #080808;
-      --dark:    #111111;
-      --surface: #181818;
-      --border:  rgba(255,255,255,0.08);
-      --text:    #f0ece4;
-      --muted:   rgba(240,236,228,0.55);
-      --gold:    #c9a84c;
-      --gold-lt: rgba(201,168,76,0.75);
+    /* HERO */
+    #hero {
+      position: relative; min-height: 100svh;
+      display: flex; align-items: flex-end; overflow: hidden;
     }
-    html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    section { padding: 6rem 5%; }
-    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
-    .eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
-    h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 600; line-height: 1.15; margin-bottom: 1rem; }
-    .sec-sub { color: var(--muted); max-width: 520px; font-size: 0.95rem; line-height: 1.75; }
-    .btn-gold { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold); color: var(--black); padding: 0.9rem 2.2rem; border-radius: 4px; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s; }
-    .btn-gold:hover { background: #d4b55a; }
-    .btn-outline { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(255,255,255,0.25); color: var(--text); padding: 0.9rem 2.2rem; border-radius: 4px; font-size: 0.82rem; font-weight: 500; transition: border-color 0.2s; }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: rgba(8,8,8,0.93); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 1px; }
-    .logo em { color: var(--gold); font-style: normal; }
-    .logo span { font-size: 0.62rem; font-weight: 400; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; display: block; margin-top: -4px; }
-    .nav-links { display: none; list-style: none; gap: 2.5rem; align-items: center; }
-    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links .nav-cta { background: var(--gold); color: var(--black); padding: 0.55rem 1.4rem; border-radius: 4px; font-weight: 700; font-size: 0.78rem; }
-    .nav-links .nav-cta:hover { background: #d4b55a; color: var(--black); }
-    @media (min-width: 900px) { .nav-links { display: flex; } }
-    .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); transition: all 0.3s; }
-    @media (min-width: 900px) { .hamburger { display: none; } }
-    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; z-index: 299; flex-direction: column; gap: 1.25rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 0.95rem; color: var(--muted); padding: 0.25rem 0; border-bottom: 1px solid var(--border); }
-    .mobile-menu a:last-child { border-bottom: none; color: var(--gold); font-weight: 600; }
-
-    /* ── HERO ── */
-    #hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
     .hero-slides { position: absolute; inset: 0; }
-    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
     .hero-slide.active { opacity: 1; }
     .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.3) 50%, rgba(8,8,8,0.2) 100%); }
-    .hero-content { position: relative; z-index: 2; padding: 0 5% 6rem; max-width: 780px; }
-    .hero-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.7rem; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.3) 55%, rgba(8,8,8,0.1) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5% 6rem; max-width: 800px;
+    }
+    .hero-tag {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
     .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
-    .hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -1px; margin-bottom: 1.5rem; }
-    .hero-content h1 em { font-style: italic; color: var(--gold-lt); }
-    .hero-content p { color: rgba(240,236,228,0.72); font-size: 1rem; font-weight: 300; max-width: 480px; margin-bottom: 2.5rem; line-height: 1.8; }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 300; line-height: 1.03; letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--gold); }
+    .hero-content p {
+      color: var(--muted); font-size: 1rem; font-weight: 300;
+      max-width: 500px; margin-bottom: 2.5rem; line-height: 1.85;
+    }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-dots { position: absolute; bottom: 2.5rem; right: 5%; z-index: 3; display: flex; gap: 0.5rem; }
-    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: background 0.3s; }
+    .hero-dots {
+      position: absolute; bottom: 2.5rem; right: 5%; z-index: 3;
+      display: flex; gap: 0.5rem;
+    }
+    .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.28); cursor: pointer; transition: background 0.3s;
+    }
     .hero-dot.active { background: var(--gold); }
 
-    /* ── ABOUT ── */
+    /* ABOUT */
     #about { background: var(--dark); }
-    .about-inner { display: grid; gap: 4rem; align-items: center; }
-    .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.25rem; }
-    .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
-    .stat-val { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--gold); line-height: 1; }
-    .stat-lbl { font-size: 0.72rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 0.35rem; }
-    .about-img { position: relative; }
-    .about-img img { width: 100%; height: 480px; object-fit: cover; border-radius: 4px; }
-    .about-badge { position: absolute; bottom: -1.5rem; left: -1.5rem; background: var(--gold); color: var(--black); padding: 1.25rem 1.75rem; border-radius: 4px; }
-    .about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; display: block; line-height: 1; }
-    .about-badge span { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+    .about-inner { display: grid; gap: 5rem; align-items: center; }
     @media (min-width: 900px) { .about-inner { grid-template-columns: 1fr 1fr; } }
+    .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1.25rem; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border);
+    }
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem; font-weight: 600; color: var(--gold); line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-top: 0.35rem;
+    }
+    .about-img { position: relative; }
+    .about-img img { width: 100%; height: 480px; object-fit: cover; }
+    .about-badge {
+      position: absolute; bottom: -1.5rem; left: -1.5rem;
+      background: var(--gold); color: var(--black); padding: 1.25rem 1.75rem;
+    }
+    .about-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700; display: block; line-height: 1;
+    }
+    .about-badge span { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
 
-    /* ── ROOMS ── */
-    #rooms { }
-    .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
-    .room-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    /* ROOMS */
+    .rooms-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .room-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
     .room-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); }
     .room-img { height: 230px; overflow: hidden; }
     .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .room-card:hover .room-img img { transform: scale(1.04); }
     .room-body { padding: 1.6rem; }
-    .room-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .room-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+    }
     .room-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
     .room-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
-    .room-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .room-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--border2);
+    }
     .room-price { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 700; color: var(--gold); }
     .room-price span { font-size: 0.72rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 300; }
-    .btn-sm { display: inline-flex; align-items: center; background: var(--gold); color: var(--black); padding: 0.45rem 1.1rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; transition: background 0.2s; }
-    .btn-sm:hover { background: #d4b55a; }
 
-    /* ── GALLERY ── */
+    /* GALLERY */
     #gallery { background: var(--dark); }
-    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 0.75rem; margin-top: 2.5rem; border-radius: 10px; overflow: hidden; }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px; gap: 0.75rem;
+      margin-top: 2.5rem; overflow: hidden;
+    }
     .g-img { overflow: hidden; }
     .g-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .g-img:hover img { transform: scale(1.06); }
@@ -113,7 +124,6 @@
     .g-img.wide { grid-column: span 2; }
     @media (max-width: 768px) {
       .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; }
-      .g-img.wide { grid-column: span 2; }
       .g-img.tall { grid-row: span 1; }
     }
     @media (max-width: 480px) {
@@ -121,89 +131,80 @@
       .g-img.wide, .g-img.tall { grid-column: span 1; grid-row: span 1; }
     }
 
-    /* ── AMENITIES ── */
-    #amenities { }
-    .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
-    .amenity { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; transition: border-color 0.3s; }
+    /* AMENITIES */
+    .amenities-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .amenity {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.75rem; transition: border-color 0.3s;
+    }
     .amenity:hover { border-color: rgba(201,168,76,0.35); }
     .amenity .ico { font-size: 1.75rem; margin-bottom: 1rem; }
-    .amenity h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .amenity h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.5rem; }
     .amenity p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── EXPERIENCE ── */
+    /* EXPERIENCE */
     #experience { background: var(--dark); }
     .exp-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
-    .exp-card { position: relative; border-radius: 10px; overflow: hidden; height: 320px; }
-    .exp-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-    .exp-card:hover img { transform: scale(1.05); }
-    .exp-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.1) 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; }
-    .exp-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
-    .exp-overlay h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .exp-overlay p { font-size: 0.8rem; color: rgba(240,236,228,0.7); line-height: 1.6; }
     @media (min-width: 768px) { .exp-grid { grid-template-columns: 1fr 1fr; } }
     @media (min-width: 1100px) { .exp-grid { grid-template-columns: 2fr 1fr 1fr; } }
+    .exp-card { position: relative; overflow: hidden; height: 320px; }
+    .exp-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .exp-card:hover img { transform: scale(1.05); }
+    .exp-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.1) 60%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+    }
+    .exp-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .exp-overlay h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .exp-overlay p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
-    /* ── BOOK ── */
+    /* BOOK */
     #book { text-align: center; }
     .book-inner { max-width: 700px; margin: 0 auto; }
-    .book-inner p { color: var(--muted); margin-bottom: 3rem; font-size: 0.95rem; }
+    .book-inner p { color: var(--muted); margin: 0.75rem 0 3rem; font-size: 0.95rem; line-height: 1.8; }
     .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .book-opt { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; min-width: 150px; transition: border-color 0.2s, transform 0.2s; text-decoration: none; }
+    .book-opt {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.5rem 2rem; min-width: 150px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
     .book-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
     .b-ico { font-size: 1.5rem; }
-    .b-lbl { font-size: 0.82rem; font-weight: 600; color: var(--text); }
-    .b-sub { font-size: 0.72rem; color: var(--muted); }
+    .b-lbl { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .b-sub { font-size: 0.7rem; color: var(--muted); }
 
-    /* ── FOOTER ── */
-    footer { background: var(--black); border-top: 1px solid var(--border); padding: 3rem 5%; }
-    .footer-inner { display: grid; gap: 3rem; }
-    .f-brand .logo { font-size: 1.6rem; margin-bottom: 0.75rem; display: inline-block; }
-    .f-brand p { font-size: 0.82rem; color: var(--muted); max-width: 280px; line-height: 1.7; }
-    .f-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .f-col ul a { font-size: 0.82rem; color: var(--muted); transition: color 0.2s; }
-    .f-col ul a:hover { color: var(--text); }
-    .f-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
-    .f-bottom p { font-size: 0.75rem; color: var(--muted); }
-    .f-bottom a { color: var(--gold); }
-    @media (min-width: 640px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
-    @media (min-width: 1000px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr 1fr; } }
-
-    /* ── REVEAL ANIMATIONS ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay  { transition-delay: 0.12s; }
-    .reveal-delay2 { transition-delay: 0.24s; }
-
-    /* ── MOBILE ── */
     @media (max-width: 640px) {
-      nav { height: 62px; }
-      .mobile-menu { top: 62px; }
-      section { padding: 4rem 1.25rem; }
-      #hero { min-height: 92vh; }
+      #hero { min-height: 92svh; }
       .hero-content { padding: 0 1.25rem 5rem; }
       .hero-actions { flex-direction: column; }
       .about-badge { left: 0.5rem; bottom: -1rem; padding: 1rem 1.25rem; }
       .about-stats { grid-template-columns: 1fr 1fr; }
-      .book-opt { min-width: 130px; padding: 1.25rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
-  <a href="/" class="logo">Firnic<em>.</em><span>Luxurious Private Hotel</span></a>
+  <a href="../" class="logo">Firnic<em>.</em><span>Luxurious Hotel</span></a>
   <ul class="nav-links">
     <li><a href="#rooms">Rooms</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#amenities">Amenities</a></li>
-    <li><a href="#experience">Experience</a></li>
+    <li><a href="../massage/">Massage</a></li>
     <li><a href="#book" class="nav-cta">Book Now</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
@@ -214,7 +215,7 @@
   <a href="#book"       onclick="toggleMenu()">Book Your Stay</a>
 </div>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-slides" id="hero-slides">
     <div class="hero-slide active"><img src="../assets/exterior/IMG_1088.jpeg" alt="Firnic Hotel Exterior" /></div>
@@ -235,31 +236,22 @@
   <div class="hero-dots" id="hero-dots"></div>
 </section>
 
-<!-- ── ABOUT ── -->
+<!-- ABOUT -->
 <section id="about">
   <div class="about-inner">
     <div class="about-text reveal">
       <div class="eyebrow">Our Story</div>
-      <h2>Where Privacy Meets <em style="font-style:italic;color:var(--gold-lt);">Luxury</em></h2>
+      <h2>Where Privacy Meets <em style="font-style:italic;color:var(--gold);">Luxury</em></h2>
       <p>Firnic Luxurious Private Hotel is Accra's premier destination for guests who demand the very best. Nestled in a tranquil, secure location, our hotel offers an intimate atmosphere that larger establishments simply cannot match.</p>
       <p>Every detail — from the premium furnishings in each room to the attentive, discreet service — has been carefully curated to ensure your stay is nothing short of extraordinary.</p>
       <div class="about-stats">
-        <div>
-          <div class="stat-val">4</div>
-          <div class="stat-lbl">Room Categories</div>
-        </div>
-        <div>
-          <div class="stat-val">24/7</div>
-          <div class="stat-lbl">Security &amp; Service</div>
-        </div>
-        <div>
-          <div class="stat-val">100%</div>
-          <div class="stat-lbl">Privacy Assured</div>
-        </div>
+        <div><div class="stat-val">4</div><div class="stat-lbl">Room Categories</div></div>
+        <div><div class="stat-val">24/7</div><div class="stat-lbl">Security &amp; Service</div></div>
+        <div><div class="stat-val">100%</div><div class="stat-lbl">Privacy Assured</div></div>
       </div>
     </div>
-    <div class="about-img reveal reveal-delay">
-      <img src="../assets/exterior/IMG_1099.jpeg" alt="Firnic Hotel Building" />
+    <div class="about-img reveal reveal-d1">
+      <img src="../assets/exterior/IMG_1099.jpeg" alt="Firnic Hotel Building" loading="lazy" />
       <div class="about-badge">
         <strong>★ 5</strong>
         <span>Star Experience</span>
@@ -268,7 +260,7 @@
   </div>
 </section>
 
-<!-- ── ROOMS ── -->
+<!-- ROOMS -->
 <section id="rooms">
   <div class="reveal">
     <div class="eyebrow">Accommodation</div>
@@ -288,7 +280,7 @@
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-delay">
+    <div class="room-card reveal reveal-d1">
       <div class="room-img"><img src="../assets/interior/IMG_0966-1.jpeg" alt="Superior Twin Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Room</div>
@@ -300,7 +292,7 @@
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-delay">
+    <div class="room-card reveal reveal-d2">
       <div class="room-img"><img src="../assets/interior/IMG_0971-1.jpeg" alt="Deluxe Double Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Room</div>
@@ -312,7 +304,7 @@
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-delay2">
+    <div class="room-card reveal reveal-d3">
       <div class="room-img"><img src="../assets/interior/IMG_0977-1.jpeg" alt="Prestige Suite" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Suite</div>
@@ -327,7 +319,7 @@
   </div>
 </section>
 
-<!-- ── GALLERY ── -->
+<!-- GALLERY -->
 <section id="gallery">
   <div class="reveal">
     <div class="eyebrow">Photo Gallery</div>
@@ -347,7 +339,7 @@
   </div>
 </section>
 
-<!-- ── AMENITIES ── -->
+<!-- AMENITIES -->
 <section id="amenities">
   <div class="reveal">
     <div class="eyebrow">Facilities</div>
@@ -356,17 +348,17 @@
   </div>
   <div class="amenities-grid">
     <div class="amenity reveal"><div class="ico">❄️</div><h3>Air Conditioning</h3><p>All rooms are fully air-conditioned for your comfort throughout your stay.</p></div>
-    <div class="amenity reveal"><div class="ico">📶</div><h3>Free Wi-Fi</h3><p>High-speed internet access throughout the hotel — rooms, lounge, and common areas.</p></div>
-    <div class="amenity reveal"><div class="ico">🍽️</div><h3>In-Room Dining</h3><p>Order meals to your room at any time. Fresh, quality food prepared on request.</p></div>
-    <div class="amenity reveal"><div class="ico">🔒</div><h3>24/7 Security</h3><p>Our dedicated security team ensures a safe and peaceful environment around the clock.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">📶</div><h3>Free Wi-Fi</h3><p>High-speed internet access throughout the hotel — rooms, lounge, and common areas.</p></div>
+    <div class="amenity reveal reveal-d2"><div class="ico">🍽️</div><h3>In-Room Dining</h3><p>Order meals to your room at any time. Fresh, quality food prepared on request.</p></div>
+    <div class="amenity reveal reveal-d3"><div class="ico">🔒</div><h3>24/7 Security</h3><p>Our dedicated security team ensures a safe and peaceful environment around the clock.</p></div>
     <div class="amenity reveal"><div class="ico">🧹</div><h3>Daily Housekeeping</h3><p>Professional housekeeping service provided daily to maintain immaculate rooms.</p></div>
-    <div class="amenity reveal"><div class="ico">🚗</div><h3>Free Parking</h3><p>Secure, on-site parking available for all hotel guests at no extra charge.</p></div>
-    <div class="amenity reveal"><div class="ico">🌿</div><h3>Private Gardens</h3><p>Beautiful, well-maintained gardens and outdoor spaces to relax and unwind.</p></div>
-    <div class="amenity reveal"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a wide variety of channels.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">🚗</div><h3>Free Parking</h3><p>Secure, on-site parking available for all hotel guests at no extra charge.</p></div>
+    <div class="amenity reveal reveal-d2"><div class="ico">🌿</div><h3>Private Gardens</h3><p>Beautiful, well-maintained gardens and outdoor spaces to relax and unwind.</p></div>
+    <div class="amenity reveal reveal-d3"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a wide variety of channels.</p></div>
   </div>
 </section>
 
-<!-- ── EXPERIENCE ── -->
+<!-- EXPERIENCE -->
 <section id="experience">
   <div class="reveal">
     <div class="eyebrow">The Firnic Experience</div>
@@ -382,7 +374,7 @@
         <p>Beautifully landscaped gardens and secure private grounds — your retreat from the city.</p>
       </div>
     </div>
-    <div class="exp-card reveal reveal-delay">
+    <div class="exp-card reveal reveal-d1">
       <img src="../assets/interior/IMG_0984-1.jpeg" alt="Room Detail" loading="lazy" />
       <div class="exp-overlay">
         <div class="exp-tag">Interiors</div>
@@ -390,7 +382,7 @@
         <p>Every room is fitted with quality furniture, linens, and finishes selected for comfort and style.</p>
       </div>
     </div>
-    <div class="exp-card reveal reveal-delay2">
+    <div class="exp-card reveal reveal-d2">
       <img src="../assets/interior/IMG_0990-1.jpeg" alt="Room Amenities" loading="lazy" />
       <div class="exp-overlay">
         <div class="exp-tag">Service</div>
@@ -401,7 +393,7 @@
   </div>
 </section>
 
-<!-- ── BOOK ── -->
+<!-- BOOK -->
 <section id="book">
   <div class="book-inner">
     <div class="eyebrow reveal" style="justify-content:center;">Reservations</div>
@@ -432,11 +424,11 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-inner">
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
     <div class="f-brand">
-      <a href="/" class="logo">Firnic<em style="color:var(--gold);">.</em></a>
+      <a href="../" class="logo">Firnic<em>.</em></a>
       <p>Firnic Luxurious Private Hotel — Accra, Ghana. Where elegance, privacy, and comfort meet.</p>
     </div>
     <div class="f-col">
@@ -449,12 +441,13 @@
       </ul>
     </div>
     <div class="f-col">
-      <h4>Hotel</h4>
+      <h4>Explore</h4>
       <ul>
         <li><a href="#about">About Us</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#amenities">Amenities</a></li>
-        <li><a href="#experience">Experience</a></li>
+        <li><a href="../massage/">Massage Studio</a></li>
+        <li><a href="../events/">Events &amp; Venue</a></li>
       </ul>
     </div>
     <div class="f-col">
@@ -463,34 +456,33 @@
         <li><a href="tel:+233592997811">+233 592 997 811</a></li>
         <li><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></li>
         <li><a href="https://wa.me/233592997811" target="_blank">WhatsApp Us</a></li>
-        <li><a href="https://firnicgroup.com" target="_blank">Firnic Group</a></li>
+        <li><span style="color:var(--muted)">Ofankor Hills Estate, Accra</span></li>
       </ul>
     </div>
   </div>
-  <div class="f-bottom">
+  <div class="site-footer__bottom">
     <p>&copy; 2026 Firnic Luxurious Private Hotel. All rights reserved.</p>
-    <p>Part of <a href="https://firnicgroup.com">Firnic Group of Companies</a></p>
+    <div class="pay-methods">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#fff">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+    </div>
   </div>
 </footer>
 
 <script>
-  // ── Mobile menu ──
-  function toggleMenu() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  }
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
 
-  // ── Hero slideshow ──
   const slides = document.querySelectorAll('.hero-slide');
   const dotsEl  = document.getElementById('hero-dots');
   let current = 0, timer;
-
   slides.forEach((_, i) => {
     const d = document.createElement('div');
     d.className = 'hero-dot' + (i === 0 ? ' active' : '');
     d.onclick = () => goTo(i);
     dotsEl.appendChild(d);
   });
-
   function goTo(n) {
     slides[current].classList.remove('active');
     dotsEl.children[current].classList.remove('active');
@@ -500,16 +492,13 @@
     clearInterval(timer);
     timer = setInterval(() => goTo(current + 1), 5000);
   }
-
   timer = setInterval(() => goTo(current + 1), 5000);
 
-  // ── Scroll reveal ──
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-
 <script src="../assets/js/aria-widget.js"></script>
 </body>
 </html>
