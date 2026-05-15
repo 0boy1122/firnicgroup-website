@@ -269,7 +269,8 @@ async function sendFormEmail(entry) {
   const labels = {
     hotel:'🏨 Hotel Booking', car:'🚗 Car Booking', ride:'🚕 Ride Order',
     delivery:'📦 Delivery Order', event:'🎉 Event Enquiry',
-    massage:'💆 Massage Booking', contact:'📬 Contact Message'
+    massage:'💆 Massage Booking', contact:'📬 Contact Message',
+    driver:'🧑‍✈️ Driver Application'
   };
   const subject = (labels[entry._type] || '📋 Form Submission') + ' — Firnic Group';
   const rows = Object.entries(entry)
@@ -286,7 +287,7 @@ async function sendFormEmail(entry) {
     html: `<div style="font-family:sans-serif;max-width:600px">
       <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group — New Submission</h2></div>
       <table style="width:100%;border-collapse:collapse;margin-top:16px">${rows}</table>
-      <p style="margin-top:20px"><a href="http://localhost:${PORT}/admin/" style="background:#c9a84c;color:#0e0e0e;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700">View in Admin Panel →</a></p>
+      <p style="margin-top:20px"><a href="${process.env.RENDER_EXTERNAL_URL || process.env.RAILWAY_PUBLIC_DOMAIN ? 'https://'+process.env.RAILWAY_PUBLIC_DOMAIN : 'http://localhost:'+PORT}/admin/" style="background:#c9a84c;color:#0e0e0e;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700">View in Admin Panel →</a></p>
       <p style="color:#888;font-size:0.8rem;margin-top:16px">Received ${new Date(entry.timestamp).toLocaleString('en-GH',{timeZone:'Africa/Accra'})}</p>
     </div>`
   });

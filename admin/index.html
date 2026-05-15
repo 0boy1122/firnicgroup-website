@@ -985,7 +985,7 @@
 <div id="toast"></div>
 
 <script>
-  const API = 'http://localhost:3000';
+  const API = window.location.origin;
   let token = localStorage.getItem('firnic_admin_token') || '';
   let allSubs = [];
   let currentFilter = 'all';
