@@ -114,19 +114,60 @@
 
     /* BOOK */
     #book { text-align: center; }
-    .book-inner { max-width: 620px; margin: 0 auto; }
-    .book-inner p { color: var(--muted); margin: 0.75rem 0 3rem; line-height: 1.8; }
+    .book-inner { max-width: 720px; margin: 0 auto; }
+    .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; line-height: 1.8; }
+
+    .massage-form {
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
+    }
+    .massage-form h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 600; margin-bottom: 1.75rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--dark); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .submit-btn {
+      margin-top: 1.25rem; width: 100%; padding: 1rem;
+      background: var(--gold); color: #080808;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .book-divider {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .book-divider::before, .book-divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
     .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
     .book-opt {
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
       background: var(--surface); border: 1px solid var(--border2);
-      padding: 1.5rem 2rem; min-width: 140px;
+      padding: 1.25rem 1.75rem; min-width: 140px;
       transition: border-color 0.2s, transform 0.2s;
     }
     .book-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .b-ico { font-size: 1.5rem; }
+    .b-ico { font-size: 1.4rem; }
     .b-lbl { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
     .b-sub { font-size: 0.7rem; color: var(--muted); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .massage-form { padding: 1.5rem; } }
 
     @media (max-width: 640px) {
       #hero { min-height: 80svh; }
@@ -346,11 +387,93 @@
 
 <!-- BOOK -->
 <section id="book">
-  <div class="book-inner reveal">
-    <div class="eyebrow" style="justify-content:center;">Reservations</div>
-    <h2>Book Your Session</h2>
-    <p>Available Monday – Sunday. Reach us on WhatsApp, call, or email to confirm your preferred time and treatment.</p>
-    <div class="book-options">
+  <div class="book-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Reservations</div>
+    <h2 class="reveal">Book Your Session</h2>
+    <p class="reveal">Fill in your details and we'll confirm your appointment. Available Monday – Sunday.</p>
+
+    <form class="massage-form reveal reveal-d1" data-firnic-form="massage" onsubmit="firnicSubmit(event,'massage')">
+      <h3>Session Request</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-name">Full Name</label>
+          <input type="text" id="m-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="m-phone">Phone / WhatsApp</label>
+          <input type="tel" id="m-phone" name="phone" placeholder="+233 ..." required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-email">Email Address</label>
+          <input type="email" id="m-email" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="m-treatment">Treatment</label>
+          <select id="m-treatment" name="treatment_type" required>
+            <option value="" disabled selected>Select treatment</option>
+            <optgroup label="Deep Tissue / Sport">
+              <option>Deep Tissue — 60 min (GHS 280)</option>
+              <option>Deep Tissue — 90 min (GHS 380)</option>
+              <option>Deep Tissue — 120 min (GHS 480)</option>
+            </optgroup>
+            <optgroup label="Thai with Oil">
+              <option>Thai Oil — 60 min (GHS 260)</option>
+              <option>Thai Oil — 90 min (GHS 360)</option>
+              <option>Thai Oil — 120 min (GHS 460)</option>
+            </optgroup>
+            <optgroup label="Thai without Oil">
+              <option>Thai Dry — 60 min (GHS 240)</option>
+              <option>Thai Dry — 90 min (GHS 340)</option>
+              <option>Thai Dry — 120 min (GHS 440)</option>
+            </optgroup>
+            <optgroup label="Swedish">
+              <option>Swedish — 60 min (GHS 250)</option>
+              <option>Swedish — 90 min (GHS 350)</option>
+              <option>Swedish — 120 min (GHS 450)</option>
+            </optgroup>
+            <optgroup label="Speciality">
+              <option>Reflexology (GHS 200)</option>
+              <option>Foot Massage (GHS 150)</option>
+              <option>Neck &amp; Shoulder (GHS 130)</option>
+              <option>Foot Vibration (GHS 120)</option>
+              <option>Chair Massage (GHS 80)</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-date">Preferred Date</label>
+          <input type="date" id="m-date" name="preferred_date" required />
+        </div>
+        <div class="form-group">
+          <label for="m-time">Preferred Time</label>
+          <select id="m-time" name="preferred_time">
+            <option value="Morning (9am – 12pm)">Morning (9am – 12pm)</option>
+            <option value="Afternoon (12pm – 4pm)">Afternoon (12pm – 4pm)</option>
+            <option value="Evening (4pm – 7pm)">Evening (4pm – 7pm)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label for="m-notes">Additional Notes</label>
+          <textarea id="m-notes" name="notes" placeholder="Any health conditions, preferences, or special requests…"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Request Appointment →</button>
+    </form>
+
+    <div class="book-divider reveal">Or reach us directly</div>
+
+    <div class="book-options reveal">
       <a href="https://wa.me/233592997811?text=Hello%2C+I+would+like+to+book+a+massage+session+at+Firnic+Prestige+Massage+Studio." target="_blank" class="book-opt">
         <span class="b-ico">💬</span>
         <span class="b-lbl">WhatsApp</span>
@@ -426,6 +549,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>
 </html>
