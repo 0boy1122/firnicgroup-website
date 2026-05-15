@@ -618,6 +618,14 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script>
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('h-checkin').min = today;
+  document.getElementById('h-checkout').min = today;
+  document.getElementById('h-checkin').addEventListener('change', function() {
+    document.getElementById('h-checkout').min = this.value || today;
+  });
+</script>
 <script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 <script>

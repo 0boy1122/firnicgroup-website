@@ -296,6 +296,47 @@ async function sendFormEmail(entry) {
   return true;
 }
 
+async function sendUserConfirmation(entry) {
+  if (!transporter || !entry.email || !entry.email.includes('@')) return false;
+  const name = entry.name || 'there';
+  const messages = {
+    hotel:   { label: 'hotel reservation',        eta: 'within the hour' },
+    car:     { label: 'car rental request',        eta: 'within the hour' },
+    massage: { label: 'massage appointment',       eta: 'within 24 hours' },
+    event:   { label: 'event enquiry',             eta: 'within 24 hours' },
+    driver:  { label: 'driver application',        eta: 'within 24 hours' },
+    contact: { label: 'message',                   eta: 'shortly' },
+  };
+  const { label, eta } = messages[entry._type] || { label: 'enquiry', eta: 'shortly' };
+  const safeEmail = entry.email.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  await transporter.sendMail({
+    from: `"Firnic Group" <${process.env.SMTP_USER}>`,
+    to:   safeEmail,
+    subject: `We received your ${label} — Firnic Group`,
+    html: `<div style="font-family:sans-serif;max-width:560px;color:#333">
+      <div style="background:#080808;padding:24px 28px">
+        <h2 style="color:#c9a84c;margin:0;font-size:1.1rem;letter-spacing:1px">FIRNIC GROUP</h2>
+      </div>
+      <div style="padding:28px 28px 20px">
+        <h3 style="margin:0 0 12px;font-size:1.1rem;color:#111">Hi ${name.replace(/</g,'&lt;').replace(/>/g,'&gt;')},</h3>
+        <p style="margin:0 0 16px;line-height:1.7;color:#444">
+          Thank you for reaching out. We have received your <strong>${label}</strong> and our team will get back to you <strong>${eta}</strong>.
+        </p>
+        <p style="margin:0 0 24px;line-height:1.7;color:#444">
+          In the meantime, feel free to reach us directly on WhatsApp or by phone if you need immediate assistance.
+        </p>
+        <a href="https://wa.me/233592997811" style="display:inline-block;background:#c9a84c;color:#080808;padding:12px 24px;text-decoration:none;font-weight:700;font-size:0.9rem;letter-spacing:0.5px">
+          Chat on WhatsApp →
+        </a>
+      </div>
+      <div style="background:#f5f5f5;padding:16px 28px;font-size:0.78rem;color:#888">
+        Firnic Group · +233 592 997 811 · info@firnicgroup.com · 14 Ofankor Hills Estate, Accra
+      </div>
+    </div>`
+  });
+  return true;
+}
+
 // ── Allowed origins for CORS ──────────────────────────────────────────────────
 const ALLOWED_ORIGINS = new Set([
   `http://localhost:${PORT}`,
@@ -408,6 +449,7 @@ http.createServer(async (req, res) => {
       const entry = saveSubmission(body);
       let emailed = false;
       try { emailed = await sendFormEmail(entry); } catch {}
+      try { await sendUserConfirmation(entry); } catch {}
       json(res, 200, { ok: true, id: entry.id, emailed });
     } catch (e) { json(res, 500, { ok: false, error: 'Submission failed' }); }
     return;

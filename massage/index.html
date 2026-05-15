@@ -549,6 +549,9 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script>
+  document.getElementById('m-date').min = new Date().toISOString().split('T')[0];
+</script>
 <script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>

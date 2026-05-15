@@ -537,6 +537,14 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script>
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('car-pickup').min = today;
+  document.getElementById('car-return').min = today;
+  document.getElementById('car-pickup').addEventListener('change', function() {
+    document.getElementById('car-return').min = this.value || today;
+  });
+</script>
 <script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>

@@ -126,19 +126,55 @@
 
     /* CONTACT */
     #contact { padding: 6rem 5%; text-align: center; }
-    .contact-inner { max-width: 620px; margin: 0 auto; }
-    .contact-inner p { color: var(--muted); font-size: 0.95rem; margin: 0.75rem 0 3rem; line-height: 1.8; }
+    .contact-inner { max-width: 720px; margin: 0 auto; }
+    .contact-inner > p { color: var(--muted); font-size: 0.95rem; margin: 0.75rem 0 2.5rem; line-height: 1.8; }
+
+    .contact-form {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
+    }
+    .contact-form h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 600; margin-bottom: 1.75rem;
+    }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .cf-row.single { grid-template-columns: 1fr; }
+    .cf-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .cf-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .cf-group input, .cf-group select, .cf-group textarea {
+      background: var(--dark); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .cf-group input:focus, .cf-group select:focus, .cf-group textarea:focus { border-color: var(--gold); }
+    .cf-group select { appearance: none; cursor: pointer; }
+    .cf-group textarea { resize: vertical; min-height: 100px; }
+    .cf-submit {
+      margin-top: 1.25rem; width: 100%; padding: 1rem;
+      background: var(--gold); color: #080808;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cf-submit:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .contact-divider {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-divider::before, .contact-divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
     .contact-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
     .contact-opt {
       display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
       background: var(--surface); border: 1px solid var(--border2);
-      border-radius: 8px; padding: 1.6rem 2.2rem; min-width: 148px;
+      border-radius: 8px; padding: 1.4rem 2rem; min-width: 140px;
       transition: border-color 0.2s, transform 0.2s;
     }
     .contact-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
     .c-ico { font-size: 1.4rem; }
     .c-lbl { font-size: 0.78rem; font-weight: 600; }
     .c-sub { font-size: 0.7rem; color: var(--muted); }
+    @media (max-width: 600px) { .cf-row { grid-template-columns: 1fr; } .contact-form { padding: 1.5rem; } }
 
     @media (max-width: 640px) {
       #hero { min-height: 92svh; }
@@ -262,8 +298,48 @@
 <section id="contact">
   <div class="contact-inner">
     <div class="eyebrow reveal" style="justify-content:center;">Get in Touch</div>
-    <h2 class="reveal">Ready to Book?</h2>
-    <p class="reveal">Reach us directly — we respond promptly via WhatsApp, phone, or email.</p>
+    <h2 class="reveal">How Can We Help?</h2>
+    <p class="reveal">Send us a message and we'll get back to you promptly. Or reach us directly below.</p>
+
+    <form class="contact-form reveal reveal-d1" data-firnic-form="contact" onsubmit="firnicSubmit(event,'contact')">
+      <h3>Send a Message</h3>
+      <div class="cf-row">
+        <div class="cf-group">
+          <label for="c-name">Full Name</label>
+          <input type="text" id="c-name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="cf-group">
+          <label for="c-phone">Phone / WhatsApp</label>
+          <input type="tel" id="c-phone" name="phone" placeholder="+233 ..." required />
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-group">
+          <label for="c-email">Email Address</label>
+          <input type="email" id="c-email" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="cf-group">
+          <label for="c-topic">Topic</label>
+          <select id="c-topic" name="topic">
+            <option value="Hotel Enquiry">Hotel Enquiry</option>
+            <option value="Car Rental">Car Rental</option>
+            <option value="Massage Booking">Massage Booking</option>
+            <option value="Events & Venue">Events &amp; Venue</option>
+            <option value="General Question">General Question</option>
+          </select>
+        </div>
+      </div>
+      <div class="cf-row single">
+        <div class="cf-group">
+          <label for="c-message">Message</label>
+          <textarea id="c-message" name="message" placeholder="Tell us how we can help…" required></textarea>
+        </div>
+      </div>
+      <button type="submit" class="cf-submit">Send Message →</button>
+    </form>
+
+    <div class="contact-divider reveal">Or reach us directly</div>
+
     <div class="contact-options reveal">
       <a href="https://wa.me/233592997811" target="_blank" class="contact-opt">
         <span class="c-ico">💬</span><span class="c-lbl">WhatsApp</span><span class="c-sub">+233 592 997 811</span>
@@ -356,6 +432,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script src="assets/js/form-submit.js"></script>
 <script src="assets/js/aria-widget.js"></script>
 </body>
 </html>
