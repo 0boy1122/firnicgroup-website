@@ -42,7 +42,9 @@ const MAX_BODY_BYTES    = 512 * 1024;           // 512 KB
 const LOGIN_MAX_TRIES   = 5;
 const LOGIN_LOCKOUT_MS  = 15 * 60 * 1000;       // 15 minutes
 const SUBMIT_RATE_MS    = 60 * 1000;            // 1 submission per minute per IP
+const CHAT_RATE_MS      = 10 * 1000;            // 1 chat message per 10s per IP
 const submitTimes       = new Map();            // IP → last submit timestamp
+const chatTimes         = new Map();            // IP → last chat timestamp
 
 // ── Nodemailer ────────────────────────────────────────────────────────────────
 let transporter = null;
@@ -345,6 +347,16 @@ http.createServer(async (req, res) => {
   // ── POST /api/chat ──────────────────────────────────────────────────────────
   if (urlPath === '/api/chat' && req.method === 'POST') {
     if (!GROQ_API_KEY) return json(res, 503, { error: 'AI not configured' });
+    const chatIp = getClientIP(req);
+    const lastChat = chatTimes.get(chatIp) || 0;
+    if (Date.now() - lastChat < CHAT_RATE_MS) {
+      return json(res, 429, { error: 'Too many messages. Please wait a moment.' });
+    }
+    chatTimes.set(chatIp, Date.now());
+    if (chatTimes.size > 5000) {
+      const cutoff = Date.now() - CHAT_RATE_MS * 2;
+      for (const [k, v] of chatTimes) { if (v < cutoff) chatTimes.delete(k); }
+    }
     try {
       const { messages } = await parseBody(req);
       if (!Array.isArray(messages) || messages.length > 40) return json(res, 400, { error: 'Invalid messages' });
