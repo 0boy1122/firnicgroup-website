@@ -5,22 +5,22 @@
 
 :root {
   --black:   #080808;
-  --dark:    #0e0e0e;
-  --surface: #141414;
-  --surface2:#1c1c1c;
-  --border:  rgba(201,168,76,0.12);
-  --border2: rgba(255,255,255,0.06);
-  --text:    #f0ece4;
-  --muted:   rgba(240,236,228,0.5);
+  --dark:    #f4f4f2;
+  --surface: #ffffff;
+  --surface2:#ebebea;
+  --border:  rgba(201,168,76,0.3);
+  --border2: rgba(0,0,0,0.09);
+  --text:    #111111;
+  --muted:   rgba(17,17,17,0.52);
   --gold:    #c9a84c;
-  --gold-lt: #e8c97a;
-  --gold-dim: rgba(201,168,76,0.15);
+  --gold-lt: #d4aa55;
+  --gold-dim: rgba(201,168,76,0.12);
   --r:       4px;
 }
 
 html { scroll-behavior: smooth; }
 body {
-  background: var(--black);
+  background: var(--surface);
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-weight: 300;
@@ -39,27 +39,28 @@ body::before {
   z-index: 9999;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity: 0.35;
+  opacity: 0.15;
 }
 
-/* ── NAV ── */
+/* ── NAV — stays dark ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 500;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 5%; height: 68px;
-  background: rgba(8,8,8,0.88);
+  background: rgba(8,8,8,0.94);
   backdrop-filter: blur(28px) saturate(1.2);
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   transition: background 0.3s;
 }
 .logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.55rem; font-weight: 600; letter-spacing: 0.5px;
   display: flex; flex-direction: column; line-height: 1;
+  color: #f0ece4;
 }
 .logo em { color: var(--gold); font-style: normal; }
 .logo span {
-  font-size: 0.52rem; font-weight: 400; color: var(--muted);
+  font-size: 0.52rem; font-weight: 400; color: rgba(240,236,228,0.4);
   letter-spacing: 3px; text-transform: uppercase; margin-top: 3px;
 }
 .nav-links {
@@ -69,7 +70,7 @@ nav {
 @media (min-width: 900px) { .nav-links { display: flex; } }
 .nav-links a {
   font-size: 0.72rem; font-weight: 500; letter-spacing: 1.5px;
-  color: var(--muted); text-transform: uppercase;
+  color: rgba(240,236,228,0.6); text-transform: uppercase;
   transition: color 0.2s; position: relative;
 }
 .nav-links a::after {
@@ -77,7 +78,7 @@ nav {
   width: 0; height: 1px; background: var(--gold);
   transition: width 0.3s;
 }
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a:hover, .nav-links a.active { color: #f0ece4; }
 .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 .nav-cta {
   background: var(--gold) !important; color: var(--black) !important;
@@ -91,20 +92,20 @@ nav {
   display: flex; flex-direction: column; gap: 5px;
   cursor: pointer; padding: 4px; background: none; border: none;
 }
-.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: all 0.3s; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: #f0ece4; transition: all 0.3s; }
 @media (min-width: 900px) { .hamburger { display: none; } }
 .mobile-menu {
   display: none; position: fixed; top: 68px; left: 0; right: 0;
   background: rgba(8,8,8,0.97); backdrop-filter: blur(28px);
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   padding: 2rem 5%; z-index: 499;
   flex-direction: column; gap: 0;
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
-  font-size: 0.82rem; color: var(--muted);
+  font-size: 0.82rem; color: rgba(240,236,228,0.6);
   letter-spacing: 2px; text-transform: uppercase;
-  padding: 1rem 0; border-bottom: 1px solid var(--border2);
+  padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
   transition: color 0.2s;
 }
 .mobile-menu a:hover { color: var(--gold); }
@@ -122,12 +123,20 @@ nav {
 .btn-gold:hover { background: var(--gold-lt); transform: translateY(-1px); }
 .btn-outline {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  border: 1px solid rgba(255,255,255,0.18); color: var(--text);
+  border: 1px solid rgba(0,0,0,0.22); color: var(--text);
   padding: 0.9rem 2.2rem; border-radius: var(--r);
   font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, color 0.2s;
 }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+/* Hero btn-outline override (on dark photo backgrounds) */
+#hero .btn-outline {
+  border-color: rgba(255,255,255,0.3);
+  color: #f0ece4;
+}
+#hero .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
 .btn-sm {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--gold); color: var(--black);
@@ -156,18 +165,19 @@ h2 {
   line-height: 1.8; margin-top: 1rem;
 }
 
-/* ── FOOTER ── */
+/* ── FOOTER — stays dark ── */
 .site-footer {
   background: var(--black);
-  border-top: 1px solid var(--border2);
+  border-top: 1px solid rgba(255,255,255,0.06);
   padding: 3.5rem 5% 2.5rem;
 }
+.site-footer .logo { color: #f0ece4; }
 .site-footer__inner {
   display: grid;
   grid-template-columns: 2fr repeat(3, 1fr);
   gap: 3rem;
   padding-bottom: 3rem;
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   margin-bottom: 2rem;
 }
 @media (max-width: 900px) {
@@ -177,7 +187,7 @@ h2 {
   .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
 }
 .f-brand p {
-  font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem;
+  font-size: 0.8rem; color: rgba(240,236,228,0.42); margin-top: 0.75rem;
   max-width: 240px; line-height: 1.75;
 }
 .f-col h4 {
@@ -186,10 +196,11 @@ h2 {
 }
 .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
 .f-col ul a {
-  font-size: 0.8rem; color: var(--muted);
+  font-size: 0.8rem; color: rgba(240,236,228,0.45);
   transition: color 0.2s;
 }
-.f-col ul a:hover { color: var(--text); }
+.f-col ul a:hover { color: #f0ece4; }
+.f-col ul span { font-size: 0.8rem; color: rgba(240,236,228,0.45); }
 .site-footer__bottom {
   display: flex; flex-wrap: wrap; gap: 1rem;
   justify-content: space-between; align-items: center;

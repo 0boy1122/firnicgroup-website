@@ -145,7 +145,7 @@
     .bc-item a { color: var(--muted); transition: color 0.2s; }
     .bc-item a:hover { color: var(--gold); }
     .book-form {
-      background: var(--surface2); border: 1px solid var(--border);
+      background: var(--dark); border: 1px solid var(--border2);
       padding: 2.25rem;
     }
     .book-form h3 {
@@ -160,13 +160,13 @@
       letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 0.35rem;
     }
     .f-group input, .f-group select, .f-group textarea {
-      width: 100%; background: #111; border: 1px solid var(--border2);
+      width: 100%; background: var(--surface); border: 1px solid var(--border2);
       padding: 0.8rem 1rem; color: var(--text);
       font-family: 'Inter', sans-serif; font-size: 0.88rem;
       outline: none; transition: border-color 0.2s;
     }
     .f-group input:focus, .f-group select:focus, .f-group textarea:focus { border-color: var(--gold); }
-    .f-group select option { background: #111; }
+    .f-group select option { background: var(--surface); color: var(--text); }
     .f-group textarea { resize: vertical; min-height: 80px; }
     .form-stack { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
     .submit-btn {
@@ -193,7 +193,7 @@
     .perk .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .perk p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
     .driver-form {
-      background: var(--surface2); border: 1px solid var(--border);
+      background: var(--dark); border: 1px solid var(--border2);
       padding: 2.25rem;
     }
     .driver-form h3 {
@@ -233,14 +233,14 @@
 
 <!-- HERO -->
 <section id="hero">
-  <img class="hero-bg" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1800&q=80" alt="Firnic Car Rental" fetchpriority="high" />
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80" alt="Volkswagen Amarok — Firnic Car Rental" fetchpriority="high" />
   <div class="hero-content">
     <div class="hero-tag">Firnic Car Rental · Accra, Ghana</div>
     <h1>Safety, Accessibility<br>&amp; <em>Discretion</em> Assured</h1>
     <p>A trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs — simple, reliable, and professional.</p>
     <div class="hero-actions">
       <a href="#book" class="btn-gold">Book A Car Now →</a>
-      <a href="#services" class="btn-outline">Our Services</a>
+      <a href="#drive" class="btn-outline">Become a Driver</a>
     </div>
     <div class="hero-badges">
       <div class="h-badge"><span class="ico">✈️</span><span>Airport Pickup</span></div>
@@ -258,7 +258,7 @@
   </div>
   <div class="about-grid">
     <div class="about-img reveal">
-      <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80" alt="Firnic Rental Vehicle" loading="lazy" />
+      <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80" alt="Volkswagen Amarok — Firnic Car Rental" loading="lazy" />
     </div>
     <div class="about-text reveal reveal-d1">
       <p>Firnic Car Rental Service is a trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs. Whether you're running daily errands, attending events, travelling for business, or heading out of town, we make vehicle rental simple, reliable, and professional.</p>
@@ -295,7 +295,7 @@
   </div>
   <div class="services-wrap">
     <div class="services-img reveal">
-      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Firnic Car Rental Fleet" loading="lazy" />
+      <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80" alt="Volkswagen Amarok Fleet" loading="lazy" />
     </div>
     <div>
       <div class="eyebrow reveal" style="margin-bottom:1rem;">Our Services Include</div>
@@ -407,7 +407,7 @@
   </div>
   <div class="drive-inner">
     <div class="drive-text reveal">
-      <p>Are you a professional, reliable driver in Accra? Join the Firnic Car Rental network and turn your skills into a consistent income. We're always looking for trustworthy drivers to serve our growing client base.</p>
+      <p>Are you a professional, reliable driver in Accra? Join the Firnic Car Rental network and turn your skills into a consistent income. We're always looking for trustworthy self-owner drivers to serve our growing client base.</p>
       <p>We provide the support, the clients, and the booking system — you provide the professionalism and the wheels.</p>
       <div class="driver-perks">
         <div class="perk"><span class="ico">💼</span><p>Consistent bookings from Firnic's hotel, events, and corporate clients</p></div>
@@ -468,6 +468,19 @@
         <div class="f-group">
           <label for="drv-area">Area of Operation *</label>
           <input type="text" id="drv-area" name="area" placeholder="e.g. Accra Central, Airport, Tema…" required />
+        </div>
+        <div class="f-group">
+          <label for="drv-services">Are you also interested in any of our other services?</label>
+          <select id="drv-services" name="other_services">
+            <option value="">— Select if applicable —</option>
+            <option value="Hire a car">Hire a car</option>
+            <option value="Book a hotel room">Book a hotel room</option>
+            <option value="Book a massage">Book a massage</option>
+            <option value="Hire a car + Book a room">Hire a car &amp; Book a room</option>
+            <option value="Hire a car + Book a massage">Hire a car &amp; Book a massage</option>
+            <option value="Book a room + Massage">Book a room &amp; Massage</option>
+            <option value="All services">All of the above</option>
+          </select>
         </div>
         <div class="f-group">
           <label for="drv-notes">Anything else we should know?</label>

@@ -1,34 +1,42 @@
 [
   {
-    "id": "classic-single",
-    "name": "Classic Single",
+    "id": "mini-royal",
+    "name": "Mini Royal",
     "price": 450,
-    "total": 4,
-    "available": 4,
-    "description": "A well-appointed single room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping."
+    "total": 1,
+    "available": 1,
+    "description": "A well-appointed room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping."
   },
   {
-    "id": "superior-twin",
-    "name": "Superior Twin",
+    "id": "grand-chamber",
+    "name": "Grand Chamber",
+    "price": 650,
+    "total": 1,
+    "available": 1,
+    "description": "Spacious chamber with premium bedding, minibar, work desk, and all the amenities for a comfortable stay."
+  },
+  {
+    "id": "elegant-retreat",
+    "name": "Elegant Retreat",
     "price": 550,
     "total": 3,
     "available": 3,
-    "description": "Spacious twin room with premium bedding, minibar, work desk, and all the amenities for a comfortable stay."
+    "description": "Elegant room with premium furnishings, luxury toiletries, and beautiful views of the estate."
   },
   {
-    "id": "deluxe-double",
-    "name": "Deluxe Double",
-    "price": 700,
-    "total": 2,
-    "available": 2,
-    "description": "Elegant double room with king-size bed, luxury toiletries, premium furnishings, and beautiful views of the estate."
-  },
-  {
-    "id": "prestige-suite",
-    "name": "Prestige Suite",
-    "price": 950,
+    "id": "cozy-alcove",
+    "name": "Cozy Alcove",
+    "price": 600,
     "total": 1,
     "available": 1,
-    "description": "Our finest accommodation — a spacious suite with separate living area, premium finishes, and exclusive amenities throughout."
+    "description": "A cozy, intimate space with quality furnishings, all essential amenities, and a warm, welcoming atmosphere."
+  },
+  {
+    "id": "royal-sanctuary",
+    "name": "Royal Sanctuary",
+    "price": 700,
+    "total": 1,
+    "available": 1,
+    "description": "Our premier accommodation — a spacious sanctuary with refined finishes, premium comfort, and exclusive amenities throughout."
   }
 ]

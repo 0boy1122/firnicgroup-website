@@ -88,7 +88,7 @@
     .cta-inner > p { color: var(--muted); margin: 0.75rem 0 3rem; font-weight: 300; line-height: 1.8; }
     .cta-btns { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3.5rem; }
     .ev-form {
-      background: var(--surface2); border: 1px solid var(--border);
+      background: var(--dark); border: 1px solid var(--border2);
       padding: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem;
     }
     .ev-form h3 {
@@ -103,13 +103,13 @@
       letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 0.35rem;
     }
     .ev-form input, .ev-form select, .ev-form textarea {
-      width: 100%; background: #111; border: 1px solid var(--border2);
+      width: 100%; background: var(--surface); border: 1px solid var(--border2);
       padding: 0.8rem 1rem; color: var(--text);
       font-family: 'Inter', sans-serif; font-size: 0.88rem;
       outline: none; transition: border-color 0.2s;
     }
     .ev-form input:focus, .ev-form select:focus, .ev-form textarea:focus { border-color: var(--gold); }
-    .ev-form select option { background: #1a1a1a; }
+    .ev-form select option { background: var(--surface); color: var(--text); }
     .ev-form textarea { resize: vertical; min-height: 100px; }
     .ev-submit {
       background: var(--gold); border: none; padding: 0.95rem;
@@ -156,11 +156,11 @@
   <img class="hero-bg" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" fetchpriority="high" alt="Firnic Events" />
   <div class="hero-content">
     <div class="hero-tag">Firnic Group · Events Division</div>
-    <h1>Your Perfect<br><em>Event Starts Here</em></h1>
-    <p>Dream weddings, milestone birthdays, corporate retreats, and unforgettable family reunions — planned and executed with precision and elegance.</p>
+    <h1>Your Perfect<br><em>Venue Awaits</em></h1>
+    <p>Host weddings, birthdays, corporate gatherings, and private celebrations in a stylish space designed to bring your vision to life.</p>
     <div class="hero-actions">
-      <a href="#cta-section" class="btn-gold">Plan Your Event →</a>
-      <a href="#events-types" class="btn-outline">What We Host</a>
+      <a href="#cta-section" class="btn-gold">Book Your Venue →</a>
+      <a href="#events-types" class="btn-outline">Explore Our Spaces</a>
     </div>
   </div>
 </section>
@@ -169,40 +169,40 @@
 <section id="events-types">
   <div class="reveal">
     <div class="eyebrow">What We Host</div>
-    <h2>Every Occasion, Perfected</h2>
-    <p class="sec-sub">From intimate gatherings to grand celebrations — we handle every detail so you don't have to.</p>
+    <h2>Spaces for Every Occasion</h2>
+    <p class="sec-sub">From intimate gatherings to grand celebrations, our venue provides the perfect setting for unforgettable moments.</p>
   </div>
   <div class="events-grid">
     <div class="ev-card reveal">
       <img class="ev-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Weddings" loading="lazy" />
       <div class="ev-body">
         <div class="ev-tag">Weddings</div>
-        <h3>Dream Weddings</h3>
-        <p>Your special day deserves an extraordinary setting. We create bespoke wedding experiences with every detail meticulously curated.</p>
+        <h3>Elegant Wedding Spaces</h3>
+        <p>Create beautiful memories in a venue designed to complement your special day. Spacious, stylish, and ready for your personal touch.</p>
       </div>
     </div>
     <div class="ev-card reveal reveal-d1">
       <img class="ev-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Birthdays" loading="lazy" />
       <div class="ev-body">
         <div class="ev-tag">Private Celebrations</div>
-        <h3>Milestone Birthdays</h3>
-        <p>Celebrate in style. Whether intimate or grand, we transform your vision into a celebration you'll remember forever.</p>
+        <h3>Birthday &amp; Celebration Venues</h3>
+        <p>Whether it's a milestone birthday, bridal shower, or private party, our space gives you the freedom to celebrate your way.</p>
       </div>
     </div>
     <div class="ev-card reveal reveal-d2">
       <img class="ev-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Corporate Events" loading="lazy" />
       <div class="ev-body">
         <div class="ev-tag">Corporate</div>
-        <h3>Corporate Retreats</h3>
-        <p>Productive yet relaxing corporate retreats in a private, secure setting. Meeting rooms, catering, and full event support included.</p>
+        <h3>Corporate Event Spaces</h3>
+        <p>Host meetings, retreats, networking sessions, and company events in a professional and comfortable environment tailored to your needs.</p>
       </div>
     </div>
     <div class="ev-card reveal reveal-d3">
-      <img class="ev-img" src="https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80" alt="Family Reunions" loading="lazy" />
+      <img class="ev-img" src="https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80" alt="Family Gatherings" loading="lazy" />
       <div class="ev-body">
         <div class="ev-tag">Family &amp; Social</div>
-        <h3>Family Reunions</h3>
-        <p>Bring loved ones together in a warm, private, and beautifully appointed venue. We handle the logistics — you make the memories.</p>
+        <h3>Family Gatherings &amp; Social Events</h3>
+        <p>Bring loved ones together in a warm and welcoming venue perfect for reunions, dinners, and memorable social occasions.</p>
       </div>
     </div>
   </div>
@@ -221,24 +221,14 @@
       <p>Full-day security and CCTV ensure your event stays exclusive and safe.</p>
     </div>
     <div class="why-item reveal reveal-d1">
-      <div class="ico">🍽️</div>
-      <h3>In-House Catering</h3>
-      <p>Custom menus and dining experiences tailored to your event.</p>
-    </div>
-    <div class="why-item reveal reveal-d2">
       <div class="ico">🚘</div>
-      <h3>Transport Included</h3>
+      <h3>Transportation</h3>
       <p>Executive car hire available for guests and the wedding party.</p>
     </div>
-    <div class="why-item reveal reveal-d3">
+    <div class="why-item reveal reveal-d2">
       <div class="ico">🌿</div>
       <h3>Wellness Add-Ons</h3>
       <p>Prestige massage treatments available for guests during the event.</p>
-    </div>
-    <div class="why-item reveal">
-      <div class="ico">🎯</div>
-      <h3>End-to-End Planning</h3>
-      <p>From concept to execution — we manage every detail for you.</p>
     </div>
   </div>
 </section>
@@ -300,14 +290,26 @@
             <option value="1-20">1 – 20 guests</option>
             <option value="21-50">21 – 50 guests</option>
             <option value="51-100">51 – 100 guests</option>
-            <option value="101-200">101 – 200 guests</option>
-            <option value="200+">200+ guests</option>
+            <option value="101-120">101 – 120 guests</option>
           </select>
         </div>
       </div>
       <div>
+        <label for="ev-services">Would you also like to add any of these services?</label>
+        <select id="ev-services" name="additional_services">
+          <option value="">— Select if applicable —</option>
+          <option value="Car hire for guests">Car hire for guests</option>
+          <option value="Hotel room booking">Hotel room booking</option>
+          <option value="Massage for guests">Massage for guests</option>
+          <option value="Car hire + Hotel rooms">Car hire &amp; Hotel rooms</option>
+          <option value="Car hire + Massage">Car hire &amp; Massage</option>
+          <option value="Hotel rooms + Massage">Hotel rooms &amp; Massage</option>
+          <option value="All services">Car hire, Hotel rooms &amp; Massage</option>
+        </select>
+      </div>
+      <div>
         <label for="ev-msg">Additional Details</label>
-        <textarea id="ev-msg" name="message" placeholder="Describe your event, any special requirements, theme, catering needs, etc."></textarea>
+        <textarea id="ev-msg" name="message" placeholder="Describe your event, any special requirements, theme, etc."></textarea>
       </div>
       <button type="submit" class="ev-submit">Send Event Enquiry →</button>
     </form>

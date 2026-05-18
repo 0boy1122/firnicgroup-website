@@ -182,7 +182,7 @@
     .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; font-size: 0.95rem; line-height: 1.8; }
 
     .hotel-form {
-      background: var(--surface2); border: 1px solid var(--border);
+      background: var(--dark); border: 1px solid var(--border2);
       padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
     }
     .hotel-form h3 {
@@ -196,7 +196,7 @@
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: var(--dark); border: 1px solid var(--border2);
+      background: var(--surface); border: 1px solid var(--border2);
       color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
       font-family: inherit; outline: none;
       transition: border-color 0.2s;
@@ -296,7 +296,7 @@
       <p>Firnic Luxurious Private Hotel is Accra's premier destination for guests who demand the very best. Nestled in a tranquil, secure location, our hotel offers an intimate atmosphere that larger establishments simply cannot match.</p>
       <p>Every detail — from the premium furnishings in each room to the attentive, discreet service — has been carefully curated to ensure your stay is nothing short of extraordinary.</p>
       <div class="about-stats">
-        <div><div class="stat-val">4</div><div class="stat-lbl">Room Categories</div></div>
+        <div><div class="stat-val">5</div><div class="stat-lbl">Room Categories</div></div>
         <div><div class="stat-val">24/7</div><div class="stat-lbl">Security &amp; Service</div></div>
         <div><div class="stat-val">100%</div><div class="stat-lbl">Privacy Assured</div></div>
       </div>
@@ -319,55 +319,68 @@
     <p class="sec-sub">Each room is thoughtfully designed to blend comfort with elegance — offering everything you need for a perfect stay in Accra.</p>
   </div>
   <div class="rooms-grid">
-    <div class="room-card reveal" data-room-id="classic-single">
-      <div class="room-img"><img src="../assets/interior/IMG_0961-1.jpeg" alt="Classic Single Room" loading="lazy" /></div>
+    <div class="room-card reveal" data-room-id="mini-royal">
+      <div class="room-img"><img src="../assets/interior/IMG_0961-1.jpeg" alt="Mini Royal Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Room</div>
-        <h3>Classic Single</h3>
-        <p>A well-appointed single room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping.</p>
-        <div class="room-avail" id="avail-classic-single"></div>
+        <h3>Mini Royal</h3>
+        <p>A well-appointed room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping.</p>
+        <div class="room-avail" id="avail-mini-royal"></div>
         <div class="room-footer">
           <div class="room-price">GHS 450 <span>/ night</span></div>
-          <a href="#book" class="btn-sm" id="book-classic-single">Book →</a>
+          <a href="#book" class="btn-sm" id="book-mini-royal">Book →</a>
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-d1" data-room-id="superior-twin">
-      <div class="room-img"><img src="../assets/interior/IMG_0966-1.jpeg" alt="Superior Twin Room" loading="lazy" /></div>
+    <div class="room-card reveal reveal-d1" data-room-id="elegant-retreat">
+      <div class="room-img"><img src="../assets/interior/IMG_0966-1.jpeg" alt="Elegant Retreat Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Room</div>
-        <h3>Superior Twin</h3>
-        <p>Spacious twin room with premium bedding, minibar, work desk, and all the amenities for a comfortable stay.</p>
-        <div class="room-avail" id="avail-superior-twin"></div>
+        <h3>Elegant Retreat</h3>
+        <p>Elegant room with premium furnishings, luxury toiletries, and beautiful views of the estate.</p>
+        <div class="room-avail" id="avail-elegant-retreat"></div>
         <div class="room-footer">
           <div class="room-price">GHS 550 <span>/ night</span></div>
-          <a href="#book" class="btn-sm" id="book-superior-twin">Book →</a>
+          <a href="#book" class="btn-sm" id="book-elegant-retreat">Book →</a>
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-d2" data-room-id="deluxe-double">
-      <div class="room-img"><img src="../assets/interior/IMG_0971-1.jpeg" alt="Deluxe Double Room" loading="lazy" /></div>
+    <div class="room-card reveal reveal-d2" data-room-id="cozy-alcove">
+      <div class="room-img"><img src="../assets/interior/IMG_0971-1.jpeg" alt="Cozy Alcove Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Room</div>
-        <h3>Deluxe Double</h3>
-        <p>Elegant double room with king-size bed, luxury toiletries, premium furnishings, and beautiful views of the estate.</p>
-        <div class="room-avail" id="avail-deluxe-double"></div>
+        <h3>Cozy Alcove</h3>
+        <p>A cozy, intimate space with quality furnishings, all essential amenities, and a warm, welcoming atmosphere.</p>
+        <div class="room-avail" id="avail-cozy-alcove"></div>
         <div class="room-footer">
-          <div class="room-price">GHS 700 <span>/ night</span></div>
-          <a href="#book" class="btn-sm" id="book-deluxe-double">Book →</a>
+          <div class="room-price">GHS 600 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-cozy-alcove">Book →</a>
         </div>
       </div>
     </div>
-    <div class="room-card reveal reveal-d3" data-room-id="prestige-suite">
-      <div class="room-img"><img src="../assets/interior/IMG_0977-1.jpeg" alt="Prestige Suite" loading="lazy" /></div>
+    <div class="room-card reveal reveal-d3" data-room-id="grand-chamber">
+      <div class="room-img"><img src="../assets/interior/IMG_0977-1.jpeg" alt="Grand Chamber Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room</div>
+        <h3>Grand Chamber</h3>
+        <p>Spacious chamber with premium bedding, minibar, work desk, and all the amenities for a comfortable stay.</p>
+        <div class="room-avail" id="avail-grand-chamber"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 650 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-grand-chamber">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-d1" data-room-id="royal-sanctuary">
+      <div class="room-img"><img src="../assets/interior/IMG_0984-1.jpeg" alt="Royal Sanctuary Room" loading="lazy" /></div>
       <div class="room-body">
         <div class="room-tag">Suite</div>
-        <h3>Prestige Suite</h3>
-        <p>Our finest accommodation — a spacious suite with separate living area, premium finishes, and exclusive amenities throughout.</p>
-        <div class="room-avail" id="avail-prestige-suite"></div>
+        <h3>Royal Sanctuary</h3>
+        <p>Our premier accommodation — a spacious sanctuary with refined finishes, premium comfort, and exclusive amenities throughout.</p>
+        <div class="room-avail" id="avail-royal-sanctuary"></div>
         <div class="room-footer">
-          <div class="room-price">GHS 950 <span>/ night</span></div>
-          <a href="#book" class="btn-sm" id="book-prestige-suite">Book →</a>
+          <div class="room-price">GHS 700 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-royal-sanctuary">Book →</a>
         </div>
       </div>
     </div>
@@ -408,8 +421,10 @@
     <div class="amenity reveal reveal-d3"><div class="ico">🔒</div><h3>24/7 Security</h3><p>Our dedicated security team ensures a safe and peaceful environment around the clock.</p></div>
     <div class="amenity reveal"><div class="ico">🧹</div><h3>Daily Housekeeping</h3><p>Professional housekeeping service provided daily to maintain immaculate rooms.</p></div>
     <div class="amenity reveal reveal-d1"><div class="ico">🚗</div><h3>Free Parking</h3><p>Secure, on-site parking available for all hotel guests at no extra charge.</p></div>
-    <div class="amenity reveal reveal-d2"><div class="ico">🌿</div><h3>Private Gardens</h3><p>Beautiful, well-maintained gardens and outdoor spaces to relax and unwind.</p></div>
-    <div class="amenity reveal reveal-d3"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a wide variety of channels.</p></div>
+    <div class="amenity reveal reveal-d2"><div class="ico">🌡️</div><h3>Heater</h3><p>In-room heaters available for a comfortable, temperature-controlled environment at any time.</p></div>
+    <div class="amenity reveal reveal-d3"><div class="ico">❄️</div><h3>Fridge</h3><p>Each room is equipped with a refrigerator to keep your drinks and refreshments cool.</p></div>
+    <div class="amenity reveal"><div class="ico">⚡</div><h3>Standby Generator</h3><p>Uninterrupted power supply with a standby generator — no disruptions to your comfort.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a wide variety of channels.</p></div>
   </div>
 </section>
 
@@ -478,10 +493,11 @@
           <label for="h-room">Room Type</label>
           <select id="h-room" name="room_type" required>
             <option value="" disabled selected>Select a room</option>
-            <option value="Classic Single — GHS 450/night">Classic Single — GHS 450 / night</option>
-            <option value="Superior Twin — GHS 550/night">Superior Twin — GHS 550 / night</option>
-            <option value="Deluxe Double — GHS 700/night">Deluxe Double — GHS 700 / night</option>
-            <option value="Prestige Suite — GHS 950/night">Prestige Suite — GHS 950 / night</option>
+            <option value="Mini Royal — GHS 450/night">Mini Royal — GHS 450 / night</option>
+            <option value="Elegant Retreat — GHS 550/night">Elegant Retreat — GHS 550 / night</option>
+            <option value="Cozy Alcove — GHS 600/night">Cozy Alcove — GHS 600 / night</option>
+            <option value="Grand Chamber — GHS 650/night">Grand Chamber — GHS 650 / night</option>
+            <option value="Royal Sanctuary — GHS 700/night">Royal Sanctuary — GHS 700 / night</option>
           </select>
         </div>
       </div>
@@ -534,11 +550,6 @@
         <span class="b-lbl">Email Us</span>
         <span class="b-sub">info@firnicgroup.com</span>
       </a>
-      <a href="https://www.booking.com" target="_blank" rel="noopener" class="book-opt">
-        <span class="b-ico">🌐</span>
-        <span class="b-lbl">Booking.com</span>
-        <span class="b-sub">Reserve Online</span>
-      </a>
     </div>
   </div>
 </section>
@@ -553,10 +564,11 @@
     <div class="f-col">
       <h4>Accommodation</h4>
       <ul>
-        <li><a href="#rooms">Classic Single</a></li>
-        <li><a href="#rooms">Superior Twin</a></li>
-        <li><a href="#rooms">Deluxe Double</a></li>
-        <li><a href="#rooms">Prestige Suite</a></li>
+        <li><a href="#rooms">Mini Royal</a></li>
+        <li><a href="#rooms">Elegant Retreat</a></li>
+        <li><a href="#rooms">Cozy Alcove</a></li>
+        <li><a href="#rooms">Grand Chamber</a></li>
+        <li><a href="#rooms">Royal Sanctuary</a></li>
       </ul>
     </div>
     <div class="f-col">

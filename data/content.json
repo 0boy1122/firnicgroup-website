@@ -1,22 +1,21 @@
 {
   "massage": {
-    "deep_tissue_60": 280,
-    "deep_tissue_90": 380,
-    "deep_tissue_120": 480,
-    "thai_oil_60": 260,
-    "thai_oil_90": 360,
-    "thai_oil_120": 460,
+    "deep_tissue_60": 400,
+    "deep_tissue_90": 480,
+    "deep_tissue_120": 580,
+    "thai_oil_60": 350,
+    "thai_oil_90": 450,
+    "thai_oil_120": 560,
     "thai_dry_60": 240,
     "thai_dry_90": 340,
     "thai_dry_120": 440,
-    "swedish_60": 250,
-    "swedish_90": 350,
-    "swedish_120": 450,
+    "swedish_45": 250,
+    "swedish_60": 320,
     "reflexology": 200,
     "foot": 150,
     "neck_shoulder": 130,
     "foot_vibration": 120,
-    "chair": 80
+    "chair": 100
   },
   "contact": {
     "phone": "233592997811",

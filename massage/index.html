@@ -82,7 +82,7 @@
       padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border2);
     }
     .price-table td {
-      padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding: 1rem 1.25rem; border-bottom: 1px solid rgba(0,0,0,0.05);
       vertical-align: middle;
     }
     .price-table tr:last-child td { border-bottom: none; }
@@ -118,7 +118,7 @@
     .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; line-height: 1.8; }
 
     .massage-form {
-      background: var(--surface2); border: 1px solid var(--border);
+      background: var(--dark); border: 1px solid var(--border2);
       padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
     }
     .massage-form h3 {
@@ -132,7 +132,7 @@
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: var(--dark); border: 1px solid var(--border2);
+      background: var(--surface); border: 1px solid var(--border2);
       color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
       font-family: inherit; outline: none; transition: border-color 0.2s;
     }
@@ -237,9 +237,9 @@
       <p>Open every day. Book morning, afternoon, or evening — we work around your schedule.</p>
     </div>
     <div class="why-item reveal reveal-d3">
-      <div class="ico">🏨</div>
-      <h3>In-Room Available</h3>
-      <p>Staying at Firnic Hotel? Book a treatment delivered directly to your room.</p>
+      <div class="ico">💑</div>
+      <h3>Couple Massage</h3>
+      <p>Enjoy a relaxing couples massage experience in a private setting — perfect for two.</p>
     </div>
   </div>
 </section>
@@ -328,9 +328,8 @@
       <table class="price-table">
         <thead><tr><th>Duration</th><th>Description</th><th>Price</th><th></th></tr></thead>
         <tbody>
-          <tr><td class="duration">60 min</td><td>Classic Swedish relaxation treatment</td><td class="price" id="price-sw60">GHS 250</td><td><a href="https://wa.me/233592997811?text=I'd+like+to+book+a+60min+Swedish+massage" class="btn-book" target="_blank">Book</a></td></tr>
-          <tr><td class="duration">90 min</td><td>Full Swedish — head to toe relaxation</td><td class="price" id="price-sw90">GHS 350</td><td><a href="https://wa.me/233592997811?text=I'd+like+to+book+a+90min+Swedish+massage" class="btn-book" target="_blank">Book</a></td></tr>
-          <tr><td class="duration">120 min</td><td>Luxurious full-body Swedish ritual</td><td class="price" id="price-sw120">GHS 450</td><td><a href="https://wa.me/233592997811?text=I'd+like+to+book+a+120min+Swedish+massage" class="btn-book" target="_blank">Book</a></td></tr>
+          <tr><td class="duration">45 min</td><td>Classic Swedish relaxation treatment</td><td class="price" id="price-sw45">GHS 250</td><td><a href="https://wa.me/233592997811?text=I'd+like+to+book+a+45min+Swedish+massage" class="btn-book" target="_blank">Book</a></td></tr>
+          <tr><td class="duration">60 min</td><td>Full Swedish — head to toe relaxation</td><td class="price" id="price-sw60">GHS 320</td><td><a href="https://wa.me/233592997811?text=I'd+like+to+book+a+60min+Swedish+massage" class="btn-book" target="_blank">Book</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -348,14 +347,14 @@
     <div class="spec-grid">
       <div class="spec-card">
         <h4>Reflexology</h4>
-        <div class="dur">45 – 60 min</div>
+        <div class="dur">20 – 45 min</div>
         <div class="pr" id="price-ref">GHS 200</div>
         <p>Pressure point therapy on the feet to stimulate healing and restore balance throughout the body.</p>
         <a href="https://wa.me/233592997811?text=I'd+like+to+book+Reflexology" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;" target="_blank">Book</a>
       </div>
       <div class="spec-card">
         <h4>Foot Massage</h4>
-        <div class="dur">30 – 45 min</div>
+        <div class="dur">15 – 25 min</div>
         <div class="pr" id="price-foot">GHS 150</div>
         <p>Soothing massage for tired, aching feet — perfect after a long day.</p>
         <a href="https://wa.me/233592997811?text=I'd+like+to+book+a+Foot+Massage" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;" target="_blank">Book</a>
@@ -377,7 +376,7 @@
       <div class="spec-card">
         <h4>Chair Massage</h4>
         <div class="dur">15 – 20 min</div>
-        <div class="pr" id="price-chair">GHS 80</div>
+        <div class="pr" id="price-chair">GHS 100</div>
         <p>Quick seated massage on back, shoulders, and neck. Perfect for a fast stress-relief break.</p>
         <a href="https://wa.me/233592997811?text=I'd+like+to+book+a+Chair+Massage" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;" target="_blank">Book</a>
       </div>
@@ -416,14 +415,14 @@
           <select id="m-treatment" name="treatment_type" required>
             <option value="" disabled selected>Select treatment</option>
             <optgroup label="Deep Tissue / Sport">
-              <option>Deep Tissue — 60 min (GHS 280)</option>
-              <option>Deep Tissue — 90 min (GHS 380)</option>
-              <option>Deep Tissue — 120 min (GHS 480)</option>
+              <option>Deep Tissue — 60 min (GHS 400)</option>
+              <option>Deep Tissue — 90 min (GHS 480)</option>
+              <option>Deep Tissue — 120 min (GHS 580)</option>
             </optgroup>
             <optgroup label="Thai with Oil">
-              <option>Thai Oil — 60 min (GHS 260)</option>
-              <option>Thai Oil — 90 min (GHS 360)</option>
-              <option>Thai Oil — 120 min (GHS 460)</option>
+              <option>Thai Oil — 60 min (GHS 350)</option>
+              <option>Thai Oil — 90 min (GHS 450)</option>
+              <option>Thai Oil — 120 min (GHS 560)</option>
             </optgroup>
             <optgroup label="Thai without Oil">
               <option>Thai Dry — 60 min (GHS 240)</option>
@@ -431,16 +430,15 @@
               <option>Thai Dry — 120 min (GHS 440)</option>
             </optgroup>
             <optgroup label="Swedish">
-              <option>Swedish — 60 min (GHS 250)</option>
-              <option>Swedish — 90 min (GHS 350)</option>
-              <option>Swedish — 120 min (GHS 450)</option>
+              <option>Swedish — 45 min (GHS 250)</option>
+              <option>Swedish — 60 min (GHS 320)</option>
             </optgroup>
             <optgroup label="Speciality">
               <option>Reflexology (GHS 200)</option>
               <option>Foot Massage (GHS 150)</option>
               <option>Neck &amp; Shoulder (GHS 130)</option>
               <option>Foot Vibration (GHS 120)</option>
-              <option>Chair Massage (GHS 80)</option>
+              <option>Chair Massage (GHS 100)</option>
             </optgroup>
           </select>
         </div>
@@ -557,7 +555,7 @@
       'price-dt60': m.deep_tissue_60,   'price-dt90': m.deep_tissue_90,  'price-dt120': m.deep_tissue_120,
       'price-to60': m.thai_oil_60,      'price-to90': m.thai_oil_90,     'price-to120': m.thai_oil_120,
       'price-td60': m.thai_dry_60,      'price-td90': m.thai_dry_90,     'price-td120': m.thai_dry_120,
-      'price-sw60': m.swedish_60,       'price-sw90': m.swedish_90,      'price-sw120': m.swedish_120,
+      'price-sw45': m.swedish_45,       'price-sw60': m.swedish_60,
       'price-ref': m.reflexology, 'price-foot': m.foot, 'price-ns': m.neck_shoulder,
       'price-fv': m.foot_vibration, 'price-chair': m.chair,
     };
