@@ -1329,10 +1329,11 @@
     // Auto-decrement room when a hotel booking is confirmed (only if not already confirmed)
     if (status === 'confirmed' && sub && sub.status !== 'confirmed' && sub._type === 'hotel' && sub.room_type) {
       const roomMap = {
-        'Classic Single':  'classic-single',
-        'Superior Twin':   'superior-twin',
-        'Deluxe Double':   'deluxe-double',
-        'Prestige Suite':  'prestige-suite',
+        'Mini Royal':      'mini-royal',
+        'Grand Chamber':   'grand-chamber',
+        'Elegant Retreat': 'elegant-retreat',
+        'Cozy Alcove':     'cozy-alcove',
+        'Royal Sanctuary': 'royal-sanctuary',
       };
       const match = Object.keys(roomMap).find(k => sub.room_type.includes(k));
       if (match) {
