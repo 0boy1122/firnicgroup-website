@@ -724,6 +724,32 @@
     }
     .settings-save:hover { opacity: 0.9; }
 
+    /* ── CONTENT MANAGER ── */
+    .cm-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .cm-section h3 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .cm-section p.cm-sub { font-size: 0.72rem; color: var(--text-sm); margin-bottom: 1.25rem; }
+    .cm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .cm-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .cm-field label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sm); }
+    .cm-field input, .cm-field textarea {
+      background: #1a1a1a; border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.55rem 0.8rem; color: var(--text); font-family: inherit; font-size: 0.82rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .cm-field input:focus, .cm-field textarea:focus { border-color: var(--gold); }
+    .cm-field textarea { resize: vertical; min-height: 60px; }
+    .cm-field input[type="number"] { width: 100%; }
+    .cm-save {
+      background: linear-gradient(135deg, var(--gold), #a8832c); border: none; border-radius: 8px;
+      padding: 0.6rem 1.5rem; color: #0e0e0e; font-family: inherit; font-size: 0.8rem;
+      font-weight: 700; cursor: pointer; transition: opacity 0.2s;
+    }
+    .cm-save:hover { opacity: 0.9; }
+    .cm-room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .cm-room-card { background: #1a1a1a; border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .cm-room-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--gold); margin-bottom: 0.1rem; }
+    .cm-price-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.6rem; margin-bottom: 1rem; }
+
     @media (max-width: 640px) {
       #sidebar { width: 60px; }
       .sb-logo span, .sb-item span:not(.ico), .sb-footer .sb-user, .logout-btn { display: none; }
@@ -771,6 +797,9 @@
       </div>
       <div class="sb-item" onclick="quickFilter('event')">
         <span class="ico">🎉</span><span>Events</span>
+      </div>
+      <div class="sb-item" data-view="content" onclick="switchView('content', this)">
+        <span class="ico">✏️</span><span>Content</span>
       </div>
       <div class="sb-item" data-view="settings" onclick="switchView('settings', this)">
         <span class="ico">⚙️</span><span>Settings</span>
@@ -865,6 +894,78 @@
             <div class="big">🔍</div>No submissions match this filter
           </div>
         </div>
+      </div>
+
+      <!-- CONTENT VIEW -->
+      <div id="view-content" class="view">
+
+        <div class="cm-section">
+          <h3>🏨 Hotel Rooms</h3>
+          <p class="cm-sub">Edit room names, prices, and descriptions. Changes appear on the website immediately.</p>
+          <div class="cm-room-grid" id="cm-rooms-grid">
+            <div style="color:var(--text-sm);font-size:0.8rem">Loading…</div>
+          </div>
+        </div>
+
+        <div class="cm-section">
+          <h3>💆 Massage Prices (GHS)</h3>
+          <p class="cm-sub">Update session prices. Customers see the new prices immediately on the massage page.</p>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Deep Tissue / Sport</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-dt60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-dt90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-dt120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Thai with Oil</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-to60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-to90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-to120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Thai without Oil</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-td60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-td90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-td120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Swedish</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-sw60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-sw90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-sw120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Speciality</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>Reflexology</label><input type="number" id="cm-ref" min="0" /></div>
+              <div class="cm-field"><label>Foot Massage</label><input type="number" id="cm-foot" min="0" /></div>
+              <div class="cm-field"><label>Neck &amp; Shoulder</label><input type="number" id="cm-ns" min="0" /></div>
+              <div class="cm-field"><label>Foot Vibration</label><input type="number" id="cm-fv" min="0" /></div>
+              <div class="cm-field"><label>Chair Massage</label><input type="number" id="cm-chair" min="0" /></div>
+            </div>
+          </div>
+          <button class="cm-save" onclick="saveMassagePrices()">Save Massage Prices →</button>
+        </div>
+
+        <div class="cm-section">
+          <h3>📞 Contact Details</h3>
+          <p class="cm-sub">Update the phone number, email, and address shown across the site.</p>
+          <div class="cm-grid">
+            <div class="cm-field"><label>Phone / WhatsApp (digits only)</label><input type="text" id="cm-phone" placeholder="233592997811" /></div>
+            <div class="cm-field"><label>Email Address</label><input type="email" id="cm-email" placeholder="info@firnicgroup.com" /></div>
+            <div class="cm-field"><label>Physical Address</label><input type="text" id="cm-address" placeholder="14 Ofankor Hills Estate, Accra" /></div>
+          </div>
+          <button class="cm-save" onclick="saveContactInfo()">Save Contact Info →</button>
+        </div>
+
       </div>
 
       <!-- SETTINGS VIEW -->
@@ -1353,6 +1454,7 @@
     dashboard:   ['Dashboard', 'Overview of all activity'],
     submissions: ['Bookings & Enquiries', 'All form submissions'],
     rooms:       ['Room Availability', 'Control what customers see live'],
+    content:     ['Content Manager', 'Edit prices, rooms, and contact info'],
     settings:    ['Settings', 'Manage password and preferences'],
   };
   function switchView(name, el) {
@@ -1364,6 +1466,113 @@
     document.getElementById('view-title').textContent = title;
     document.getElementById('view-sub').textContent   = sub;
     if (name === 'rooms') loadRooms();
+    if (name === 'content') loadContent();
+  }
+
+  // ── Content Manager ──────────────────────────────────────────────────────────
+  let contentData = {};
+
+  async function loadContent() {
+    try {
+      const [cr, rr] = await Promise.all([
+        authFetch(API + '/admin/api/content'),
+        authFetch(API + '/admin/api/rooms'),
+      ]);
+      contentData = await cr.json();
+      allRooms = await rr.json();
+      renderContentRooms();
+      renderMassagePrices();
+      renderContactInfo();
+    } catch(e) { showToast('Failed to load content'); }
+  }
+
+  function renderContentRooms() {
+    const grid = document.getElementById('cm-rooms-grid');
+    if (!allRooms.length) { grid.innerHTML = '<div style="color:var(--text-sm)">No rooms found</div>'; return; }
+    grid.innerHTML = allRooms.map(r => `
+      <div class="cm-room-card">
+        <h4>${esc(r.name)}</h4>
+        <div class="cm-field"><label>Room Name</label><input type="text" id="cmr-name-${r.id}" value="${esc(r.name)}" /></div>
+        <div class="cm-field"><label>Price per Night (GHS)</label><input type="number" id="cmr-price-${r.id}" value="${r.price}" min="0" /></div>
+        <div class="cm-field"><label>Description</label><textarea id="cmr-desc-${r.id}">${esc(r.description||'')}</textarea></div>
+        <button class="cm-save" onclick="saveRoomDetails('${r.id}')">Save Room →</button>
+      </div>`).join('');
+  }
+
+  async function saveRoomDetails(id) {
+    const name  = document.getElementById('cmr-name-'+id)?.value.trim();
+    const price = parseInt(document.getElementById('cmr-price-'+id)?.value, 10);
+    const description = document.getElementById('cmr-desc-'+id)?.value.trim();
+    if (!name || isNaN(price) || price <= 0) { showToast('Please enter a valid name and price'); return; }
+    const r = await authFetch(API + '/admin/api/rooms/' + id, {
+      method: 'PATCH', body: JSON.stringify({ name, price, description })
+    });
+    if (!r.ok) { showToast('Failed to save room'); return; }
+    const updated = await r.json();
+    const idx = allRooms.findIndex(r => r.id === id);
+    if (idx !== -1) allRooms[idx] = updated;
+    showToast('Room updated — changes live on website');
+    renderContentRooms();
+  }
+
+  function renderMassagePrices() {
+    const m = contentData.massage || {};
+    const map = {
+      'cm-dt60': 'deep_tissue_60', 'cm-dt90': 'deep_tissue_90', 'cm-dt120': 'deep_tissue_120',
+      'cm-to60': 'thai_oil_60',   'cm-to90': 'thai_oil_90',    'cm-to120': 'thai_oil_120',
+      'cm-td60': 'thai_dry_60',   'cm-td90': 'thai_dry_90',    'cm-td120': 'thai_dry_120',
+      'cm-sw60': 'swedish_60',    'cm-sw90': 'swedish_90',      'cm-sw120': 'swedish_120',
+      'cm-ref': 'reflexology', 'cm-foot': 'foot', 'cm-ns': 'neck_shoulder',
+      'cm-fv': 'foot_vibration', 'cm-chair': 'chair',
+    };
+    Object.entries(map).forEach(([elId, key]) => {
+      const el = document.getElementById(elId);
+      if (el && m[key] != null) el.value = m[key];
+    });
+  }
+
+  async function saveMassagePrices() {
+    const map = {
+      'cm-dt60': 'deep_tissue_60', 'cm-dt90': 'deep_tissue_90', 'cm-dt120': 'deep_tissue_120',
+      'cm-to60': 'thai_oil_60',   'cm-to90': 'thai_oil_90',    'cm-to120': 'thai_oil_120',
+      'cm-td60': 'thai_dry_60',   'cm-td90': 'thai_dry_90',    'cm-td120': 'thai_dry_120',
+      'cm-sw60': 'swedish_60',    'cm-sw90': 'swedish_90',      'cm-sw120': 'swedish_120',
+      'cm-ref': 'reflexology', 'cm-foot': 'foot', 'cm-ns': 'neck_shoulder',
+      'cm-fv': 'foot_vibration', 'cm-chair': 'chair',
+    };
+    const massage = {};
+    for (const [elId, key] of Object.entries(map)) {
+      const val = parseInt(document.getElementById(elId)?.value, 10);
+      if (!isNaN(val) && val >= 0) massage[key] = val;
+    }
+    const r = await authFetch(API + '/admin/api/content', {
+      method: 'PATCH', body: JSON.stringify({ massage })
+    });
+    if (!r.ok) { showToast('Failed to save prices'); return; }
+    const d = await r.json();
+    contentData = d.content;
+    showToast('Massage prices updated — live on website');
+  }
+
+  function renderContactInfo() {
+    const c = contentData.contact || {};
+    if (c.phone)   document.getElementById('cm-phone').value   = c.phone;
+    if (c.email)   document.getElementById('cm-email').value   = c.email;
+    if (c.address) document.getElementById('cm-address').value = c.address;
+  }
+
+  async function saveContactInfo() {
+    const phone   = document.getElementById('cm-phone').value.trim().replace(/\D/g,'');
+    const email   = document.getElementById('cm-email').value.trim();
+    const address = document.getElementById('cm-address').value.trim();
+    if (!phone || !email) { showToast('Phone and email are required'); return; }
+    const r = await authFetch(API + '/admin/api/content', {
+      method: 'PATCH', body: JSON.stringify({ contact: { phone, email, address } })
+    });
+    if (!r.ok) { showToast('Failed to save contact info'); return; }
+    const d = await r.json();
+    contentData = d.content;
+    showToast('Contact info saved');
   }
 
   // ── Utilities ────────────────────────────────────────────────────────────────

@@ -139,6 +139,15 @@ function writeRooms(data) {
   fs.writeFileSync(ROOMS_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
+// ── Content DB ────────────────────────────────────────────────────────────────
+const CONTENT_FILE = path.join(DATA_DIR, 'content.json');
+function readContent() {
+  try { return JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8')); } catch { return {}; }
+}
+function writeContent(data) {
+  fs.writeFileSync(CONTENT_FILE, JSON.stringify(data, null, 2), 'utf8');
+}
+
 // ── Submissions DB ────────────────────────────────────────────────────────────
 const SUBS_FILE = path.join(DATA_DIR, 'submissions.json');
 function readSubmissions() {
@@ -384,6 +393,13 @@ http.createServer(async (req, res) => {
     "frame-ancestors 'none'",
   ].join('; '));
 
+  // ── GET /api/content ── public, used by pages to load dynamic prices ────────
+  if (urlPath === '/api/content' && req.method === 'GET') {
+    res.setHeader('Cache-Control', 'no-store');
+    json(res, 200, readContent());
+    return;
+  }
+
   // ── POST /api/chat ──────────────────────────────────────────────────────────
   if (urlPath === '/api/chat' && req.method === 'POST') {
     if (!GROQ_API_KEY) return json(res, 503, { error: 'AI not configured' });
@@ -536,8 +552,35 @@ http.createServer(async (req, res) => {
         rooms[idx].total     = Math.round(body.total);
         rooms[idx].available = Math.min(rooms[idx].available, rooms[idx].total);
       }
+      if (typeof body.price === 'number' && body.price > 0) rooms[idx].price = Math.round(body.price);
+      if (typeof body.name === 'string' && body.name.trim()) rooms[idx].name = sanitizeString(body.name.trim(), 100);
+      if (typeof body.description === 'string') rooms[idx].description = sanitizeString(body.description, 500);
       writeRooms(rooms);
       json(res, 200, rooms[idx]); return;
+    }
+
+    // GET /admin/api/content
+    if (urlPath === '/admin/api/content' && req.method === 'GET') {
+      json(res, 200, readContent()); return;
+    }
+
+    // PATCH /admin/api/content
+    if (urlPath === '/admin/api/content' && req.method === 'PATCH') {
+      const body = await parseBody(req);
+      const current = readContent();
+      const updated = { ...current };
+      for (const [section, vals] of Object.entries(body)) {
+        if (vals && typeof vals === 'object' && !Array.isArray(vals)) {
+          const sanitized = {};
+          for (const [k, v] of Object.entries(vals)) {
+            const key = sanitizeString(k, 60);
+            sanitized[key] = typeof v === 'number' ? Math.max(0, Math.round(v)) : sanitizeString(String(v), 300);
+          }
+          updated[section] = { ...(current[section] || {}), ...sanitized };
+        }
+      }
+      writeContent(updated);
+      json(res, 200, { ok: true, content: updated }); return;
     }
 
     // POST /admin/api/bookings  ── manual booking by admin (no rate-limit)
