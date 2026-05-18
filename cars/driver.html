@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drive with Firnic | Join Our Professional Driver Network — Ghana</title>
+  <meta name="description" content="Join the Firnic driver network. Steady bookings, premium clients, and structured earnings across Ghana. Apply now." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/firnic.css" />
+  <style>
+    /* HERO */
+    #hero {
+      min-height: 92svh; display: flex; align-items: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; filter: brightness(0.42);
+    }
+    #hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.15) 70%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5% 5.5rem; max-width: 820px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; padding: 0.35rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 300; line-height: 1.05; margin-bottom: 1.25rem; color: #f0ece4;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--gold); }
+    .hero-content p {
+      color: rgba(240,236,228,0.72); font-size: 1rem; font-weight: 300;
+      max-width: 520px; margin-bottom: 1.75rem; line-height: 1.85;
+    }
+    .hero-hooks { list-style: none; margin-bottom: 2.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .hero-hooks li {
+      font-size: 0.88rem; color: rgba(240,236,228,0.8);
+      display: flex; align-items: center; gap: 0.65rem;
+    }
+    .hero-hooks li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* WHY */
+    #why { background: var(--dark); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .why-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.75rem; transition: border-color 0.25s, transform 0.25s;
+    }
+    .why-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .why-card .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700; color: var(--gold);
+      line-height: 1; margin-bottom: 0.75rem;
+    }
+    .why-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* HOW IT WORKS */
+    #how { background: var(--surface); }
+    .steps-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; margin-top: 3rem; border: 1px solid var(--border2);
+    }
+    .step {
+      padding: 2rem 1.5rem; border-right: 1px solid var(--border2);
+      position: relative;
+    }
+    .step:last-child { border-right: none; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gold); color: #080808;
+      font-weight: 800; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .step h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* REQUIREMENTS */
+    #requirements { background: var(--dark); }
+    .req-inner { display: grid; gap: 4rem; align-items: start; }
+    @media (min-width: 820px) { .req-inner { grid-template-columns: 1fr 1fr; } }
+    .req-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+    .req-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; background: var(--surface); border: 1px solid var(--border2);
+      font-size: 0.87rem; line-height: 1.55;
+    }
+    .req-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .earnings-box {
+      background: var(--black); color: #f0ece4;
+      padding: 2.5rem; border-left: 3px solid var(--gold);
+    }
+    .earnings-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--gold); margin-bottom: 1rem;
+    }
+    .earnings-box p { font-size: 0.9rem; color: rgba(240,236,228,0.7); line-height: 1.85; }
+
+    /* FORM */
+    #apply { background: var(--surface); }
+    .apply-inner { max-width: 800px; margin: 0 auto; }
+    .apply-inner > p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin: 0.75rem 0 2.5rem; }
+
+    .drv-form {
+      background: var(--dark); border: 1px solid var(--border2);
+      padding: 2.5rem;
+    }
+    .form-section { margin-bottom: 2.25rem; padding-bottom: 2.25rem; border-bottom: 1px solid var(--border2); }
+    .form-section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .form-section-title {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .f-row.single { grid-template-columns: 1fr; }
+    .f-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+    .fg { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0; }
+    .fg label {
+      font-size: 0.67rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .fg input, .fg select, .fg textarea {
+      background: var(--surface); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--gold); }
+    .fg select option { background: var(--surface); color: var(--text); }
+    .fg textarea { resize: vertical; min-height: 80px; }
+
+    .radio-group { display: flex; gap: 1.5rem; margin-top: 0.25rem; flex-wrap: wrap; }
+    .radio-opt { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; cursor: pointer; }
+    .radio-opt input[type="radio"] { accent-color: var(--gold); width: 16px; height: 16px; }
+
+    .checkbox-same {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; cursor: pointer;
+    }
+    .checkbox-same input { accent-color: var(--gold); }
+
+    /* DOCUMENTS */
+    .doc-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem; margin-top: 0.5rem;
+    }
+    .doc-item {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1rem 1.1rem;
+    }
+    .doc-item label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text); display: block; margin-bottom: 0.5rem;
+    }
+    .doc-note {
+      background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2);
+      padding: 1rem 1.25rem; margin-top: 1.25rem;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+    }
+    .doc-note strong { color: var(--gold); }
+
+    /* AGREEMENT */
+    .agreement {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1.25rem; background: var(--surface); border: 1px solid var(--border2);
+      margin: 1.75rem 0; cursor: pointer;
+    }
+    .agreement input { accent-color: var(--gold); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+    .agreement span { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+
+    .drv-submit {
+      width: 100%; background: var(--gold); border: none;
+      padding: 1.1rem; color: #080808;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      font-weight: 700; cursor: pointer; letter-spacing: 1px; text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .drv-submit:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    .form-footnote {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border2);
+    }
+    .form-footnote p { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
+    .form-footnote p::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--dark); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .testi-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.75rem; position: relative;
+    }
+    .testi-card::before {
+      content: '"'; font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; color: var(--gold); line-height: 1;
+      position: absolute; top: 0.75rem; left: 1.5rem; opacity: 0.4;
+    }
+    .testi-card p { font-size: 0.9rem; line-height: 1.75; color: var(--text); padding-top: 1.5rem; }
+    .testi-author { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border2); }
+    .testi-name { font-weight: 600; font-size: 0.82rem; }
+    .testi-loc { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+    @media (max-width: 768px) {
+      .steps-row { border: none; }
+      .step { border: 1px solid var(--border2); border-right: 1px solid var(--border2); margin-bottom: 0.5rem; }
+      .f-row { grid-template-columns: 1fr; }
+      .f-row.triple { grid-template-columns: 1fr; }
+      .doc-grid { grid-template-columns: 1fr; }
+      .drv-form { padding: 1.5rem; }
+    }
+    @media (max-width: 640px) {
+      .hero-content { padding: 0 1.25rem 4rem; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="logo">Firnic<em>.</em><span>Driver Programme</span></a>
+  <ul class="nav-links">
+    <li><a href="../">Home</a></li>
+    <li><a href="./">Car Rental</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#apply" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../"           onclick="toggleMenu()">Firnic Home</a>
+  <a href="./"            onclick="toggleMenu()">Car Rental</a>
+  <a href="#why"          onclick="toggleMenu()">Why Firnic</a>
+  <a href="#requirements" onclick="toggleMenu()">Requirements</a>
+  <a href="#apply"        onclick="toggleMenu()">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1800&q=80" alt="Drive with Firnic" fetchpriority="high" />
+  <div class="hero-content">
+    <div class="hero-tag">Firnic Driver Network · Ghana</div>
+    <h1>Drive with Firnic.<br><em>Earn Consistently.</em></h1>
+    <p>Join a professional driver network offering structured trips, reliable bookings, and premium clients across Ghana.</p>
+    <ul class="hero-hooks">
+      <li>Steady trip requests — not random ride-hailing</li>
+      <li>Higher-quality, pre-verified passengers</li>
+      <li>Nationwide opportunities across Ghana</li>
+    </ul>
+    <div class="hero-actions">
+      <a href="#apply" class="btn-gold">Apply Now →</a>
+      <a href="#requirements" class="btn-outline">See Requirements</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE FIRNIC -->
+<section id="why">
+  <div class="reveal">
+    <div class="eyebrow">Driver Benefits</div>
+    <h2>Why Drivers Choose Firnic</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="num">01</div>
+      <h3>Consistent Bookings</h3>
+      <p>We connect you to pre-arranged trips — no waiting around for random requests.</p>
+    </div>
+    <div class="why-card reveal reveal-d1">
+      <div class="num">02</div>
+      <h3>Better Earnings Structure</h3>
+      <p>Earn more from structured, longer-distance trips with transparent pay — no hidden deductions.</p>
+    </div>
+    <div class="why-card reveal reveal-d2">
+      <div class="num">03</div>
+      <h3>Premium Clientele</h3>
+      <p>Work with respectful, pre-verified passengers from Firnic's hotel, events, and corporate clients.</p>
+    </div>
+    <div class="why-card reveal reveal-d3">
+      <div class="num">04</div>
+      <h3>Less Stress, More Driving</h3>
+      <p>No street haggling. No unnecessary cancellations. Simple coordination via WhatsApp.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="num">05</div>
+      <h3>Professional Growth</h3>
+      <p>Build your reputation under a managed, trusted brand — and grow with us as we expand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="reveal">
+    <div class="eyebrow">The Process</div>
+    <h2>How It Works</h2>
+  </div>
+  <div class="steps-row reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Submit Your Application</h3>
+      <p>Fill in the form below with your details, vehicle info, and experience.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>We Review &amp; Contact You</h3>
+      <p>Our team reviews your application within 24–48 hours and reaches out directly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Get Approved &amp; Onboarded</h3>
+      <p>Once approved, you'll be onboarded into the Firnic driver network.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Start Receiving Trips</h3>
+      <p>Begin receiving structured, pre-booked trip requests from Firnic clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS + EARNINGS -->
+<section id="requirements">
+  <div class="reveal">
+    <div class="eyebrow">Who Can Apply</div>
+    <h2>Requirements to Join</h2>
+  </div>
+  <div class="req-inner" style="margin-top:3rem;">
+    <ul class="req-list reveal">
+      <li>Must own a well-maintained vehicle</li>
+      <li>Valid driver's license</li>
+      <li>Up-to-date vehicle documents (registration, roadworthiness, insurance)</li>
+      <li>Fluent in English — spoken and understood</li>
+      <li>Professional attitude and communication</li>
+      <li>Available for trips across Ghana</li>
+    </ul>
+    <div class="earnings-box reveal reveal-d1">
+      <h3>What You Can Expect</h3>
+      <p>Firnic drivers benefit from structured trip assignments designed to maximise time and earnings — without the unpredictability of ride-hailing apps.</p>
+      <p style="margin-top:1rem;">We are currently onboarding a <strong style="color:var(--gold);">limited number of drivers per region</strong>. Apply early to secure your spot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section id="apply">
+  <div class="apply-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Driver Application</div>
+    <h2 class="reveal" style="text-align:center;">Become a Firnic Driver</h2>
+    <p class="reveal" style="text-align:center;max-width:560px;margin:0.75rem auto 2.5rem;">Complete the form below to join our professional driver network. Our team will review your application and contact you shortly.</p>
+
+    <form class="drv-form reveal" id="driver-form" data-firnic-form="driver" onsubmit="firnicSubmit(event,'driver')">
+
+      <!-- SECTION 1: DRIVER DETAILS -->
+      <div class="form-section">
+        <div class="form-section-title">Driver Details</div>
+        <div class="f-row">
+          <div class="fg">
+            <label for="d-fname">First Name *</label>
+            <input type="text" id="d-fname" name="first_name" placeholder="First name" required />
+          </div>
+          <div class="fg">
+            <label for="d-lname">Last Name *</label>
+            <input type="text" id="d-lname" name="last_name" placeholder="Last name" required />
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="fg">
+            <label for="d-phone">Phone Number *</label>
+            <input type="tel" id="d-phone" name="phone" placeholder="+233 xxx xxx xxx" required oninput="syncWhatsApp()" />
+          </div>
+          <div class="fg">
+            <label for="d-whatsapp">WhatsApp Number *</label>
+            <input type="tel" id="d-whatsapp" name="whatsapp" placeholder="+233 xxx xxx xxx" required />
+            <label class="checkbox-same">
+              <input type="checkbox" id="same-as-phone" onchange="syncWhatsApp()" /> Same as phone number
+            </label>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="fg">
+            <label for="d-email">Email Address</label>
+            <input type="email" id="d-email" name="email" placeholder="your@email.com" />
+          </div>
+          <div class="fg">
+            <label for="d-city">City / Region *</label>
+            <input type="text" id="d-city" name="city_region" placeholder="e.g. Accra, Kumasi, Takoradi…" required />
+          </div>
+        </div>
+        <div class="f-row single">
+          <div class="fg">
+            <label for="d-address">Residential Address</label>
+            <input type="text" id="d-address" name="address" placeholder="Your home address" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: DRIVING EXPERIENCE -->
+      <div class="form-section">
+        <div class="form-section-title">Driving Experience</div>
+        <div class="f-row">
+          <div class="fg">
+            <label>Years of Driving Experience *</label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-opt"><input type="radio" name="experience" value="1–2 years" required /> 1 – 2 years</label>
+              <label class="radio-opt"><input type="radio" name="experience" value="3–5 years" /> 3 – 5 years</label>
+              <label class="radio-opt"><input type="radio" name="experience" value="5+ years" /> 5+ years</label>
+            </div>
+          </div>
+        </div>
+        <div class="f-row" style="margin-top:1rem;">
+          <div class="fg">
+            <label>Have you done commercial driving before? *</label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-opt"><input type="radio" name="commercial_driving" value="Yes" required /> Yes</label>
+              <label class="radio-opt"><input type="radio" name="commercial_driving" value="No" /> No</label>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Available for long-distance trips? *</label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-opt"><input type="radio" name="long_distance" value="Yes" required /> Yes</label>
+              <label class="radio-opt"><input type="radio" name="long_distance" value="No" /> No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: VEHICLE DETAILS -->
+      <div class="form-section">
+        <div class="form-section-title">Vehicle Details</div>
+        <div class="f-row triple">
+          <div class="fg">
+            <label for="v-make">Vehicle Make *</label>
+            <input type="text" id="v-make" name="vehicle_make" placeholder="e.g. Toyota, VW" required />
+          </div>
+          <div class="fg">
+            <label for="v-model">Vehicle Model *</label>
+            <input type="text" id="v-model" name="vehicle_model" placeholder="e.g. Camry, Amarok" required />
+          </div>
+          <div class="fg">
+            <label for="v-year">Year of Manufacture *</label>
+            <input type="number" id="v-year" name="vehicle_year" placeholder="e.g. 2018" min="2000" max="2026" required />
+          </div>
+        </div>
+        <div class="f-row triple">
+          <div class="fg">
+            <label for="v-passengers">Number of Passengers</label>
+            <input type="number" id="v-passengers" name="passenger_capacity" placeholder="e.g. 4" min="1" max="20" />
+          </div>
+          <div class="fg">
+            <label for="v-plate">License Plate Number *</label>
+            <input type="text" id="v-plate" name="plate_number" placeholder="e.g. GR 1234-20" required />
+          </div>
+          <div class="fg">
+            <label for="v-plate-color">Plate Color</label>
+            <input type="text" id="v-plate-color" name="plate_color" placeholder="e.g. Yellow, White" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: VEHICLE CONDITION -->
+      <div class="form-section">
+        <div class="form-section-title">Vehicle Condition</div>
+        <div class="f-row">
+          <div class="fg">
+            <label>Is your vehicle air-conditioned? *</label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-opt"><input type="radio" name="air_conditioned" value="Yes" required /> Yes</label>
+              <label class="radio-opt"><input type="radio" name="air_conditioned" value="No" /> No</label>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Is the interior in good condition? *</label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-opt"><input type="radio" name="good_interior" value="Yes" required /> Yes</label>
+              <label class="radio-opt"><input type="radio" name="good_interior" value="No" /> No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: DOCUMENTS -->
+      <div class="form-section">
+        <div class="form-section-title">Document Checklist</div>
+        <p style="font-size:0.84rem;color:var(--muted);margin-bottom:1.25rem;">Please ensure you have these documents ready. You will be asked to submit them during onboarding.</p>
+        <div class="doc-grid">
+          <div class="doc-item"><label>✓ Driver's License</label></div>
+          <div class="doc-item"><label>✓ Vehicle Registration</label></div>
+          <div class="doc-item"><label>✓ Roadworthiness / Technical Inspection</label></div>
+          <div class="doc-item"><label>✓ Insurance Certificate</label></div>
+          <div class="doc-item"><label>✓ Vehicle Photo — Front View</label></div>
+          <div class="doc-item"><label>✓ Vehicle Photo — Back View</label></div>
+          <div class="doc-item"><label>✓ Vehicle Photo — Interior (Front)</label></div>
+          <div class="doc-item"><label>✓ Vehicle Photo — Interior (Back)</label></div>
+        </div>
+        <div class="doc-note">
+          <strong>How to submit documents:</strong> After submitting this form, please send copies of all documents and vehicle photos to <strong>info@firnicgroup.com</strong> with your full name as the subject line, or via <strong>WhatsApp to +233 592 997 811</strong>.
+        </div>
+      </div>
+
+      <!-- AGREEMENT -->
+      <label class="agreement">
+        <input type="checkbox" id="d-agree" required />
+        <span>I confirm that all information provided is accurate and I am willing to comply with Firnic's driver standards and professional code of conduct.</span>
+      </label>
+
+      <button type="submit" class="drv-submit">Submit Application →</button>
+
+      <div class="form-footnote">
+        <p>Applications are reviewed within 24 – 48 hours.</p>
+        <p>We are onboarding a limited number of drivers per region.</p>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal">
+    <div class="eyebrow">Driver Stories</div>
+    <h2>What Our Drivers Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <p>Since joining Firnic, I no longer wait hours for trips. Every booking is pre-arranged and the clients are always respectful. My income is now predictable.</p>
+      <div class="testi-author">
+        <div class="testi-name">Kwame A.</div>
+        <div class="testi-loc">Accra, Greater Accra Region</div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-d1">
+      <p>The structure Firnic provides is unlike anything I experienced with ride-hailing apps. Longer trips, better pay, and a team that actually supports you.</p>
+      <div class="testi-author">
+        <div class="testi-name">Emmanuel O.</div>
+        <div class="testi-loc">Kumasi, Ashanti Region</div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <p>I drive corporate clients from Firnic's hotel almost daily now. The professionalism expected of me pushes me to be better — and it shows in my earnings.</p>
+      <div class="testi-author">
+        <div class="testi-name">Samuel T.</div>
+        <div class="testi-loc">Tema, Greater Accra Region</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="f-brand">
+      <a href="../" class="logo">Firnic<em>.</em></a>
+      <p>Firnic Car Rental Service — Driver Programme · Ghana</p>
+    </div>
+    <div class="f-col">
+      <h4>Programme</h4>
+      <ul>
+        <li><a href="#why">Why Firnic</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#apply">Apply Now</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Firnic Group</h4>
+      <ul>
+        <li><a href="../hotel/">Firnic Hotel</a></li>
+        <li><a href="./">Car Rental</a></li>
+        <li><a href="../massage/">Massage Studio</a></li>
+        <li><a href="../events/">Events</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+233592997811">+233 592 997 811</a></li>
+        <li><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></li>
+        <li><a href="https://wa.me/233592997811" target="_blank">WhatsApp Us</a></li>
+        <li><span>Ofankor Hills Estate, Accra</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>&copy; 2026 Firnic Group of Companies. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+  function syncWhatsApp() {
+    const cb = document.getElementById('same-as-phone');
+    const phone = document.getElementById('d-phone');
+    const whatsapp = document.getElementById('d-whatsapp');
+    if (cb.checked) {
+      whatsapp.value = phone.value;
+      whatsapp.readOnly = true;
+    } else {
+      whatsapp.readOnly = false;
+    }
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>
