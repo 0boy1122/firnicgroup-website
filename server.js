@@ -19,6 +19,7 @@ const MIME = {
   '.gif': 'image/gif', '.svg': 'image/svg+xml', '.webp': 'image/webp',
   '.avif': 'image/avif', '.ico': 'image/x-icon',
   '.woff': 'font/woff', '.woff2': 'font/woff2', '.ttf': 'font/ttf',
+  '.xml': 'application/xml', '.txt': 'text/plain',
 };
 
 // ── Load .env ─────────────────────────────────────────────────────────────────

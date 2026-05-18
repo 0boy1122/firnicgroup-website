@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://firnicgroup.com/sitemap.xml
