@@ -1118,7 +1118,7 @@
       return `<div class="activity-item" onclick="openDetail('${s.id}')">
         <div class="ai-type">${m.icon}</div>
         <div class="ai-info">
-          <div class="ai-name">${esc(name)} <span class="badge badge-${s._type||'general'}" style="font-size:0.6rem">${m.label}</span></div>
+          <div class="ai-name">${esc(name)} <span class="badge badge-${esc(s._type||'general')}" style="font-size:0.6rem">${m.label}</span></div>
           <div class="ai-meta">${esc(phone)} ${s.note ? '· 📝 '+esc(s.note) : ''}</div>
         </div>
         <div class="ai-time">${timeAgo(s.timestamp)}</div>
@@ -1161,8 +1161,8 @@
       const m = TYPE_META[s._type] || TYPE_META.general;
       const name  = s.name || s['full-name'] || s.fullName || s.customer_name || '—';
       const phone = s.phone || s.mobile || s.whatsapp || '—';
-      const statusBadge = `<span class="badge badge-${s.status||'new'}">${s.status||'new'}</span>`;
-      const typeBadge   = `<span class="badge badge-${s._type||'general'}">${m.icon} ${m.label}</span>`;
+      const statusBadge = `<span class="badge badge-${esc(s.status||'new')}">${esc(s.status||'new')}</span>`;
+      const typeBadge   = `<span class="badge badge-${esc(s._type||'general')}">${m.icon} ${m.label}</span>`;
       return `<tr onclick="openDetail('${s.id}')">
         <td>${statusBadge}</td>
         <td>${typeBadge}</td>
@@ -1189,17 +1189,17 @@
     const name  = s.name || s['full-name'] || s.fullName || s.customer_name || 'Unknown';
     const phone = s.phone || s.mobile || s.whatsapp || '';
 
-    document.getElementById('dp-type-badge').innerHTML = `<span class="badge badge-${s._type||'general'}">${m.icon} ${m.label}</span>`;
+    document.getElementById('dp-type-badge').innerHTML = `<span class="badge badge-${esc(s._type||'general')}">${m.icon} ${m.label}</span>`;
     document.getElementById('dp-name').textContent     = name;
     document.getElementById('dp-time').textContent     = formatDate(s.timestamp);
-    document.getElementById('dp-status-row').innerHTML = `<span class="badge badge-${s.status||'new'}">${s.status||'new'}</span>`;
+    document.getElementById('dp-status-row').innerHTML = `<span class="badge badge-${esc(s.status||'new')}">${esc(s.status||'new')}</span>`;
     document.getElementById('dp-note-ta').value        = s.note || '';
 
     // Build fields
     const skip = new Set(['id','timestamp','status','_type','_page','_time','note','updatedAt']);
     const fields = Object.entries(s)
       .filter(([k]) => !skip.has(k))
-      .map(([k, v]) => `<div class="dp-field"><span class="k">${k.replace(/_/g,' ')}</span><span class="v">${esc(v)}</span></div>`)
+      .map(([k, v]) => `<div class="dp-field"><span class="k">${esc(k.replace(/_/g,' '))}</span><span class="v">${esc(v)}</span></div>`)
       .join('');
     document.getElementById('dp-fields').innerHTML = fields || '<div style="color:var(--muted);font-size:0.8rem">No additional fields</div>';
 
@@ -1208,9 +1208,6 @@
     document.getElementById('dp-wa-btn').dataset.phone = waNum;
 
     document.getElementById('detail-overlay').classList.add('open');
-
-    // Auto-mark as read if new
-    if (s.status === 'new') quickStatus(id, 'new', true);
   }
 
   function closeDetail(e) {
@@ -1221,32 +1218,29 @@
 
   async function dpAction(status) {
     if (!currentDetailId) return;
+    const sub  = allSubs.find(s => s.id === currentDetailId);
     const note = document.getElementById('dp-note-ta').value.trim();
-    await authFetch(API + '/admin/api/submissions/' + currentDetailId, {
+    const r = await authFetch(API + '/admin/api/submissions/' + currentDetailId, {
       method: 'PATCH',
       body: JSON.stringify({ status, note })
     });
+    if (!r.ok) { showToast('Failed to update — please try again'); return; }
 
-    // Auto-decrement room when a hotel booking is confirmed
-    if (status === 'confirmed') {
-      const sub = allSubs.find(s => s.id === currentDetailId);
-      if (sub && sub._type === 'hotel' && sub.room_type) {
-        const roomMap = {
-          'Classic Single':  'classic-single',
-          'Superior Twin':   'superior-twin',
-          'Deluxe Double':   'deluxe-double',
-          'Prestige Suite':  'prestige-suite',
-        };
-        const match = Object.keys(roomMap).find(k => sub.room_type.includes(k));
-        if (match) {
-          await authFetch(API + '/admin/api/rooms/' + roomMap[match], {
-            method: 'PATCH',
-            body: JSON.stringify({ delta: -1 })
-          });
-          showToast('Confirmed — room availability updated');
-        } else {
-          showToast('Marked as confirmed');
-        }
+    // Auto-decrement room when a hotel booking is confirmed (only if not already confirmed)
+    if (status === 'confirmed' && sub && sub.status !== 'confirmed' && sub._type === 'hotel' && sub.room_type) {
+      const roomMap = {
+        'Classic Single':  'classic-single',
+        'Superior Twin':   'superior-twin',
+        'Deluxe Double':   'deluxe-double',
+        'Prestige Suite':  'prestige-suite',
+      };
+      const match = Object.keys(roomMap).find(k => sub.room_type.includes(k));
+      if (match) {
+        await authFetch(API + '/admin/api/rooms/' + roomMap[match], {
+          method: 'PATCH',
+          body: JSON.stringify({ delta: -1 })
+        });
+        showToast('Confirmed — room availability updated');
       } else {
         showToast('Marked as confirmed');
       }
@@ -1261,8 +1255,10 @@
   async function dpDelete() {
     if (!currentDetailId) return;
     if (!confirm('Delete this submission permanently?')) return;
-    await delSub(currentDetailId);
+    await authFetch(API + '/admin/api/submissions/' + currentDetailId, { method: 'DELETE' });
+    showToast('Deleted');
     document.getElementById('detail-overlay').classList.remove('open');
+    await loadData();
   }
 
   function openWhatsApp() {

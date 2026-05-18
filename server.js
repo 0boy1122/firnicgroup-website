@@ -35,7 +35,7 @@ if (fs.existsSync(envPath)) {
 }
 
 const GROQ_API_KEY      = process.env.GROQ_API_KEY      || '';
-let   ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'firnic2024';
+let   ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || '';
 const PORT              = parseInt(process.env.PORT, 10) || 3000;
 const SESSION_TTL_MS    = 24 * 60 * 60 * 1000; // 24 hours
 const MAX_BODY_BYTES    = 512 * 1024;           // 512 KB
@@ -308,10 +308,9 @@ async function sendUserConfirmation(entry) {
     contact: { label: 'message',                   eta: 'shortly' },
   };
   const { label, eta } = messages[entry._type] || { label: 'enquiry', eta: 'shortly' };
-  const safeEmail = entry.email.replace(/</g,'&lt;').replace(/>/g,'&gt;');
   await transporter.sendMail({
     from: `"Firnic Group" <${process.env.SMTP_USER}>`,
-    to:   safeEmail,
+    to:   entry.email,
     subject: `We received your ${label} — Firnic Group`,
     html: `<div style="font-family:sans-serif;max-width:560px;color:#333">
       <div style="background:#080808;padding:24px 28px">
@@ -459,6 +458,7 @@ http.createServer(async (req, res) => {
 
   // POST /admin/login ── rate-limited
   if (urlPath === '/admin/login' && req.method === 'POST') {
+    if (!ADMIN_PASSWORD) return json(res, 503, { ok: false, error: 'Admin not configured. Set ADMIN_PASSWORD environment variable.' });
     const ip = getClientIP(req);
     if (isLockedOut(ip)) {
       return json(res, 429, { ok: false, error: 'Too many attempts. Try again in 15 minutes.' });
