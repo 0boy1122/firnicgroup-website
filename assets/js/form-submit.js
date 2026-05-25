@@ -2,12 +2,10 @@
 (function () {
   'use strict';
 
-  const RENDER_URL = 'https://firnicgroup-website-1.onrender.com';
-  const WA_NUMBER  = '233592997811';
+  const WA_NUMBER = '233592997811';
 
-  const API_BASE = (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-    ? ''          // same-origin when running locally on the Node server
-    : RENDER_URL; // always hit Render from GitHub Pages / custom domain
+  /* Render serves both frontend and API — always same-origin */
+  const API_BASE = '';
 
   function collectForm(form) {
     const data = {};
