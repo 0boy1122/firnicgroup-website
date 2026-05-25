@@ -426,11 +426,12 @@ http.createServer(async (req, res) => {
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Content-Security-Policy', [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline'",
+    "script-src 'self' 'unsafe-inline' https://js.paystack.co",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
-    "img-src 'self' data: https://images.unsplash.com blob:",
-    "connect-src 'self'",
+    "img-src 'self' data: https://images.unsplash.com blob: https://*.paystack.co https://*.paystack.com",
+    "connect-src 'self' https://api.paystack.co https://checkout.paystack.com",
+    "frame-src https://checkout.paystack.com",
     "frame-ancestors 'none'",
   ].join('; '));
 
