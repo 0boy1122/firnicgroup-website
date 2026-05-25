@@ -5,3 +5,12 @@ data/submissions.json
 *.log
 .DS_Store
 Thumbs.db
+.agents/
+.vscode/
+_private/
+Exterior/
+skills-lock.json
+*.lnk
+*.mov
+*.MOV
+driver firnic.avif

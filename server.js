@@ -178,7 +178,7 @@ Services:
 1. FIRNIC HOTEL — Luxury hotel, Ofankor Hills Estate, Accra
    Rooms: Standard GHS 450/night | Deluxe GHS 550/night | Junior Suite GHS 700/night | Executive Suite GHS 950/night
    Amenities: Pool, spa, restaurant, free WiFi, airport transfer, 24h concierge
-   Book: WhatsApp +233 592 997 811 | hotel@firnicgroup.com
+   Book: hotel@firnicgroup.com | +233 592 997 811
 
 2. FIRNIC EXECUTIVE CARS — Premium chauffeur & self-drive car hire
    Self-drive: 1 day GHS 1,500 | 3 days GHS 4,200 | 1 week GHS 9,500
@@ -187,7 +187,7 @@ Services:
 3. FIRNIC PRESTIGE MASSAGE STUDIO
    Deep Tissue: GHS 280/380/480 (60/90/120 min)
    Thai Oil: GHS 260/360/460 | Swedish: GHS 250/350/450
-   Book: WhatsApp +233 592 997 811
+   Book: +233 592 997 811
 
 4. FIRNIC EVENTS — Weddings, corporate, private (up to 500 guests)
    Enquire: events@firnicgroup.com | +233 592 997 811
@@ -196,7 +196,7 @@ Services:
 
 CONTACT: +233 592 997 811 | info@firnicgroup.com | 14 Ofankor Hills Estate, Accra
 
-Rules: Be warm and concise. Give specific prices when asked. Direct to WhatsApp for bookings. Keep replies under 120 words unless listing. Never fabricate information.`;
+Rules: Be warm and concise. Give specific prices when asked. Direct to the booking form or call +233 592 997 811 for bookings. Keep replies under 120 words unless listing. Never fabricate information.`;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function json(res, code, data) {
@@ -370,10 +370,10 @@ async function sendUserConfirmation(entry) {
           Thank you for reaching out. We have received your <strong>${label}</strong> and our team will get back to you <strong>${eta}</strong>.
         </p>
         <p style="margin:0 0 24px;line-height:1.7;color:#444">
-          In the meantime, feel free to reach us directly on WhatsApp or by phone if you need immediate assistance.
+          In the meantime, feel free to reach us by phone or email if you need immediate assistance.
         </p>
-        <a href="https://wa.me/233592997811" style="display:inline-block;background:#c9a84c;color:#080808;padding:12px 24px;text-decoration:none;font-weight:700;font-size:0.9rem;letter-spacing:0.5px">
-          Chat on WhatsApp →
+        <a href="tel:+233592997811" style="display:inline-block;background:#c9a84c;color:#080808;padding:12px 24px;text-decoration:none;font-weight:700;font-size:0.9rem;letter-spacing:0.5px">
+          Call Us: +233 592 997 811 →
         </a>
       </div>
       <div style="background:#f5f5f5;padding:16px 28px;font-size:0.78rem;color:#888">

@@ -1426,8 +1426,8 @@
                                 <input type="tel" id="phone" name="phone" placeholder="+233 24 000 0000" required />
                             </div>
                             <div class="field">
-                                <label for="whatsapp">WhatsApp Number</label>
-                                <input type="tel" id="whatsapp" name="whatsapp" placeholder="+233 24 000 0000" />
+                                <label for="whatsapp">Alternative Phone</label>
+                                <input type="tel" id="whatsapp" name="alt_phone" placeholder="+233 24 000 0000" />
                                 <label class="check-row">
                                     <input type="checkbox" id="samePhone" /> Same as phone number
                                 </label>
@@ -1674,7 +1674,7 @@
 
 
     <script>
-        // WhatsApp sync
+        // Phone sync
         const phoneEl = document.getElementById('phone');
         const waEl = document.getElementById('whatsapp');
         const sameCb = document.getElementById('samePhone');
@@ -1725,13 +1725,9 @@
                 if (!data.ok) throw new Error(data.error || 'Unknown error');
 
                 if (data.filesNote) {
-                    const waUrl = 'https://wa.me/233592997811?text=' + encodeURIComponent('Hello Firnic! I just submitted a driver application and need to send my documents.');
                     showBanner(true,
                         '✅ <strong>Application received!</strong><br>' +
-                        'Please send your documents (licence, registration, insurance, roadworthiness + vehicle photos) via:<br><br>' +
-                        '<a href="' + waUrl + '" style="color:#4ade80;font-weight:700" target="_blank">📱 Send via WhatsApp →</a>' +
-                        '&nbsp;&nbsp;|&nbsp;&nbsp;' +
-                        '<a href="mailto:info@firnicgroup.com?subject=Driver%20Application%20Documents" style="color:#4ade80;font-weight:700">✉️ Send via Email →</a>'
+                        'Please email your documents (licence, registration, insurance, roadworthiness + vehicle photos) to <strong style="color:#4ade80">info@firnicgroup.com</strong> with your name as the subject line.'
                     );
                 } else {
                     showBanner(true, '✅ <strong>Application submitted!</strong> Your documents have been received. We\'ll review within 24–48 hours.');
@@ -1745,8 +1741,7 @@
                     if (!isPhoto) lbl.innerHTML = '<strong>Select File</strong> · PDF, JPG or PNG';
                 });
             } catch (err) {
-                const waUrl = 'https://wa.me/233592997811?text=' + encodeURIComponent('Hello Firnic! I would like to apply as a driver.');
-                showBanner(false, '⚠ Could not submit. <a href="' + waUrl + '" style="color:#fca5a5;text-decoration:underline" target="_blank">Contact us via WhatsApp →</a>');
+                showBanner(false, '⚠ Could not submit. Please try again or email us at <strong>info@firnicgroup.com</strong> or call <strong>+233 592 997 811</strong>.');
             }
 
             if (btn) { btn.disabled = false; btn.textContent = orig; }

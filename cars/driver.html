@@ -320,7 +320,7 @@
     <div class="why-card reveal reveal-d3">
       <div class="num">04</div>
       <h3>Less Stress, More Driving</h3>
-      <p>No street haggling. No unnecessary cancellations. Simple coordination via WhatsApp.</p>
+      <p>No street haggling. No unnecessary cancellations. Simple, structured coordination.</p>
     </div>
     <div class="why-card reveal">
       <div class="num">05</div>
@@ -408,14 +408,7 @@
         <div class="f-row">
           <div class="fg">
             <label for="d-phone">Phone Number *</label>
-            <input type="tel" id="d-phone" name="phone" placeholder="+233 xxx xxx xxx" required oninput="syncWhatsApp()" />
-          </div>
-          <div class="fg">
-            <label for="d-whatsapp">WhatsApp Number *</label>
-            <input type="tel" id="d-whatsapp" name="whatsapp" placeholder="+233 xxx xxx xxx" required />
-            <label class="checkbox-same">
-              <input type="checkbox" id="same-as-phone" onchange="syncWhatsApp()" /> Same as phone number
-            </label>
+            <input type="tel" id="d-phone" name="phone" placeholder="+233 xxx xxx xxx" required />
           </div>
         </div>
         <div class="f-row">
@@ -536,7 +529,7 @@
           <div class="doc-item"><label>✓ Vehicle Photo — Interior (Back)</label></div>
         </div>
         <div class="doc-note">
-          <strong>How to submit documents:</strong> After submitting this form, please send copies of all documents and vehicle photos to <strong>info@firnicgroup.com</strong> with your full name as the subject line, or via <strong>WhatsApp to +233 592 997 811</strong>.
+          <strong>How to submit documents:</strong> After submitting this form, please send copies of all documents and vehicle photos to <strong>info@firnicgroup.com</strong> with your full name as the subject line.
         </div>
       </div>
 
@@ -618,7 +611,6 @@
       <ul>
         <li><a href="tel:+233592997811">+233 592 997 811</a></li>
         <li><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></li>
-        <li><a href="https://wa.me/233592997811" target="_blank">WhatsApp Us</a></li>
         <li><span>Ofankor Hills Estate, Accra</span></li>
       </ul>
     </div>
@@ -630,18 +622,6 @@
 
 <script>
   function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
-
-  function syncWhatsApp() {
-    const cb = document.getElementById('same-as-phone');
-    const phone = document.getElementById('d-phone');
-    const whatsapp = document.getElementById('d-whatsapp');
-    if (cb.checked) {
-      whatsapp.value = phone.value;
-      whatsapp.readOnly = true;
-    } else {
-      whatsapp.readOnly = false;
-    }
-  }
 
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
