@@ -351,6 +351,8 @@ const ALLOWED_ORIGINS = new Set([
   `http://localhost:${PORT}`,
   `http://127.0.0.1:${PORT}`,
   'null', // file:// protocol
+  'https://firnicgroup.com',
+  'https://www.firnicgroup.com',
   // Render / production URL — auto-detected
   ...(process.env.RENDER_EXTERNAL_URL ? [process.env.RENDER_EXTERNAL_URL] : []),
 ]);

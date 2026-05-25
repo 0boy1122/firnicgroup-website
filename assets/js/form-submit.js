@@ -2,17 +2,12 @@
 (function () {
   'use strict';
 
-  const WA_NUMBER = '233592997811';
+  const RENDER_URL = 'https://firnicgroup-website-1.onrender.com';
+  const WA_NUMBER  = '233592997811';
 
-  const FORM_LABELS = {
-    hotel:   'Hotel Booking',
-    car:     'Car Rental',
-    ride:    'Ride Request',
-    event:   'Event Enquiry',
-    massage: 'Massage Booking',
-    driver:  'Driver Application',
-    general: 'Enquiry'
-  };
+  const API_BASE = (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? ''          // same-origin when running locally on the Node server
+    : RENDER_URL; // always hit Render from GitHub Pages / custom domain
 
   function collectForm(form) {
     const data = {};
@@ -32,7 +27,7 @@
     banner.style.cssText = `
       margin-top:1.25rem;padding:1rem 1.25rem;
       font-size:0.85rem;font-weight:500;line-height:1.6;text-align:center;
-      border-radius:4px;animation:firnicFadeIn 0.3s ease;
+      animation:firnicFadeIn 0.3s ease;
       background:${ok ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'};
       border:1px solid ${ok ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'};
       color:${ok ? '#86efac' : '#fca5a5'};
@@ -45,47 +40,67 @@
   style.textContent = `@keyframes firnicFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}`;
   document.head.appendChild(style);
 
-  window.firnicSubmit = function (e, formType) {
+  window.firnicSubmit = async function (e, formType) {
     e.preventDefault();
     const form  = e.target;
     const btn   = form.querySelector('[type="submit"]');
     const orig  = btn ? btn.textContent : '';
     const type  = formType || form.dataset.firnicForm || 'general';
-    const label = FORM_LABELS[type] || 'Enquiry';
 
-    if (btn) { btn.disabled = true; btn.textContent = 'Opening WhatsApp…'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
-    const data = collectForm(form);
-    const time = new Date().toLocaleString('en-GH', { timeZone: 'Africa/Accra' });
+    const data   = collectForm(form);
+    data._type   = type;
+    data._page   = location.pathname;
+    data._time   = new Date().toLocaleString('en-GH', { timeZone: 'Africa/Accra' });
 
-    const lines = Object.entries(data)
-      .filter(([k]) => k !== 'agree')
-      .map(([k, v]) => `• ${k.replace(/_/g, ' ')}: ${v}`)
-      .join('\n');
+    try {
+      const res = await fetch(API_BASE + '/api/submit', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(data)
+      });
 
-    const msg = encodeURIComponent(
-      `Hello Firnic! I'd like to submit a *${label}*.\n\n${lines}\n\n_Sent: ${time}_`
-    );
-    const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+      if (!res.ok) throw new Error('Server returned ' + res.status);
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Unknown error');
 
-    /* Driver form gets a special post-submit instructions panel */
-    if (type === 'driver') {
-      showBanner(form, true,
-        '✅ <strong>Application details sent to WhatsApp!</strong><br>' +
-        'Please also send your documents (licence, registration, insurance, roadworthiness + vehicle photos) ' +
-        'via WhatsApp or email:<br>' +
-        `<a href="${waUrl}" style="color:#4ade80;font-weight:700" target="_blank">📱 Open WhatsApp →</a> &nbsp;|&nbsp; ` +
-        `<a href="mailto:info@firnicgroup.com?subject=Driver%20Application%20Documents" style="color:#4ade80;font-weight:700">✉️ Email Documents →</a>`
-      );
-    } else {
-      showBanner(form, true,
-        '✅ <strong>Request ready!</strong> Opening WhatsApp now…<br>' +
-        `<a href="${waUrl}" style="color:#4ade80" target="_blank">Click here if WhatsApp didn't open →</a>`
+      /* ── Driver form: extra step for document uploads ── */
+      if (type === 'driver') {
+        const waLines = Object.entries(data)
+          .filter(([k]) => !k.startsWith('_') && k !== 'agree')
+          .map(([k, v]) => `• ${k}: ${v}`).join('\n');
+        const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hello Firnic! Here are my driver documents:\n\n' + waLines)}`;
+
+        showBanner(form, true,
+          '✅ <strong>Application received!</strong><br>' +
+          'Please send your documents (licence, registration, insurance, roadworthiness certificate + vehicle photos) via:<br><br>' +
+          `<a href="${waUrl}" style="color:#4ade80;font-weight:700" target="_blank">📱 Send via WhatsApp →</a>` +
+          `&nbsp;&nbsp;|&nbsp;&nbsp;` +
+          `<a href="mailto:info@firnicgroup.com?subject=Driver%20Application%20Documents%20-%20${encodeURIComponent((data.firstName||'') + ' ' + (data.lastName||''))}" style="color:#4ade80;font-weight:700">✉️ Send via Email →</a>`
+        );
+      } else {
+        showBanner(form, true,
+          '✅ <strong>Request received!</strong> We\'ll confirm within 2 hours.<br>' +
+          'Need immediate help? <a href="https://wa.me/' + WA_NUMBER + '" style="color:#4ade80" target="_blank">WhatsApp us →</a>'
+        );
+      }
+
+      form.reset();
+
+    } catch (err) {
+      /* Fallback: build WhatsApp message from form data */
+      const lines = Object.entries(data)
+        .filter(([k]) => !k.startsWith('_') && k !== 'agree')
+        .map(([k, v]) => `• ${k}: ${v}`).join('\n');
+      const waText = encodeURIComponent(`Hello Firnic, I'd like to make an enquiry:\n\n${lines}`);
+      const waUrl  = `https://wa.me/${WA_NUMBER}?text=${waText}`;
+
+      showBanner(form, false,
+        '⚠ Could not reach the server. ' +
+        `<a href="${waUrl}" style="color:#fca5a5;text-decoration:underline" target="_blank">Send via WhatsApp instead →</a>`
       );
     }
-
-    form.reset();
-    setTimeout(() => window.open(waUrl, '_blank'), 500);
 
     if (btn) { btn.disabled = false; btn.textContent = orig; }
   };
