@@ -511,6 +511,20 @@ http.createServer(async (req, res) => {
     return;
   }
 
+  // ── POST /api/payment/confirm — record Paystack reference server-side ───────
+  if (urlPath === '/api/payment/confirm' && req.method === 'POST') {
+    try {
+      const { ref, submissionId } = await parseBody(req);
+      if (ref && submissionId) {
+        const subs = readSubmissions();
+        const idx  = subs.findIndex(s => s.id === submissionId);
+        if (idx !== -1) { subs[idx].payment_ref = sanitizeString(ref, 100); writeSubmissions(subs); }
+      }
+      json(res, 200, { ok: true });
+    } catch { json(res, 200, { ok: true }); }
+    return;
+  }
+
   // ── POST /api/driver-apply — multipart with file attachments ───────────────
   if (urlPath === '/api/driver-apply' && req.method === 'POST') {
     const ip = getClientIP(req);

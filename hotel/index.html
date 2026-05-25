@@ -552,7 +552,7 @@
     <h2 class="reveal">Book Your Stay</h2>
     <p class="reveal">Fill in your details and we'll confirm your reservation within the hour. Prefer to reach us directly? Use the options below.</p>
 
-    <form class="hotel-form reveal reveal-d1" data-firnic-form="hotel" onsubmit="firnicSubmit(event,'hotel')">
+    <form class="hotel-form reveal reveal-d1" id="hotelBookingForm">
       <h3>Reservation Request</h3>
 
       <div class="form-row">
@@ -569,7 +569,7 @@
       <div class="form-row">
         <div class="form-group">
           <label for="h-email">Email Address</label>
-          <input type="email" id="h-email" name="email" placeholder="you@example.com" />
+          <input type="email" id="h-email" name="email" placeholder="you@example.com" required />
         </div>
         <div class="form-group">
           <label for="h-room">Room Type</label>
@@ -622,7 +622,7 @@
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">Request Reservation →</button>
+      <button type="submit" class="submit-btn" id="hotelPayBtn">Book &amp; Pay →</button>
     </form>
 
     <div class="book-divider reveal">Or reach us directly</div>
@@ -834,6 +834,67 @@
   }
 </script>
 <script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/paystack.js"></script>
+<script>
+  document.getElementById('hotelBookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form   = this;
+    var btn    = document.getElementById('hotelPayBtn');
+    var orig   = btn.textContent;
+    var total  = document.getElementById('pe-total').textContent;
+    var amount = parseFloat(total.replace(/[^0-9.]/g, ''));
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    if (!amount || amount <= 0) {
+      showBanner(form, false, '⚠ Please select a room type and valid check-in / check-out dates first.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Opening payment…';
+
+    firnicPay({
+      email:  document.getElementById('h-email').value.trim(),
+      amount: amount,
+      name:   document.getElementById('h-name').value.trim(),
+      meta:   { booking_type: 'hotel', room: document.getElementById('h-room').value },
+      onSuccess: function (ref) {
+        btn.textContent = 'Confirming…';
+        var addH = function (n, v) {
+          var h = document.createElement('input');
+          h.type = 'hidden'; h.name = n; h.value = v; h.dataset.ps = '1';
+          form.appendChild(h);
+        };
+        addH('payment_ref',    ref);
+        addH('payment_amount', total);
+        addH('payment_status', 'paid');
+
+        window.firnicSubmit({ preventDefault: function(){}, target: form }, 'hotel')
+          .finally(function () {
+            form.querySelectorAll('[data-ps]').forEach(function (el) { el.remove(); });
+            btn.disabled = false;
+            btn.textContent = orig;
+          });
+      },
+      onClose: function () {
+        btn.disabled = false;
+        btn.textContent = orig;
+      }
+    });
+  });
+
+  function showBanner(form, ok, html) {
+    var b = form.querySelector('.firnic-banner');
+    if (!b) { b = document.createElement('div'); b.className = 'firnic-banner'; form.appendChild(b); }
+    b.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;font-size:0.85rem;font-weight:500;line-height:1.6;text-align:center;animation:firnicFadeIn 0.3s ease;' +
+      'background:' + (ok ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)') + ';' +
+      'border:1px solid ' + (ok ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)') + ';' +
+      'color:' + (ok ? '#86efac' : '#fca5a5') + ';';
+    b.innerHTML = html;
+    b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
 <script src="../assets/js/aria-widget.js"></script>
 <script>
   /* ── Live room availability ── */
