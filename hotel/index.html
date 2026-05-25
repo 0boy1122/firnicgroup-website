@@ -257,6 +257,54 @@
       .about-badge { left: 0.5rem; bottom: -1rem; padding: 1rem 1.25rem; }
       .about-stats { grid-template-columns: 1fr 1fr; }
     }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.94); align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 82vh;
+      object-fit: contain; border: 1px solid rgba(201,168,76,0.2);
+      user-select: none; transition: opacity 0.18s;
+    }
+    #lb-caption {
+      margin-top: 0.85rem; font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    #lb-counter { font-size: 0.68rem; color: rgba(255,255,255,0.28); margin-top: 0.3rem; }
+    .lb-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold); font-size: 1.5rem; width: 48px; height: 48px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001; line-height: 1;
+    }
+    .lb-btn:hover { background: rgba(201,168,76,0.22); }
+    #lb-prev { left: 1rem; }
+    #lb-next { right: 1rem; }
+    #lb-close {
+      position: fixed; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: #ccc; font-size: 1.1rem; width: 38px; height: 38px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001;
+    }
+    #lb-close:hover { background: rgba(239,68,68,0.2); color: #fff; }
+    .g-img { cursor: zoom-in; }
+
+    /* PRICE ESTIMATE */
+    .price-estimate {
+      margin-top: 1rem; padding: 1rem 1.25rem;
+      background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.22);
+      display: none;
+    }
+    .price-estimate.visible { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .pe-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .pe-val { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+    .pe-nights { font-size: 0.76rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -419,6 +467,14 @@
     <div class="g-img"><img src="../assets/interior/IMG_0975-1.jpeg" alt="Hotel Room" loading="lazy" /></div>
     <div class="g-img"><img src="../assets/interior/IMG_0980-1.jpeg" alt="Hotel Interior" loading="lazy" /></div>
     <div class="g-img wide"><img src="../assets/exterior/IMG_1100.jpeg" alt="Hotel Building" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/IMG_0964-1.jpeg" alt="Hotel Room" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/IMG_0966-1.jpeg" alt="Hotel Room" loading="lazy" /></div>
+    <div class="g-img tall"><img src="../assets/exterior/IMG_1093.jpeg" alt="Hotel Grounds" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/IMG_0982-1.jpeg" alt="Hotel Interior" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/IMG_0985-1.jpeg" alt="Hotel Room" loading="lazy" /></div>
+    <div class="g-img wide"><img src="../assets/interior/IMG_0992-1.jpeg" alt="Hotel Suite" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/exterior/IMG_1095.jpeg" alt="Hotel Exterior" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/IMG_0995-1.jpeg" alt="Hotel Room" loading="lazy" /></div>
   </div>
 </section>
 
@@ -544,6 +600,17 @@
         </div>
       </div>
 
+      <div class="price-estimate" id="price-estimate">
+        <div>
+          <div class="pe-label">Estimated Total</div>
+          <div class="pe-val" id="pe-total"></div>
+          <div class="pe-nights" id="pe-nights"></div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--muted);line-height:1.6;max-width:220px;">
+          Final price confirmed at check-in. Includes all standard amenities.
+        </div>
+      </div>
+
       <button type="submit" class="submit-btn">Request Reservation →</button>
     </form>
 
@@ -568,6 +635,16 @@
     </div>
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lb-close" onclick="lbClose()" aria-label="Close">&#10005;</button>
+  <button class="lb-btn" id="lb-prev" onclick="lbStep(-1)" aria-label="Previous">&#8249;</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-btn" id="lb-next" onclick="lbStep(1)" aria-label="Next">&#8250;</button>
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -618,8 +695,10 @@
 </footer>
 
 <script>
+  /* ── Mobile menu ── */
   function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
 
+  /* ── Hero slideshow ── */
   const slides = document.querySelectorAll('.hero-slide');
   const dotsEl  = document.getElementById('hero-dots');
   let current = 0, timer;
@@ -640,22 +719,113 @@
   }
   timer = setInterval(() => goTo(current + 1), 5000);
 
+  /* ── Scroll reveal ── */
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── Gallery lightbox ── */
+  const lbGallery = [];
+  document.querySelectorAll('.gallery-grid .g-img img').forEach((img, i) => {
+    lbGallery.push({ src: img.src, alt: img.alt });
+    img.parentElement.addEventListener('click', () => lbOpen(i));
+  });
+  let lbIdx = 0;
+  const lbEl  = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  function lbOpen(i) {
+    lbIdx = i;
+    lbShow();
+    lbEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function lbClose() {
+    lbEl.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lbStep(dir) {
+    lbIdx = (lbIdx + dir + lbGallery.length) % lbGallery.length;
+    lbImg.style.opacity = '0';
+    setTimeout(lbShow, 180);
+  }
+  function lbShow() {
+    const item = lbGallery[lbIdx];
+    lbImg.src = item.src;
+    lbImg.alt = item.alt;
+    lbImg.style.opacity = '1';
+    document.getElementById('lb-caption').textContent = item.alt;
+    document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + lbGallery.length;
+  }
+  lbEl.addEventListener('click', e => { if (e.target === lbEl) lbClose(); });
+  document.addEventListener('keydown', e => {
+    if (!lbEl.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft')  lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+  });
+
+  /* ── Room "Book →" pre-fills room type dropdown ── */
+  const ROOM_OPTIONS = {
+    'mini-royal':       'Mini Royal — GHS 450/night',
+    'elegant-retreat':  'Elegant Retreat — GHS 550/night',
+    'cozy-alcove':      'Cozy Alcove — GHS 600/night',
+    'grand-chamber':    'Grand Chamber — GHS 650/night',
+    'royal-sanctuary':  'Royal Sanctuary — GHS 700/night',
+  };
+  document.querySelectorAll('[data-room-id] .btn-sm').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const card   = this.closest('[data-room-id]');
+      const roomId = card ? card.dataset.roomId : null;
+      const select = document.getElementById('h-room');
+      if (roomId && ROOM_OPTIONS[roomId] && select) {
+        select.value = ROOM_OPTIONS[roomId];
+        updatePriceEstimate();
+      }
+    });
+  });
 </script>
 <script>
+  /* ── Date fields + price estimate ── */
+  const ROOM_PRICES = {
+    'Mini Royal — GHS 450/night':      450,
+    'Elegant Retreat — GHS 550/night': 550,
+    'Cozy Alcove — GHS 600/night':     600,
+    'Grand Chamber — GHS 650/night':   650,
+    'Royal Sanctuary — GHS 700/night': 700,
+  };
   const today = new Date().toISOString().split('T')[0];
-  document.getElementById('h-checkin').min = today;
+  document.getElementById('h-checkin').min  = today;
   document.getElementById('h-checkout').min = today;
   document.getElementById('h-checkin').addEventListener('change', function() {
-    document.getElementById('h-checkout').min = this.value || today;
+    const co = document.getElementById('h-checkout');
+    co.min = this.value || today;
+    if (co.value && co.value <= this.value) co.value = '';
+    updatePriceEstimate();
   });
+  document.getElementById('h-checkout').addEventListener('change', updatePriceEstimate);
+  document.getElementById('h-room').addEventListener('change', updatePriceEstimate);
+
+  function updatePriceEstimate() {
+    const ci    = document.getElementById('h-checkin').value;
+    const co    = document.getElementById('h-checkout').value;
+    const room  = document.getElementById('h-room').value;
+    const panel = document.getElementById('price-estimate');
+    if (!ci || !co || !room) { panel.classList.remove('visible'); return; }
+    const nights = Math.round((new Date(co) - new Date(ci)) / 86400000);
+    if (nights <= 0) { panel.classList.remove('visible'); return; }
+    const rate  = ROOM_PRICES[room];
+    if (!rate) { panel.classList.remove('visible'); return; }
+    const total = nights * rate;
+    document.getElementById('pe-total').textContent = 'GHS ' + total.toLocaleString();
+    document.getElementById('pe-nights').textContent = nights + (nights === 1 ? ' night' : ' nights') + ' × GHS ' + rate + ' / night';
+    panel.classList.add('visible');
+  }
 </script>
 <script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 <script>
+  /* ── Live room availability ── */
   (async function loadAvailability() {
     try {
       const res = await fetch('/api/availability');

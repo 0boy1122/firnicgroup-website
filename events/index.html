@@ -142,6 +142,55 @@
       .why-grid { grid-template-columns: 1fr; }
       .cta-btns { flex-direction: column; }
     }
+
+    /* GALLERY */
+    #gallery { background: var(--surface); }
+    .ev-gallery-grid {
+      columns: 3; column-gap: 0.75rem; margin-top: 2.5rem;
+    }
+    @media (max-width: 900px) { .ev-gallery-grid { columns: 2; } }
+    @media (max-width: 540px) { .ev-gallery-grid { columns: 1; } }
+    .eg-item {
+      break-inside: avoid; margin-bottom: 0.75rem;
+      overflow: hidden; cursor: zoom-in; position: relative;
+    }
+    .eg-item img {
+      width: 100%; display: block; object-fit: cover;
+      transition: transform 0.35s; filter: brightness(0.92);
+    }
+    .eg-item:hover img { transform: scale(1.04); filter: brightness(1); }
+
+    /* LIGHTBOX */
+    #ev-lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.95); align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #ev-lightbox.open { display: flex; }
+    #ev-lightbox img {
+      max-width: 92vw; max-height: 82vh; object-fit: contain;
+      border: 1px solid rgba(201,168,76,0.15); user-select: none; transition: opacity 0.18s;
+    }
+    #ev-lb-caption { margin-top: 0.85rem; font-size: 0.7rem; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+    #ev-lb-counter { font-size: 0.67rem; color: rgba(255,255,255,0.25); margin-top: 0.3rem; }
+    .ev-lb-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold); font-size: 1.5rem; width: 48px; height: 48px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001;
+    }
+    .ev-lb-btn:hover { background: rgba(201,168,76,0.22); }
+    #ev-lb-prev { left: 1rem; }
+    #ev-lb-next { right: 1rem; }
+    #ev-lb-close {
+      position: fixed; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: #ccc; font-size: 1.1rem; width: 38px; height: 38px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001;
+    }
+    #ev-lb-close:hover { background: rgba(239,68,68,0.2); color: #fff; }
   </style>
 </head>
 <body>
@@ -153,6 +202,7 @@
     <li><a href="../cars/">Cars</a></li>
     <li><a href="../massage/">Massage</a></li>
     <li><a href="#events-types">Event Types</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#cta-section" class="nav-cta">Plan Your Event</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -163,12 +213,13 @@
   <a href="../cars/"       onclick="toggleMenu()">Car Rental</a>
   <a href="../massage/"    onclick="toggleMenu()">Massage</a>
   <a href="#events-types"  onclick="toggleMenu()">Event Types</a>
+  <a href="#gallery"       onclick="toggleMenu()">Gallery</a>
   <a href="#cta-section"   onclick="toggleMenu()">Plan Your Event</a>
 </div>
 
 <!-- HERO -->
 <section id="hero">
-  <img class="hero-bg" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" fetchpriority="high" alt="Firnic Events" />
+  <img class="hero-bg" src="../assets/events/ENCO0812.jpg" fetchpriority="high" alt="Firnic Events" />
   <div class="hero-content">
     <div class="hero-tag">Firnic Group · Events Division</div>
     <h1>Your Perfect<br><em>Venue Awaits</em></h1>
@@ -247,6 +298,49 @@
     </div>
   </div>
 </section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="reveal">
+    <div class="eyebrow">Real Events at Firnic</div>
+    <h2>From Our Venue</h2>
+    <p class="sec-sub">A glimpse into the celebrations and gatherings we've been honoured to host.</p>
+  </div>
+  <div class="ev-gallery-grid reveal">
+    <div class="eg-item"><img src="../assets/events/ENCO0271.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0802.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0272.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0412.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0277.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0333.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0278.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0327.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0279.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0316.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0280.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0315.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0281.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0314.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0282.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0313.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0283.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0312.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0308.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0310.jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0308 (1).jpg" alt="Firnic Event" loading="lazy" /></div>
+    <div class="eg-item"><img src="../assets/events/ENCO0812.jpg" alt="Firnic Event" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="ev-lightbox" role="dialog" aria-modal="true" aria-label="Event photo viewer">
+  <button id="ev-lb-close" onclick="evLbClose()" aria-label="Close">&#10005;</button>
+  <button class="ev-lb-btn" id="ev-lb-prev" onclick="evLbStep(-1)" aria-label="Previous">&#8249;</button>
+  <img id="ev-lb-img" src="" alt="" />
+  <button class="ev-lb-btn" id="ev-lb-next" onclick="evLbStep(1)" aria-label="Next">&#8250;</button>
+  <div id="ev-lb-caption"></div>
+  <div id="ev-lb-counter"></div>
+</div>
 
 <!-- CTA + FORM -->
 <section id="cta-section">
@@ -387,6 +481,42 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── Event gallery lightbox ── */
+  const evGallery = [];
+  document.querySelectorAll('.ev-gallery-grid .eg-item img').forEach((img, i) => {
+    evGallery.push({ src: img.src, alt: img.alt });
+    img.parentElement.addEventListener('click', () => evLbOpen(i));
+  });
+  let evLbIdx = 0;
+  const evLbEl  = document.getElementById('ev-lightbox');
+  const evLbImg = document.getElementById('ev-lb-img');
+  function evLbOpen(i) {
+    evLbIdx = i; evLbShow();
+    evLbEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function evLbClose() {
+    evLbEl.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function evLbStep(dir) {
+    evLbIdx = (evLbIdx + dir + evGallery.length) % evGallery.length;
+    evLbImg.style.opacity = '0';
+    setTimeout(evLbShow, 180);
+  }
+  function evLbShow() {
+    const item = evGallery[evLbIdx];
+    evLbImg.src = item.src; evLbImg.alt = item.alt; evLbImg.style.opacity = '1';
+    document.getElementById('ev-lb-counter').textContent = (evLbIdx + 1) + ' / ' + evGallery.length;
+  }
+  evLbEl.addEventListener('click', e => { if (e.target === evLbEl) evLbClose(); });
+  document.addEventListener('keydown', e => {
+    if (!evLbEl.classList.contains('open')) return;
+    if (e.key === 'Escape') evLbClose();
+    if (e.key === 'ArrowLeft')  evLbStep(-1);
+    if (e.key === 'ArrowRight') evLbStep(1);
+  });
 </script>
 <script>
   document.getElementById('ev-date').min = new Date().toISOString().split('T')[0];
