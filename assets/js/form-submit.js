@@ -2,43 +2,42 @@
 (function () {
   'use strict';
 
-  const API_BASE = (location.protocol === 'file:')
-    ? 'http://localhost:3000'
-    : '';
+  const WA_NUMBER = '233592997811';
 
-  /**
-   * Collect all named form fields into a plain object.
-   * Skips file inputs (can't serialise binary over JSON).
-   */
+  const FORM_LABELS = {
+    hotel:   'Hotel Booking',
+    car:     'Car Rental',
+    ride:    'Ride Request',
+    event:   'Event Enquiry',
+    massage: 'Massage Booking',
+    driver:  'Driver Application',
+    general: 'Enquiry'
+  };
+
   function collectForm(form) {
     const data = {};
     new FormData(form).forEach((val, key) => {
-      if (typeof val === 'string') data[key] = val;
+      if (typeof val === 'string' && val.trim()) data[key] = val.trim();
     });
     return data;
   }
 
-  /**
-   * Show a success or error banner inside the form's container.
-   */
-  function showBanner(form, ok, msg) {
+  function showBanner(form, ok, html) {
     let banner = form.querySelector('.firnic-banner');
     if (!banner) {
       banner = document.createElement('div');
       banner.className = 'firnic-banner';
-      banner.style.cssText = `
-        margin-top:1rem;padding:1rem 1.25rem;border-radius:8px;
-        font-size:0.85rem;font-weight:600;line-height:1.5;text-align:center;
-        animation:firnicFadeIn 0.3s ease;
-      `;
       form.appendChild(banner);
     }
-    banner.style.background = ok
-      ? 'rgba(34,197,94,0.12)' : 'rgba(229,57,53,0.12)';
-    banner.style.border = ok
-      ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(229,57,53,0.3)';
-    banner.style.color = ok ? '#86efac' : '#fca5a5';
-    banner.innerHTML = msg;
+    banner.style.cssText = `
+      margin-top:1.25rem;padding:1rem 1.25rem;
+      font-size:0.85rem;font-weight:500;line-height:1.6;text-align:center;
+      border-radius:4px;animation:firnicFadeIn 0.3s ease;
+      background:${ok ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'};
+      border:1px solid ${ok ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'};
+      color:${ok ? '#86efac' : '#fca5a5'};
+    `;
+    banner.innerHTML = html;
     banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -46,77 +45,55 @@
   style.textContent = `@keyframes firnicFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}`;
   document.head.appendChild(style);
 
-  /**
-   * Main handler — attach to any <form data-firnic-form="type">
-   * type: hotel | car | ride | delivery | event | massage | contact
-   */
-  window.firnicSubmit = async function (e, formType) {
+  window.firnicSubmit = function (e, formType) {
     e.preventDefault();
-    const form = e.target;
-    const btn = form.querySelector('[type="submit"]');
-    const original = btn ? btn.textContent : '';
+    const form  = e.target;
+    const btn   = form.querySelector('[type="submit"]');
+    const orig  = btn ? btn.textContent : '';
+    const type  = formType || form.dataset.firnicForm || 'general';
+    const label = FORM_LABELS[type] || 'Enquiry';
 
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-    }
+    if (btn) { btn.disabled = true; btn.textContent = 'Opening WhatsApp…'; }
 
     const data = collectForm(form);
-    data._type = formType || form.dataset.firnicForm || 'general';
+    const time = new Date().toLocaleString('en-GH', { timeZone: 'Africa/Accra' });
 
-    // Add page context
-    data._page = location.pathname;
-    data._time = new Date().toLocaleString('en-GH', { timeZone: 'Africa/Accra' });
+    const lines = Object.entries(data)
+      .filter(([k]) => k !== 'agree')
+      .map(([k, v]) => `• ${k.replace(/_/g, ' ')}: ${v}`)
+      .join('\n');
 
-    try {
-      const res = await fetch(API_BASE + '/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+    const msg = encodeURIComponent(
+      `Hello Firnic! I'd like to submit a *${label}*.\n\n${lines}\n\n_Sent: ${time}_`
+    );
+    const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
-      if (!res.ok) throw new Error('Server returned ' + res.status);
-      const json = await res.json();
-
-      if (json.ok) {
-        showBanner(form, true,
-          '✓ Request received! We\'ll confirm within 2 hours.<br>' +
-          'For immediate help: <a href="https://wa.me/233592997811" style="color:#4ade80" target="_blank">WhatsApp us →</a>');
-        form.reset();
-      } else {
-        throw new Error(json.error || 'Unknown error');
-      }
-
-    } catch (err) {
-      // Fallback: open WhatsApp with form data pre-filled
-      const summary = Object.entries(data)
-        .filter(([k]) => !k.startsWith('_'))
-        .map(([k, v]) => `${k}: ${v}`)
-        .join('\n');
-
-      const waText = encodeURIComponent(
-        `Hello Firnic, I'd like to make an enquiry:\n\n${summary}`
+    /* Driver form gets a special post-submit instructions panel */
+    if (type === 'driver') {
+      showBanner(form, true,
+        '✅ <strong>Application details sent to WhatsApp!</strong><br>' +
+        'Please also send your documents (licence, registration, insurance, roadworthiness + vehicle photos) ' +
+        'via WhatsApp or email:<br>' +
+        `<a href="${waUrl}" style="color:#4ade80;font-weight:700" target="_blank">📱 Open WhatsApp →</a> &nbsp;|&nbsp; ` +
+        `<a href="mailto:info@firnicgroup.com?subject=Driver%20Application%20Documents" style="color:#4ade80;font-weight:700">✉️ Email Documents →</a>`
       );
-
-      showBanner(form, false,
-        '⚠ Could not send automatically. ' +
-        `<a href="https://wa.me/233592997811?text=${waText}" ` +
-        `style="color:#fca5a5;text-decoration:underline" target="_blank">` +
-        'Click here to send via WhatsApp instead →</a>');
+    } else {
+      showBanner(form, true,
+        '✅ <strong>Request ready!</strong> Opening WhatsApp now…<br>' +
+        `<a href="${waUrl}" style="color:#4ade80" target="_blank">Click here if WhatsApp didn't open →</a>`
+      );
     }
 
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = original;
-    }
+    form.reset();
+    setTimeout(() => window.open(waUrl, '_blank'), 500);
+
+    if (btn) { btn.disabled = false; btn.textContent = orig; }
   };
 
-  // Auto-attach to any form with data-firnic-form attribute
+  /* Auto-attach to any form with data-firnic-form attribute */
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('form[data-firnic-form]').forEach(form => {
-      form.addEventListener('submit', e => {
-        window.firnicSubmit(e, form.dataset.firnicForm);
-      });
+      form.addEventListener('submit', e => window.firnicSubmit(e, form.dataset.firnicForm));
     });
   });
 

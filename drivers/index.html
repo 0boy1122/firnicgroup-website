@@ -1568,61 +1568,64 @@
                     <!-- S5 -->
                     <div>
                         <div class="fsec-label">Section 5 — Document Uploads</div>
+                        <div style="margin-bottom:1rem;padding:0.85rem 1rem;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.25);border-radius:8px;font-size:0.82rem;color:#9ca3af;line-height:1.6;">
+                            📎 <strong style="color:#f5a623;">Select your files below</strong> — after submitting, you'll be prompted to send them via WhatsApp or email to <strong style="color:#f5a623;">info@firnicgroup.com</strong>
+                        </div>
                         <div class="fgrid">
                             <div class="field">
-                                <label>Driver's Licence *</label>
+                                <label>Driver's Licence</label>
                                 <div class="upload-box">
-                                    <input type="file" name="docLicence" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <input type="file" name="docLicence" accept=".pdf,.jpg,.jpeg,.png" />
                                     <div class="u-ico">📄</div>
-                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                    <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Vehicle Registration *</label>
+                                <label>Vehicle Registration</label>
                                 <div class="upload-box">
-                                    <input type="file" name="docReg" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <input type="file" name="docReg" accept=".pdf,.jpg,.jpeg,.png" />
                                     <div class="u-ico">📋</div>
-                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                    <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Roadworthiness Certificate *</label>
+                                <label>Roadworthiness Certificate</label>
                                 <div class="upload-box">
-                                    <input type="file" name="docRoadworthy" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <input type="file" name="docRoadworthy" accept=".pdf,.jpg,.jpeg,.png" />
                                     <div class="u-ico">🔧</div>
-                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                    <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Insurance Certificate *</label>
+                                <label>Insurance Certificate</label>
                                 <div class="upload-box">
-                                    <input type="file" name="docInsurance" accept=".pdf,.jpg,.jpeg,.png" required />
+                                    <input type="file" name="docInsurance" accept=".pdf,.jpg,.jpeg,.png" />
                                     <div class="u-ico">🛡️</div>
-                                    <div class="u-lbl"><strong>Upload</strong> · PDF, JPG or PNG</div>
+                                    <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
                                 </div>
                             </div>
                         </div>
 
                         <div style="margin-top:1.25rem">
-                            <label style="display:block;margin-bottom:0.75rem;">Vehicle Photos (4 required) *</label>
+                            <label style="display:block;margin-bottom:0.75rem;">Vehicle Photos (4 angles)</label>
                             <div class="photo-grid">
                                 <div class="upload-box">
-                                    <input type="file" name="photoFront" accept="image/*" required />
+                                    <input type="file" name="photoFront" accept="image/*" />
                                     <div class="u-ico">🚗</div>
                                     <div class="u-lbl"><strong>Front View</strong></div>
                                 </div>
                                 <div class="upload-box">
-                                    <input type="file" name="photoBack" accept="image/*" required />
+                                    <input type="file" name="photoBack" accept="image/*" />
                                     <div class="u-ico">🚙</div>
                                     <div class="u-lbl"><strong>Back View</strong></div>
                                 </div>
                                 <div class="upload-box">
-                                    <input type="file" name="photoIntF" accept="image/*" required />
+                                    <input type="file" name="photoIntF" accept="image/*" />
                                     <div class="u-ico">💺</div>
                                     <div class="u-lbl"><strong>Interior – Front</strong></div>
                                 </div>
                                 <div class="upload-box">
-                                    <input type="file" name="photoIntB" accept="image/*" required />
+                                    <input type="file" name="photoIntB" accept="image/*" />
                                     <div class="u-ico">🪑</div>
                                     <div class="u-lbl"><strong>Interior – Back</strong></div>
                                 </div>
@@ -1689,15 +1692,7 @@
 
         // Submit
         document.getElementById('driverForm').addEventListener('submit', function (e) {
-            if (typeof firnicSubmit === 'function') {
-                firnicSubmit(e, 'driver');
-            } else {
-                e.preventDefault();
-                const btn = this.querySelector('.submit-btn');
-                btn.textContent = '✓ Application Submitted!';
-                btn.style.background = '#16a34a';
-                btn.disabled = true;
-            }
+            window.firnicSubmit(e, 'driver');
         });
 
         // Scroll reveal
