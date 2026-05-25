@@ -10,6 +10,7 @@
   "author": "Firnic Group",
   "license": "ISC",
   "dependencies": {
+    "busboy": "^1.6.0",
     "nodemailer": "^8.0.5"
   },
   "devDependencies": {

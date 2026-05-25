@@ -276,6 +276,44 @@ function callGroq(messages) {
   });
 }
 
+function parseMultipart(req) {
+  return new Promise((resolve, reject) => {
+    let busboy;
+    try { busboy = require('busboy'); } catch { return reject(new Error('busboy not installed')); }
+    const fields = {};
+    const attachments = [];
+    let fileCount = 0;
+    const MAX_FILES = 8;
+    const bb = busboy({
+      headers: req.headers,
+      limits: { fileSize: 5 * 1024 * 1024, files: MAX_FILES, fieldNameSize: 100, fieldSize: 10000 }
+    });
+    bb.on('field', (name, val) => {
+      const k = sanitizeString(name, 60);
+      if (k) fields[k] = sanitizeString(val, 500);
+    });
+    bb.on('file', (name, stream, info) => {
+      if (++fileCount > MAX_FILES) { stream.resume(); return; }
+      const { filename, mimeType } = info;
+      const chunks = [];
+      stream.on('data', d => chunks.push(d));
+      stream.on('end', () => {
+        if (chunks.length) {
+          attachments.push({
+            filename: path.basename(filename || name || 'file').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 100),
+            content: Buffer.concat(chunks),
+            contentType: mimeType
+          });
+        }
+      });
+      stream.on('error', () => {});
+    });
+    bb.on('close', () => resolve({ fields, attachments }));
+    bb.on('error', reject);
+    req.pipe(bb);
+  });
+}
+
 async function sendFormEmail(entry) {
   if (!transporter) return false;
   const labels = {
@@ -470,6 +508,60 @@ http.createServer(async (req, res) => {
       try { await sendUserConfirmation(entry); } catch {}
       json(res, 200, { ok: true, id: entry.id, emailed });
     } catch (e) { json(res, 500, { ok: false, error: 'Submission failed' }); }
+    return;
+  }
+
+  // ── POST /api/driver-apply — multipart with file attachments ───────────────
+  if (urlPath === '/api/driver-apply' && req.method === 'POST') {
+    const ip = getClientIP(req);
+    const last = submitTimes.get(ip) || 0;
+    if (Date.now() - last < SUBMIT_RATE_MS) {
+      return json(res, 429, { ok: false, error: 'Please wait before submitting again.' });
+    }
+    submitTimes.set(ip, Date.now());
+    if (submitTimes.size > 5000) {
+      const cutoff = Date.now() - SUBMIT_RATE_MS * 2;
+      for (const [k, v] of submitTimes) { if (v < cutoff) submitTimes.delete(k); }
+    }
+    const ct = req.headers['content-type'] || '';
+    if (!ct.includes('multipart/form-data')) {
+      return json(res, 400, { ok: false, error: 'Expected multipart/form-data' });
+    }
+    try {
+      const { fields, attachments } = await parseMultipart(req);
+      const entry = saveSubmission(fields);
+      let emailed = false;
+      let filesNote = false;
+      if (transporter) {
+        const rows = Object.entries(entry)
+          .filter(([k]) => !k.startsWith('_') && !['id','status','updatedAt','agree'].includes(k))
+          .map(([k, v]) => {
+            const sk = k.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const sv = String(v).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return `<tr><td style="padding:6px 12px;font-weight:600;background:#f5f5f5;border:1px solid #ddd;white-space:nowrap">${sk}</td><td style="padding:6px 12px;border:1px solid #ddd">${sv}</td></tr>`;
+          }).join('');
+        await transporter.sendMail({
+          from: `"Firnic Website" <${process.env.SMTP_USER}>`,
+          to:   process.env.NOTIFY_EMAIL || 'info@firnicgroup.com',
+          subject: '🧑‍✈️ Driver Application — Firnic Group',
+          html: `<div style="font-family:sans-serif;max-width:600px">
+            <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group — Driver Application</h2></div>
+            <table style="width:100%;border-collapse:collapse;margin-top:16px">${rows}</table>
+            <p style="margin-top:16px;color:#555;font-size:0.85rem">${attachments.length} document(s) attached.</p>
+            <p style="margin-top:8px"><a href="${process.env.RENDER_EXTERNAL_URL||'http://localhost:'+PORT}/admin/" style="background:#c9a84c;color:#0e0e0e;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700">View in Admin →</a></p>
+          </div>`,
+          attachments
+        });
+        try { await sendUserConfirmation(entry); } catch {}
+        emailed = true;
+      } else {
+        filesNote = true;
+      }
+      json(res, 200, { ok: true, id: entry.id, emailed, filesNote });
+    } catch (e) {
+      console.error('[driver-apply]', e.message);
+      json(res, 500, { ok: false, error: 'Submission failed' });
+    }
     return;
   }
 
