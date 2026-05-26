@@ -145,7 +145,7 @@
 
       if (res.status === 503) {
         // AI not configured — give useful contact info without showing an error
-        const fallback = 'I\'m not available right now, but our team is! Reach us directly:\n\n📞 **+233 592 997 811**\n✉️ info@firnicgroup.com';
+        const fallback = 'I\'m not available right now, but our team is! Reach us directly:\n\n📞 **+233 592 997 811**\n✉️ firnicluxuriousprivatehotel@gmail.com';
         addMsg(fallback, 'bot');
         messages.push({ role: 'assistant', content: fallback });
         sendBtn.disabled = false;
@@ -162,7 +162,7 @@
 
     } catch (e) {
       hideTyping();
-      const errMsg = 'Sorry, something went wrong. Please contact us directly:\n\n📞 **+233 592 997 811**\n✉️ info@firnicgroup.com';
+      const errMsg = 'Sorry, something went wrong. Please contact us directly:\n\n📞 **+233 592 997 811**\n✉️ firnicluxuriousprivatehotel@gmail.com';
       addMsg(errMsg, 'bot', false);
       messages.push({ role: 'assistant', content: errMsg });
     }
