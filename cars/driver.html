@@ -221,6 +221,28 @@
     .form-footnote p { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
     .form-footnote p::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 
+    /* UPLOAD BOXES */
+    .upload-box {
+      border: 1.5px dashed var(--border2);
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-box:hover { border-color: var(--gold); background: rgba(201,168,76,0.03); }
+    .upload-box input[type="file"] {
+      position: absolute; inset: 0; opacity: 0;
+      cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-box .u-ico { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .upload-box .u-lbl { font-size: 0.77rem; color: var(--muted); line-height: 1.5; }
+    .upload-box .u-lbl strong { color: var(--gold); }
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 480px) { .upload-grid { grid-template-columns: 1fr; } }
+
     /* TESTIMONIALS */
     #testimonials { background: var(--dark); }
     .testi-grid {
@@ -390,7 +412,7 @@
     <h2 class="reveal" style="text-align:center;">Become a Firnic Driver</h2>
     <p class="reveal" style="text-align:center;max-width:560px;margin:0.75rem auto 2.5rem;">Complete the form below to join our professional driver network. Our team will review your application and contact you shortly.</p>
 
-    <form class="drv-form reveal" id="driver-form" data-firnic-form="driver">
+    <form class="drv-form reveal" id="driver-form">
 
       <!-- SECTION 1: DRIVER DETAILS -->
       <div class="form-section">
@@ -516,20 +538,68 @@
 
       <!-- SECTION 5: DOCUMENTS -->
       <div class="form-section">
-        <div class="form-section-title">Document Checklist</div>
-        <p style="font-size:0.84rem;color:var(--muted);margin-bottom:1.25rem;">Please ensure you have these documents ready. You will be asked to submit them during onboarding.</p>
-        <div class="doc-grid">
-          <div class="doc-item"><label>✓ Driver's License</label></div>
-          <div class="doc-item"><label>✓ Vehicle Registration</label></div>
-          <div class="doc-item"><label>✓ Roadworthiness / Technical Inspection</label></div>
-          <div class="doc-item"><label>✓ Insurance Certificate</label></div>
-          <div class="doc-item"><label>✓ Vehicle Photo — Front View</label></div>
-          <div class="doc-item"><label>✓ Vehicle Photo — Back View</label></div>
-          <div class="doc-item"><label>✓ Vehicle Photo — Interior (Front)</label></div>
-          <div class="doc-item"><label>✓ Vehicle Photo — Interior (Back)</label></div>
+        <div class="form-section-title">Document Uploads</div>
+        <div style="margin-bottom:1rem;padding:0.85rem 1rem;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:8px;font-size:0.82rem;color:var(--muted);line-height:1.6;">
+          📎 <strong style="color:var(--gold);">Upload your documents below</strong> — files are sent directly to Firnic when you submit the form.
         </div>
-        <div class="doc-note">
-          <strong>How to submit documents:</strong> After submitting this form, please send copies of all documents and vehicle photos to <strong>firnicluxuriousprivatehotel@gmail.com</strong> with your full name as the subject line.
+        <div class="upload-grid">
+          <div>
+            <label style="font-size:0.78rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem;">Driver's Licence</label>
+            <div class="upload-box">
+              <input type="file" name="docLicence" accept=".pdf,.jpg,.jpeg,.png" />
+              <div class="u-ico">📄</div>
+              <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem;">Vehicle Registration</label>
+            <div class="upload-box">
+              <input type="file" name="docReg" accept=".pdf,.jpg,.jpeg,.png" />
+              <div class="u-ico">📋</div>
+              <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem;">Roadworthiness Certificate</label>
+            <div class="upload-box">
+              <input type="file" name="docRoadworthy" accept=".pdf,.jpg,.jpeg,.png" />
+              <div class="u-ico">🔧</div>
+              <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem;">Insurance Certificate</label>
+            <div class="upload-box">
+              <input type="file" name="docInsurance" accept=".pdf,.jpg,.jpeg,.png" />
+              <div class="u-ico">🛡️</div>
+              <div class="u-lbl"><strong>Select File</strong> · PDF, JPG or PNG</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem;">
+          <label style="font-size:0.78rem;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.75rem;">Vehicle Photos (4 angles)</label>
+          <div class="upload-grid">
+            <div class="upload-box">
+              <input type="file" name="photoFront" accept="image/*" />
+              <div class="u-ico">🚗</div>
+              <div class="u-lbl"><strong>Front View</strong></div>
+            </div>
+            <div class="upload-box">
+              <input type="file" name="photoBack" accept="image/*" />
+              <div class="u-ico">🚙</div>
+              <div class="u-lbl"><strong>Back View</strong></div>
+            </div>
+            <div class="upload-box">
+              <input type="file" name="photoIntF" accept="image/*" />
+              <div class="u-ico">💺</div>
+              <div class="u-lbl"><strong>Interior – Front</strong></div>
+            </div>
+            <div class="upload-box">
+              <input type="file" name="photoIntB" accept="image/*" />
+              <div class="u-ico">🪑</div>
+              <div class="u-lbl"><strong>Interior – Back</strong></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -627,8 +697,66 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Upload filename feedback
+  document.querySelectorAll('.upload-box input[type="file"]').forEach(inp => {
+    inp.addEventListener('change', function () {
+      if (!this.files.length) return;
+      const lbl = this.closest('.upload-box').querySelector('.u-lbl');
+      lbl.innerHTML = '<strong style="color:var(--gold)">✓ ' + this.files[0].name + '</strong>';
+    });
+  });
+
+  // Driver form — multipart submit
+  document.getElementById('driver-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('[type="submit"]');
+    const orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+    let banner = form.querySelector('.drv-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.className = 'drv-banner';
+      banner.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:0.9rem;line-height:1.6;';
+      form.appendChild(banner);
+    }
+
+    function showBanner(ok, msg) {
+      banner.style.background = ok ? 'rgba(74,222,128,0.08)' : 'rgba(239,68,68,0.08)';
+      banner.style.border = ok ? '1px solid rgba(74,222,128,0.3)' : '1px solid rgba(239,68,68,0.3)';
+      banner.style.color = ok ? '#4ade80' : '#f87171';
+      banner.innerHTML = msg;
+    }
+
+    try {
+      const fd = new FormData(form);
+      fd.append('type', 'driver');
+      fd.append('_page', location.pathname);
+      const res = await fetch('/api/driver-apply', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Server error');
+      if (data.filesNote) {
+        showBanner(true, '✅ <strong>Application received!</strong><br>Please email your documents (licence, registration, insurance, roadworthiness + vehicle photos) to <strong style="color:#4ade80">firnicluxuriousprivatehotel@gmail.com</strong> with your name as the subject line.');
+      } else {
+        showBanner(true, '✅ <strong>Application submitted!</strong> Your documents have been received. We will review and contact you within 24–48 hours.');
+      }
+      form.reset();
+      document.querySelectorAll('.upload-box .u-lbl').forEach(l => {
+        if (l.closest('.upload-box').querySelector('input[name^="photo"]')) {
+          l.innerHTML = '<strong>Select File</strong>';
+        } else {
+          l.innerHTML = '<strong>Select File</strong> · PDF, JPG or PNG';
+        }
+      });
+    } catch (err) {
+      showBanner(false, '⚠ Could not submit. Please try again or email us at <strong>firnicluxuriousprivatehotel@gmail.com</strong> or call <strong>+233 592 997 811</strong>.');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+    }
+  });
 </script>
-<script src="../assets/js/form-submit.js"></script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>
 </html>
