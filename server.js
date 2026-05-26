@@ -230,6 +230,28 @@ function getClientIP(req) {
   return (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
 }
 
+function verifyPaystackPayment(reference) {
+  return new Promise((resolve, reject) => {
+    const secret = process.env.PAYSTACK_SECRET_KEY || '';
+    if (!secret) return resolve(null);
+    const opts = {
+      hostname: 'api.paystack.co',
+      path: '/transaction/verify/' + encodeURIComponent(reference),
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + secret }
+    };
+    const r = https.request(opts, res => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(d)); } catch { resolve(null); }
+      });
+    });
+    r.on('error', () => resolve(null));
+    r.end();
+  });
+}
+
 function callGroq(messages) {
   return new Promise((resolve, reject) => {
     const payload = JSON.stringify({
@@ -502,7 +524,20 @@ http.createServer(async (req, res) => {
       for (const [k, v] of submitTimes) { if (v < cutoff) submitTimes.delete(k); }
     }
     try {
-      const body  = await parseBody(req);
+      const body = await parseBody(req);
+
+      /* ── Paystack verification for paid bookings ── */
+      if (body.payment_ref) {
+        const pv = await verifyPaystackPayment(body.payment_ref);
+        if (pv && pv.data) {
+          body.payment_status   = pv.data.status === 'success' ? 'verified' : 'failed';
+          body.payment_amount_verified = 'GHS ' + (pv.data.amount / 100).toLocaleString();
+          body.payment_channel  = pv.data.channel || '';
+        } else {
+          body.payment_status = 'unverified';
+        }
+      }
+
       const entry = saveSubmission(body);
       let emailed = false;
       try { emailed = await sendFormEmail(entry); } catch {}
