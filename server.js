@@ -843,4 +843,13 @@ http.createServer(async (req, res) => {
   console.log(`✓ Admin panel     → http://localhost:${PORT}/admin/`);
   console.log(`✓ AI chat (Groq)  → ${GROQ_API_KEY ? 'enabled' : 'disabled (add GROQ_API_KEY to .env)'}`);
   console.log(`✓ Email           → ${transporter ? 'enabled' : 'disabled (add SMTP_USER + SMTP_PASS to .env)'}\n`);
+
+  // Keep-alive: ping self every 14 min so Render free tier doesn't spin down
+  const SELF = process.env.RENDER_EXTERNAL_URL;
+  if (SELF) {
+    setInterval(() => {
+      https.get(SELF + '/api/availability', () => {}).on('error', () => {});
+    }, 14 * 60 * 1000);
+    console.log('✓ Keep-alive ping enabled');
+  }
 });
