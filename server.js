@@ -7,10 +7,28 @@ const crypto = require('crypto');
 const { URL } = require('url');
 
 const ROOT     = __dirname;
-const DATA_DIR = path.join(ROOT, 'data');
+const DATA_DIR = path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(ROOT, 'data'));
 
 // Ensure data dir exists
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+
+function seedDataFile(filename, fallback) {
+  const target = path.join(DATA_DIR, filename);
+  if (fs.existsSync(target)) return;
+
+  const source = path.join(ROOT, 'data', filename);
+  if (source !== target && fs.existsSync(source)) {
+    fs.copyFileSync(source, target);
+    return;
+  }
+
+  fs.writeFileSync(target, fallback, 'utf8');
+}
+
+seedDataFile('content.json', '{}');
+seedDataFile('rooms.json', '[]');
+seedDataFile('sessions.json', '[]');
+seedDataFile('submissions.json', '[]');
 
 // Only serve these safe web file types — everything else is blocked
 const MIME = {

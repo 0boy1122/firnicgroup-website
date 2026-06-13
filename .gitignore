@@ -11,6 +11,10 @@ _private/
 Exterior/
 skills-lock.json
 *.lnk
+*.zip
 *.mov
 *.MOV
 driver firnic.avif
+/IMG_*.jpeg
+/Royal santuary*.jpeg
+/cozy alcove/

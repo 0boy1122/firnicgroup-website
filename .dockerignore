@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+data/sessions.json
+data/submissions.json
+_private
+*.log
+*.zip
+*.lnk
+*.mov
+*.MOV
