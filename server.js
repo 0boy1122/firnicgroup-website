@@ -30,6 +30,78 @@ seedDataFile('rooms.json', '[]');
 seedDataFile('sessions.json', '[]');
 seedDataFile('submissions.json', '[]');
 
+let pgPool = null;
+let dbReady = null;
+
+function localJson(filePath, fallback) {
+  try { return JSON.parse(fs.readFileSync(filePath, 'utf8')); } catch { return fallback; }
+}
+
+function getPgPool() {
+  if (!process.env.DATABASE_URL) return null;
+  if (!pgPool) {
+    const { Pool } = require('pg');
+    pgPool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.PGSSLMODE === 'disable' ? false : { rejectUnauthorized: false }
+    });
+  }
+  return pgPool;
+}
+
+async function ensureDb() {
+  const pool = getPgPool();
+  if (!pool) return null;
+  if (!dbReady) {
+    dbReady = (async () => {
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS firnic_state (
+          key text PRIMARY KEY,
+          value jsonb NOT NULL,
+          updated_at timestamptz NOT NULL DEFAULT now()
+        )
+      `);
+      const seeds = [
+        ['content', 'content.json', {}],
+        ['rooms', 'rooms.json', []],
+        ['submissions', 'submissions.json', []]
+      ];
+      for (const [key, filename, fallback] of seeds) {
+        const filePath = path.join(DATA_DIR, filename);
+        await pool.query(
+          `INSERT INTO firnic_state (key, value)
+           VALUES ($1, $2::jsonb)
+           ON CONFLICT (key) DO NOTHING`,
+          [key, JSON.stringify(localJson(filePath, fallback))]
+        );
+      }
+    })();
+  }
+  await dbReady;
+  return pool;
+}
+
+async function readState(key, filePath, fallback) {
+  const pool = await ensureDb();
+  if (!pool) return localJson(filePath, fallback);
+  const result = await pool.query('SELECT value FROM firnic_state WHERE key = $1', [key]);
+  return result.rows[0]?.value ?? fallback;
+}
+
+async function writeState(key, filePath, data) {
+  const pool = await ensureDb();
+  if (!pool) {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    return;
+  }
+  await pool.query(
+    `INSERT INTO firnic_state (key, value, updated_at)
+     VALUES ($1, $2::jsonb, now())
+     ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()`,
+    [key, JSON.stringify(data)]
+  );
+}
+
 // Only serve these safe web file types — everything else is blocked
 const MIME = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
@@ -151,32 +223,32 @@ function sanitizeFormData(data) {
 
 // ── Rooms DB ──────────────────────────────────────────────────────────────────
 const ROOMS_FILE = path.join(DATA_DIR, 'rooms.json');
-function readRooms() {
-  try { return JSON.parse(fs.readFileSync(ROOMS_FILE, 'utf8')); } catch { return []; }
+async function readRooms() {
+  return readState('rooms', ROOMS_FILE, []);
 }
-function writeRooms(data) {
-  fs.writeFileSync(ROOMS_FILE, JSON.stringify(data, null, 2), 'utf8');
+async function writeRooms(data) {
+  await writeState('rooms', ROOMS_FILE, data);
 }
 
 // ── Content DB ────────────────────────────────────────────────────────────────
 const CONTENT_FILE = path.join(DATA_DIR, 'content.json');
-function readContent() {
-  try { return JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8')); } catch { return {}; }
+async function readContent() {
+  return readState('content', CONTENT_FILE, {});
 }
-function writeContent(data) {
-  fs.writeFileSync(CONTENT_FILE, JSON.stringify(data, null, 2), 'utf8');
+async function writeContent(data) {
+  await writeState('content', CONTENT_FILE, data);
 }
 
 // ── Submissions DB ────────────────────────────────────────────────────────────
 const SUBS_FILE = path.join(DATA_DIR, 'submissions.json');
-function readSubmissions() {
-  try { return JSON.parse(fs.readFileSync(SUBS_FILE, 'utf8')); } catch { return []; }
+async function readSubmissions() {
+  return readState('submissions', SUBS_FILE, []);
 }
-function writeSubmissions(data) {
-  fs.writeFileSync(SUBS_FILE, JSON.stringify(data, null, 2), 'utf8');
+async function writeSubmissions(data) {
+  await writeState('submissions', SUBS_FILE, data);
 }
-function saveSubmission(raw) {
-  const subs  = readSubmissions();
+async function saveSubmission(raw) {
+  const subs  = await readSubmissions();
   const clean = sanitizeFormData(raw);
   const entry = {
     id:        Date.now().toString(36) + crypto.randomBytes(4).toString('hex'),
@@ -185,7 +257,7 @@ function saveSubmission(raw) {
     ...clean,
   };
   subs.unshift(entry);
-  writeSubmissions(subs);
+  await writeSubmissions(subs);
   return entry;
 }
 
@@ -478,7 +550,7 @@ http.createServer(async (req, res) => {
   // ── GET /api/content ── public, used by pages to load dynamic prices ────────
   if (urlPath === '/api/content' && req.method === 'GET') {
     res.setHeader('Cache-Control', 'no-store');
-    json(res, 200, readContent());
+    json(res, 200, await readContent());
     return;
   }
 
@@ -518,7 +590,7 @@ http.createServer(async (req, res) => {
 
   // ── GET /api/availability ───────────────────────────────────────────────────
   if (urlPath === '/api/availability' && req.method === 'GET') {
-    const rooms = readRooms().map(r => ({
+    const rooms = (await readRooms()).map(r => ({
       id: r.id, name: r.name, price: r.price,
       available: r.available, total: r.total,
       status: r.available === 0 ? 'booked' : r.available <= 1 ? 'limited' : 'available'
@@ -556,7 +628,7 @@ http.createServer(async (req, res) => {
         }
       }
 
-      const entry = saveSubmission(body);
+      const entry = await saveSubmission(body);
       let emailed = false;
       try { emailed = await sendFormEmail(entry); } catch {}
       try { await sendUserConfirmation(entry); } catch {}
@@ -570,9 +642,9 @@ http.createServer(async (req, res) => {
     try {
       const { ref, submissionId } = await parseBody(req);
       if (ref && submissionId) {
-        const subs = readSubmissions();
+        const subs = await readSubmissions();
         const idx  = subs.findIndex(s => s.id === submissionId);
-        if (idx !== -1) { subs[idx].payment_ref = sanitizeString(ref, 100); writeSubmissions(subs); }
+        if (idx !== -1) { subs[idx].payment_ref = sanitizeString(ref, 100); await writeSubmissions(subs); }
       }
       json(res, 200, { ok: true });
     } catch { json(res, 200, { ok: true }); }
@@ -597,7 +669,7 @@ http.createServer(async (req, res) => {
     }
     try {
       const { fields, attachments } = await parseMultipart(req);
-      const entry = saveSubmission(fields);
+      const entry = await saveSubmission(fields);
       let emailed = false;
       let filesNote = false;
       if (transporter) {
@@ -669,41 +741,41 @@ http.createServer(async (req, res) => {
 
     // GET /admin/api/submissions
     if (urlPath === '/admin/api/submissions' && req.method === 'GET') {
-      json(res, 200, readSubmissions()); return;
+      json(res, 200, await readSubmissions()); return;
     }
 
     // PATCH /admin/api/submissions/:id
     if (/^\/admin\/api\/submissions\/[a-z0-9]+$/.test(urlPath) && req.method === 'PATCH') {
       const id   = urlPath.split('/').pop();
       const body = await parseBody(req);
-      const subs = readSubmissions();
+      const subs = await readSubmissions();
       const idx  = subs.findIndex(s => s.id === id);
       if (idx === -1) return json(res, 404, { error: 'Not found' });
       const VALID_STATUS = new Set(['new','handled','called','confirmed','cancelled']);
       if (body.status && VALID_STATUS.has(body.status)) subs[idx].status = body.status;
       if (body.note !== undefined) subs[idx].note = sanitizeString(String(body.note), 1000);
       subs[idx].updatedAt = new Date().toISOString();
-      writeSubmissions(subs);
+      await writeSubmissions(subs);
       json(res, 200, subs[idx]); return;
     }
 
     // DELETE /admin/api/submissions/:id
     if (/^\/admin\/api\/submissions\/[a-z0-9]+$/.test(urlPath) && req.method === 'DELETE') {
       const id   = urlPath.split('/').pop();
-      writeSubmissions(readSubmissions().filter(s => s.id !== id));
+      await writeSubmissions((await readSubmissions()).filter(s => s.id !== id));
       json(res, 200, { ok: true }); return;
     }
 
     // GET /admin/api/rooms
     if (urlPath === '/admin/api/rooms' && req.method === 'GET') {
-      json(res, 200, readRooms()); return;
+      json(res, 200, await readRooms()); return;
     }
 
     // PATCH /admin/api/rooms/:id
     if (/^\/admin\/api\/rooms\/[\w-]+$/.test(urlPath) && req.method === 'PATCH') {
       const id    = urlPath.split('/').pop();
       const body  = await parseBody(req);
-      const rooms = readRooms();
+      const rooms = await readRooms();
       const idx   = rooms.findIndex(r => r.id === id);
       if (idx === -1) return json(res, 404, { error: 'Room not found' });
       if (typeof body.delta === 'number') {
@@ -718,19 +790,19 @@ http.createServer(async (req, res) => {
       if (typeof body.price === 'number' && body.price > 0) rooms[idx].price = Math.round(body.price);
       if (typeof body.name === 'string' && body.name.trim()) rooms[idx].name = sanitizeString(body.name.trim(), 100);
       if (typeof body.description === 'string') rooms[idx].description = sanitizeString(body.description, 500);
-      writeRooms(rooms);
+      await writeRooms(rooms);
       json(res, 200, rooms[idx]); return;
     }
 
     // GET /admin/api/content
     if (urlPath === '/admin/api/content' && req.method === 'GET') {
-      json(res, 200, readContent()); return;
+      json(res, 200, await readContent()); return;
     }
 
     // PATCH /admin/api/content
     if (urlPath === '/admin/api/content' && req.method === 'PATCH') {
       const body = await parseBody(req);
-      const current = readContent();
+      const current = await readContent();
       const updated = { ...current };
       for (const [section, vals] of Object.entries(body)) {
         if (vals && typeof vals === 'object' && !Array.isArray(vals)) {
@@ -742,7 +814,7 @@ http.createServer(async (req, res) => {
           updated[section] = { ...(current[section] || {}), ...sanitized };
         }
       }
-      writeContent(updated);
+      await writeContent(updated);
       json(res, 200, { ok: true, content: updated }); return;
     }
 
@@ -750,7 +822,7 @@ http.createServer(async (req, res) => {
     if (urlPath === '/admin/api/bookings' && req.method === 'POST') {
       try {
         const body  = await parseBody(req);
-        const entry = saveSubmission({ ...body, _manual: 'true' });
+        const entry = await saveSubmission({ ...body, _manual: 'true' });
         json(res, 200, { ok: true, id: entry.id });
       } catch (e) { json(res, 500, { ok: false, error: 'Failed to save booking' }); }
       return;
@@ -793,7 +865,7 @@ http.createServer(async (req, res) => {
 
     // GET /admin/api/stats
     if (urlPath === '/admin/api/stats' && req.method === 'GET') {
-      const subs  = readSubmissions();
+      const subs  = await readSubmissions();
       const today = new Date().toDateString();
       json(res, 200, {
         total:   subs.length,

@@ -2,7 +2,30 @@
 
 This project is a long-running Node server that writes bookings, sessions, room inventory, and editable content to JSON files. Use a host that can either provide persistent storage or connect the app to a database.
 
-## Recommended: Railway
+## Recommended Free Path: Koyeb + Neon Postgres
+
+Koyeb has a free web Service, but its local filesystem is ephemeral. Use `DATABASE_URL` with a free Postgres provider such as Neon or Supabase so bookings and admin edits persist.
+
+1. Create a free Neon Postgres project.
+2. Copy its pooled connection string.
+3. In Koyeb, create a Web Service from the GitHub repo.
+4. Use the Dockerfile builder if Koyeb asks which builder to use.
+5. Set the exposed port to `3000`.
+6. Add environment variables:
+
+```sh
+DATABASE_URL=postgres://...
+PGSSLMODE=require
+GROQ_API_KEY=...
+ADMIN_PASSWORD=...
+SMTP_USER=...
+SMTP_PASS=...
+NOTIFY_EMAIL=...
+```
+
+On first boot, the app creates a `firnic_state` table and seeds room/content data from the repo. Submissions, room availability, and editable content are then stored in Postgres.
+
+## Paid Persistent Disk Path: Railway
 
 Railway is the closest replacement for the current Render setup.
 
