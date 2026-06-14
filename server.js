@@ -553,12 +553,6 @@ async function handler(req, res) {
     res.writeHead(400); res.end('Bad request'); return;
   }
 
-  if (IS_READ_ONLY_HOST && urlPath === '/' && req.method === 'GET') {
-    res.writeHead(302, { Location: '/index.html' });
-    res.end();
-    return;
-  }
-
   setCORS(req, res);
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
