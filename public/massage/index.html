@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Prestige Massage Studio | Accra, Ghana</title>
+  <meta name="description" content="Professional therapeutic massage in Accra. Deep tissue, Thai, Swedish and more. Certified therapists, private rooms, 7 days a week. Book online now." />
+  <link rel="canonical" href="https://firnicgroup.com/massage/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Firnic Group" />
+  <meta property="og:url" content="https://firnicgroup.com/massage/" />
+  <meta property="og:title" content="Firnic Prestige Massage Studio | Accra, Ghana" />
+  <meta property="og:description" content="Professional therapeutic massage in Accra. Deep tissue, Thai, Swedish and more. Certified therapists, private rooms, 7 days a week. Book online now." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80" />
+  <meta property="og:locale" content="en_GH" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Firnic Prestige Massage Studio | Accra, Ghana" />
+  <meta name="twitter:description" content="Professional therapeutic massage in Accra. Deep tissue, Thai, Swedish and more. Certified therapists, private rooms, 7 days a week. Book online now." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80" />
+  <!-- Google Analytics — replace G-XXXXXXXXXX with your real Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/firnic.css" />
+  <style>
+    /* HERO */
+    #hero {
+      position: relative; min-height: 88svh;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    #hero img.hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; filter: brightness(0.4);
+    }
+    #hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 65%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5% 5.5rem; max-width: 720px;
+    }
+    .hero-tag {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300; line-height: 1.05; margin-bottom: 1.25rem;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--gold); }
+    .hero-content p {
+      color: var(--muted); font-size: 1rem; font-weight: 300;
+      max-width: 480px; margin-bottom: 2.25rem; line-height: 1.85;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* WHY */
+    #why { background: var(--surface); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px; background: var(--border2); border: 1px solid var(--border2);
+      margin-top: 3rem;
+    }
+    .why-item { background: var(--surface2); padding: 2rem 1.5rem; }
+    .why-item .ico { font-size: 1.4rem; margin-bottom: 0.75rem; }
+    .why-item h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .why-item p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+    /* PRICE TABLES */
+    #services { background: var(--dark); }
+    .svc-block { margin-bottom: 3.5rem; }
+    .svc-block:last-child { margin-bottom: 0; }
+    .svc-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.25rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border2);
+    }
+    .svc-header .ico { font-size: 1.8rem; }
+    .svc-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.2rem;
+    }
+    .svc-header p { font-size: 0.82rem; color: var(--muted); }
+    .table-scroll {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border2);
+    }
+    .price-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .price-table thead { background: var(--surface); }
+    .price-table th {
+      text-align: left; font-size: 0.62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px; color: var(--muted);
+      padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border2);
+    }
+    .price-table td {
+      padding: 1rem 1.25rem; border-bottom: 1px solid rgba(0,0,0,0.05);
+      vertical-align: middle;
+    }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table tr:hover td { background: rgba(201,168,76,0.03); }
+    .price-table .duration { font-weight: 600; color: var(--gold); white-space: nowrap; }
+    .price-table .price { font-weight: 700; white-space: nowrap; }
+    .btn-book {
+      display: inline-flex; align-items: center;
+      background: var(--gold); color: var(--black);
+      padding: 0.42rem 1rem; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-book:hover { background: var(--gold-lt); }
+
+    /* SPECIALITY */
+    .spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .spec-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .spec-card h4 { font-size: 0.92rem; font-weight: 600; }
+    .spec-card .dur { font-size: 0.7rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .spec-card .pr { font-size: 1.1rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; }
+    .spec-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.6; flex: 1; }
+
+    /* BOOK */
+    #book { text-align: center; }
+    .book-inner { max-width: 720px; margin: 0 auto; }
+    .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; line-height: 1.8; }
+
+    .massage-form {
+      background: var(--dark); border: 1px solid var(--border2);
+      padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
+    }
+    .massage-form h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 600; margin-bottom: 1.75rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--surface); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .submit-btn {
+      margin-top: 1.25rem; width: 100%; padding: 1rem;
+      background: var(--gold); color: #080808;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .book-divider {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .book-divider::before, .book-divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+    .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .book-opt {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.25rem 1.75rem; min-width: 140px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .book-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .b-ico { font-size: 1.4rem; }
+    .b-lbl { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .b-sub { font-size: 0.7rem; color: var(--muted); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .massage-form { padding: 1.5rem; } }
+
+    @media (max-width: 640px) {
+      #hero { min-height: 80svh; }
+      .hero-content { padding: 0 1.25rem 4rem; }
+      .hero-actions { flex-direction: column; }
+      .why-grid { grid-template-columns: 1fr; }
+      .spec-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="logo">Firnic<em>.</em><span>Prestige Massage</span></a>
+  <ul class="nav-links">
+    <li><a href="../hotel/">Hotel</a></li>
+    <li><a href="../cars/">Cars</a></li>
+    <li><a href="#services">Treatments</a></li>
+    <li><a href="../events/">Events</a></li>
+    <li><a href="#book" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../hotel/"  onclick="toggleMenu()">Hotel</a>
+  <a href="../cars/"   onclick="toggleMenu()">Car Rental</a>
+  <a href="#services"  onclick="toggleMenu()">Treatments &amp; Pricing</a>
+  <a href="../events/" onclick="toggleMenu()">Events</a>
+  <a href="#book"      onclick="toggleMenu()">Book a Session</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80" alt="Firnic Massage Studio" fetchpriority="high" />
+  <div class="hero-content">
+    <div class="hero-tag">Firnic Group &nbsp;·&nbsp; Wellness</div>
+    <h1>Prestige<br><em>Massage Studio</em></h1>
+    <p>Certified therapists. Private rooms. Seven days a week. Experience therapeutic treatments designed to restore your body and mind.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-gold">Book a Session →</a>
+      <a href="#services" class="btn-outline">View Prices</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="reveal">
+    <div class="eyebrow">Why Choose Us</div>
+    <h2>The Firnic Wellness Difference</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="ico">🏅</div>
+      <h3>Certified Therapists</h3>
+      <p>All our therapists are professionally trained and certified. Your safety and comfort come first.</p>
+    </div>
+    <div class="why-item reveal reveal-d1">
+      <div class="ico">🚪</div>
+      <h3>Private Rooms</h3>
+      <p>Fully private treatment rooms for your total comfort and discretion throughout every session.</p>
+    </div>
+    <div class="why-item reveal reveal-d2">
+      <div class="ico">📅</div>
+      <h3>7 Days a Week</h3>
+      <p>Open every day. Book morning, afternoon, or evening — we work around your schedule.</p>
+    </div>
+    <div class="why-item reveal reveal-d3">
+      <div class="ico">💑</div>
+      <h3>Couple Massage</h3>
+      <p>Enjoy a relaxing couples massage experience in a private setting — perfect for two.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES & PRICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="eyebrow">Treatments &amp; Pricing</div>
+    <h2>Our Services</h2>
+    <p class="sec-sub">All prices are per session. Call us to confirm availability before visiting.</p>
+  </div>
+
+  <!-- DEEP TISSUE -->
+  <div class="svc-block reveal">
+    <div class="svc-header">
+      <span class="ico">💪</span>
+      <div>
+        <h3>Deep Tissue / Sport Massage</h3>
+        <p>Targets deep muscle layers to relieve chronic tension, improve mobility, and aid athletic recovery.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="price-table">
+        <thead><tr><th>Duration</th><th>Description</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="duration">60 min</td><td>Full-body deep tissue treatment</td><td class="price" id="price-dt60">GHS 280</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">90 min</td><td>Extended deep tissue + recovery focus</td><td class="price" id="price-dt90">GHS 380</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">120 min</td><td>Premium full-body deep tissue session</td><td class="price" id="price-dt120">GHS 480</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- THAI WITH OIL -->
+  <div class="svc-block reveal">
+    <div class="svc-header">
+      <span class="ico">🪷</span>
+      <div>
+        <h3>Thai Massage with Oil</h3>
+        <p>A blend of traditional Thai techniques with nourishing warm oils for deep relaxation and flexibility.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="price-table">
+        <thead><tr><th>Duration</th><th>Description</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="duration">60 min</td><td>Traditional Thai bodywork with aromatic oil</td><td class="price" id="price-to60">GHS 260</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">90 min</td><td>Full Thai with oil — body &amp; pressure points</td><td class="price" id="price-to90">GHS 360</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">120 min</td><td>Premium Thai oil ritual — full-body renewal</td><td class="price" id="price-to120">GHS 460</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- THAI WITHOUT OIL -->
+  <div class="svc-block reveal">
+    <div class="svc-header">
+      <span class="ico">🧘</span>
+      <div>
+        <h3>Thai Massage without Oil</h3>
+        <p>Authentic dry Thai massage using passive stretching and rhythmic pressure to restore energy flow.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="price-table">
+        <thead><tr><th>Duration</th><th>Description</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="duration">60 min</td><td>Classic dry Thai bodywork</td><td class="price" id="price-td60">GHS 240</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">90 min</td><td>Extended Thai stretching session</td><td class="price" id="price-td90">GHS 340</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">120 min</td><td>Full Thai therapeutic session</td><td class="price" id="price-td120">GHS 440</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SWEDISH -->
+  <div class="svc-block reveal">
+    <div class="svc-header">
+      <span class="ico">🌿</span>
+      <div>
+        <h3>Swedish Massage</h3>
+        <p>Gentle, flowing strokes designed to ease tension, boost circulation, and promote deep relaxation.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="price-table">
+        <thead><tr><th>Duration</th><th>Description</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="duration">45 min</td><td>Classic Swedish relaxation treatment</td><td class="price" id="price-sw45">GHS 250</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+          <tr><td class="duration">60 min</td><td>Full Swedish — head to toe relaxation</td><td class="price" id="price-sw60">GHS 320</td><td><a href="#book" class="btn-book">Book</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SPECIALITY -->
+  <div class="svc-block reveal">
+    <div class="svc-header">
+      <span class="ico">✨</span>
+      <div>
+        <h3>Speciality &amp; Express Treatments</h3>
+        <p>Targeted treatments for specific areas or quick relief sessions.</p>
+      </div>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <h4>Reflexology</h4>
+        <div class="dur">20 – 45 min</div>
+        <div class="pr" id="price-ref">GHS 200</div>
+        <p>Pressure point therapy on the feet to stimulate healing and restore balance throughout the body.</p>
+        <a href="#book" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;">Book</a>
+      </div>
+      <div class="spec-card">
+        <h4>Foot Massage</h4>
+        <div class="dur">15 – 25 min</div>
+        <div class="pr" id="price-foot">GHS 150</div>
+        <p>Soothing massage for tired, aching feet — perfect after a long day.</p>
+        <a href="#book" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;">Book</a>
+      </div>
+      <div class="spec-card">
+        <h4>Neck &amp; Shoulder</h4>
+        <div class="dur">30 min</div>
+        <div class="pr" id="price-ns">GHS 130</div>
+        <p>Targeted relief for upper body tension — great for office workers and tech neck.</p>
+        <a href="#book" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;">Book</a>
+      </div>
+      <div class="spec-card">
+        <h4>Foot Vibration</h4>
+        <div class="dur">30 min</div>
+        <div class="pr" id="price-fv">GHS 120</div>
+        <p>Vibration therapy for the feet to improve circulation and ease soreness.</p>
+        <a href="#book" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;">Book</a>
+      </div>
+      <div class="spec-card">
+        <h4>Chair Massage</h4>
+        <div class="dur">15 – 20 min</div>
+        <div class="pr" id="price-chair">GHS 100</div>
+        <p>Quick seated massage on back, shoulders, and neck. Perfect for a fast stress-relief break.</p>
+        <a href="#book" class="btn-book" style="align-self:flex-start;margin-top:0.5rem;">Book</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="book-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Reservations</div>
+    <h2 class="reveal">Book Your Session</h2>
+    <p class="reveal">Fill in your details and we'll confirm your appointment. Available Monday – Sunday.</p>
+
+    <form class="massage-form reveal reveal-d1" data-firnic-form="massage">
+      <h3>Session Request</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-name">Full Name</label>
+          <input type="text" id="m-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="m-phone">Phone Number</label>
+          <input type="tel" id="m-phone" name="phone" placeholder="+233 ..." required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-email">Email Address</label>
+          <input type="email" id="m-email" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="m-treatment">Treatment</label>
+          <select id="m-treatment" name="treatment_type" required>
+            <option value="" disabled selected>Select treatment</option>
+            <optgroup label="Deep Tissue / Sport">
+              <option>Deep Tissue — 60 min (GHS 400)</option>
+              <option>Deep Tissue — 90 min (GHS 480)</option>
+              <option>Deep Tissue — 120 min (GHS 580)</option>
+            </optgroup>
+            <optgroup label="Thai with Oil">
+              <option>Thai Oil — 60 min (GHS 350)</option>
+              <option>Thai Oil — 90 min (GHS 450)</option>
+              <option>Thai Oil — 120 min (GHS 560)</option>
+            </optgroup>
+            <optgroup label="Thai without Oil">
+              <option>Thai Dry — 60 min (GHS 240)</option>
+              <option>Thai Dry — 90 min (GHS 340)</option>
+              <option>Thai Dry — 120 min (GHS 440)</option>
+            </optgroup>
+            <optgroup label="Swedish">
+              <option>Swedish — 45 min (GHS 250)</option>
+              <option>Swedish — 60 min (GHS 320)</option>
+            </optgroup>
+            <optgroup label="Speciality">
+              <option>Reflexology (GHS 200)</option>
+              <option>Foot Massage (GHS 150)</option>
+              <option>Neck &amp; Shoulder (GHS 130)</option>
+              <option>Foot Vibration (GHS 120)</option>
+              <option>Chair Massage (GHS 100)</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="m-date">Preferred Date</label>
+          <input type="date" id="m-date" name="preferred_date" required />
+        </div>
+        <div class="form-group">
+          <label for="m-time">Preferred Time</label>
+          <select id="m-time" name="preferred_time">
+            <option value="Morning (9am – 12pm)">Morning (9am – 12pm)</option>
+            <option value="Afternoon (12pm – 4pm)">Afternoon (12pm – 4pm)</option>
+            <option value="Evening (4pm – 7pm)">Evening (4pm – 7pm)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label for="m-notes">Additional Notes</label>
+          <textarea id="m-notes" name="notes" placeholder="Any health conditions, preferences, or special requests…"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Request Appointment →</button>
+    </form>
+
+    <div class="book-divider reveal">Or reach us directly</div>
+
+    <div class="book-options reveal">
+      <a href="tel:+233592997811" class="book-opt">
+        <span class="b-ico">📞</span>
+        <span class="b-lbl">Call Us</span>
+        <span class="b-sub">+233 592 997 811</span>
+      </a>
+      <a href="mailto:firnicluxuriousprivatehotel@gmail.com" class="book-opt">
+        <span class="b-ico">✉️</span>
+        <span class="b-lbl">Email</span>
+        <span class="b-sub">firnicluxuriousprivatehotel@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="f-brand">
+      <a href="../" class="logo">Firnic<em>.</em></a>
+      <p>Firnic Prestige Massage Studio — Accra, Ghana. Open 7 days a week.</p>
+    </div>
+    <div class="f-col">
+      <h4>Treatments</h4>
+      <ul>
+        <li><a href="#services">Deep Tissue / Sport</a></li>
+        <li><a href="#services">Thai with Oil</a></li>
+        <li><a href="#services">Thai without Oil</a></li>
+        <li><a href="#services">Swedish Massage</a></li>
+        <li><a href="#services">Speciality Treatments</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Firnic Group</h4>
+      <ul>
+        <li><a href="../hotel/">Firnic Hotel</a></li>
+        <li><a href="../cars/">Firnic Car Rental</a></li>
+        <li><a href="../events/">Firnic Events</a></li>
+        <li><a href="../">Firnic Group Home</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+233592997811">+233 592 997 811</a></li>
+        <li><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></li>
+        <li><span style="color:var(--muted)">Ofankor Hills Estate, Accra</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>&copy; 2026 Firnic Group of Companies. All rights reserved.</p>
+    <div class="pay-methods">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#fff">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#fff">AIRTEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#fff">TELECEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script>
+  document.getElementById('m-date').min = new Date().toISOString().split('T')[0];
+  fetch('/api/content').then(r => r.json()).then(content => {
+    const m = content.massage || {};
+    const map = {
+      'price-dt60': m.deep_tissue_60,   'price-dt90': m.deep_tissue_90,  'price-dt120': m.deep_tissue_120,
+      'price-to60': m.thai_oil_60,      'price-to90': m.thai_oil_90,     'price-to120': m.thai_oil_120,
+      'price-td60': m.thai_dry_60,      'price-td90': m.thai_dry_90,     'price-td120': m.thai_dry_120,
+      'price-sw45': m.swedish_45,       'price-sw60': m.swedish_60,
+      'price-ref': m.reflexology, 'price-foot': m.foot, 'price-ns': m.neck_shoulder,
+      'price-fv': m.foot_vibration, 'price-chair': m.chair,
+    };
+    Object.entries(map).forEach(([id, val]) => {
+      if (val != null) { const el = document.getElementById(id); if (el) el.textContent = 'GHS ' + val; }
+    });
+  }).catch(() => {});
+</script>
+<script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>

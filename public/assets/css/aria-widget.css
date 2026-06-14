@@ -1,0 +1,312 @@
+/* ── Aria AI Widget ── Firnic Group ────────────────────────────────────────── */
+
+#aria-bubble {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+}
+
+/* Tooltip nudge */
+#aria-nudge {
+  background: #1a1a1a;
+  border: 1px solid rgba(201,168,76,0.35);
+  color: #e8dfc5;
+  font-size: 0.78rem;
+  padding: 8px 14px;
+  border-radius: 20px 20px 4px 20px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s, transform 0.4s;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+#aria-nudge.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Trigger button */
+#aria-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #a8832c);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.3);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  flex-shrink: 0;
+}
+#aria-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.6), 0 2px 8px rgba(0,0,0,0.3);
+}
+#aria-btn svg { transition: opacity 0.2s, transform 0.2s; }
+#aria-btn .icon-chat { position: absolute; }
+#aria-btn .icon-close {
+  position: absolute;
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+#aria-bubble.open #aria-btn .icon-chat {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+#aria-bubble.open #aria-btn .icon-close {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* Unread dot */
+#aria-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 10px;
+  height: 10px;
+  background: #e53935;
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+  display: none;
+}
+#aria-dot.show { display: block; }
+
+/* Chat panel */
+#aria-panel {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  width: 360px;
+  max-height: 540px;
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.08);
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 9998;
+}
+#aria-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+@media (max-width: 420px) {
+  #aria-panel {
+    width: calc(100vw - 24px);
+    right: 12px;
+    bottom: 88px;
+  }
+  #aria-bubble { right: 16px; bottom: 16px; }
+}
+
+/* Header */
+#aria-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, #1a1500, #0e0e0e);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  flex-shrink: 0;
+}
+.aria-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #a8832c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.aria-info { flex: 1; }
+.aria-info strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #c9a84c;
+  letter-spacing: 0.3px;
+}
+.aria-info span {
+  font-size: 0.72rem;
+  color: #6b6b6b;
+}
+.aria-online {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(34,197,94,0.6);
+}
+
+/* Messages */
+#aria-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.2) transparent;
+}
+#aria-messages::-webkit-scrollbar { width: 4px; }
+#aria-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 4px; }
+
+.aria-msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  animation: ariaMsgIn 0.2s ease;
+}
+@keyframes ariaMsgIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.aria-msg.bot {
+  background: #1c1c1c;
+  color: #d4cfc6;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+.aria-msg.user {
+  background: linear-gradient(135deg, #c9a84c, #a8832c);
+  color: #0e0e0e;
+  font-weight: 500;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+.aria-msg.bot a { color: #c9a84c; text-decoration: underline; }
+
+/* Typing indicator */
+.aria-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: #1c1c1c;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px 14px 14px 4px;
+  align-self: flex-start;
+  width: fit-content;
+}
+.aria-typing span {
+  width: 6px;
+  height: 6px;
+  background: #c9a84c;
+  border-radius: 50%;
+  animation: ariaTyping 1.2s infinite;
+  opacity: 0.4;
+}
+.aria-typing span:nth-child(2) { animation-delay: 0.2s; }
+.aria-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes ariaTyping {
+  0%, 80%, 100% { opacity: 0.4; transform: scale(1); }
+  40% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Quick replies */
+#aria-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 10px;
+}
+.aria-quick-btn {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: #c9a84c;
+  font-size: 0.72rem;
+  font-family: inherit;
+  padding: 5px 11px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.aria-quick-btn:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: #c9a84c;
+}
+
+/* Input row */
+#aria-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: #0e0e0e;
+  flex-shrink: 0;
+}
+#aria-input {
+  flex: 1;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 9px 16px;
+  color: #e0d8cc;
+  font-size: 0.82rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+  max-height: 90px;
+  overflow-y: auto;
+}
+#aria-input::placeholder { color: #4a4a4a; }
+#aria-input:focus { border-color: rgba(201,168,76,0.5); }
+#aria-send {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #a8832c);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+#aria-send:hover { transform: scale(1.1); }
+#aria-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Error state */
+.aria-msg.error {
+  background: rgba(229,57,53,0.12);
+  border-color: rgba(229,57,53,0.25);
+  color: #ef9a9a;
+}
+
+/* Powered by */
+#aria-footer {
+  text-align: center;
+  font-size: 0.65rem;
+  color: #333;
+  padding: 6px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: #0e0e0e;
+}
+#aria-footer a { color: #444; text-decoration: none; }

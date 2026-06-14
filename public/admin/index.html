@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firnic Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0a0a0a;
+      --surface: #111;
+      --card:    #171717;
+      --border:  rgba(255,255,255,0.07);
+      --gold:    #c9a84c;
+      --gold-lt: #e2c97a;
+      --muted:   #555;
+      --text:    #ddd;
+      --text-sm: #888;
+      --green:   #22c55e;
+      --red:     #ef4444;
+      --yellow:  #f59e0b;
+      --blue:    #3b82f6;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+    .login-logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 0.25rem;
+    }
+    .login-sub { color: var(--text-sm); font-size: 0.8rem; margin-bottom: 2rem; }
+    .login-box input {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--gold); }
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #a8832c);
+      border: none;
+      border-radius: 8px;
+      padding: 0.9rem;
+      color: #0e0e0e;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+    .login-btn:hover { opacity: 0.9; }
+    .login-error {
+      color: #f87171;
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    /* ── APP SHELL ── */
+    #app { display: none; height: 100vh; overflow: hidden; }
+    #app.visible { display: flex; }
+
+    /* Sidebar */
+    #sidebar {
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .sb-logo {
+      padding: 1.5rem 1.25rem 1rem;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 2px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sb-logo span { font-size: 0.65rem; display: block; color: var(--muted); font-weight: 400; letter-spacing: 1px; margin-top: 2px; }
+    .sb-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 2px; }
+    .sb-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-sm);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .sb-item:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .sb-item.active { background: rgba(201,168,76,0.12); color: var(--gold); }
+    .sb-item .ico { font-size: 1rem; width: 20px; text-align: center; }
+    .sb-badge {
+      margin-left: auto;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: none;
+    }
+    .sb-badge.show { display: block; }
+    .sb-footer { padding: 1rem 0.75rem; border-top: 1px solid var(--border); }
+    .sb-user { font-size: 0.75rem; color: var(--text-sm); margin-bottom: 0.5rem; }
+    .sb-user strong { color: var(--text); }
+    .logout-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem;
+      color: var(--text-sm);
+      font-family: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* Main content */
+    #main {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    #topbar {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      background: var(--surface);
+    }
+    #topbar h1 { font-size: 1rem; font-weight: 700; color: var(--text); }
+    #topbar .tb-sub { font-size: 0.75rem; color: var(--text-sm); }
+    .refresh-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.45rem 0.9rem;
+      color: var(--text-sm);
+      font-family: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .refresh-btn:hover { border-color: var(--gold); color: var(--gold); }
+    #page-content { padding: 2rem; flex: 1; }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Stats cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .stat-card .s-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sm); margin-bottom: 0.5rem; }
+    .stat-card .s-val { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-card .s-sub { font-size: 0.72rem; color: var(--text-sm); margin-top: 0.35rem; }
+
+    /* Activity feed */
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-sm);
+      margin-bottom: 1rem;
+    }
+    .activity-list { display: flex; flex-direction: column; gap: 8px; }
+    .activity-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .activity-item:hover { border-color: rgba(201,168,76,0.3); }
+    .ai-type {
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-info { flex: 1; min-width: 0; }
+    .ai-name { font-weight: 600; font-size: 0.85rem; color: var(--text); }
+    .ai-meta { font-size: 0.72rem; color: var(--text-sm); margin-top: 1px; }
+    .ai-time { font-size: 0.7rem; color: var(--muted); flex-shrink: 0; }
+
+    /* ── SUBMISSIONS TABLE ── */
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      color: var(--text-sm);
+      font-family: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: #0e0e0e; font-weight: 700; }
+    .search-input {
+      margin-left: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.75rem;
+      outline: none;
+      width: 200px;
+    }
+    .search-input:focus { border-color: var(--gold); }
+
+    .subs-table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-sm);
+      padding: 0.6rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.025); }
+    tbody td { padding: 0.75rem 0.85rem; font-size: 0.82rem; vertical-align: middle; }
+    .td-name { font-weight: 600; color: var(--text); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .td-phone { color: var(--text-sm); font-size: 0.78rem; }
+    .td-time { color: var(--muted); font-size: 0.72rem; white-space: nowrap; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .badge-new       { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+    .badge-handled   { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .badge-called    { background: rgba(59,130,246,0.12); color: #93c5fd; border: 1px solid rgba(59,130,246,0.2); }
+    .badge-confirmed { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+    .badge-cancelled { background: rgba(100,116,139,0.15);color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+    .badge-hotel    { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+    .badge-car      { background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
+    .badge-ride     { background: rgba(20,184,166,0.12); color: #5eead4; border: 1px solid rgba(20,184,166,0.2); }
+    .badge-delivery { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.2); }
+    .badge-massage  { background: rgba(236,72,153,0.12); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.2); }
+    .badge-event    { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .badge-contact  { background: rgba(100,116,139,0.15);color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+    .badge-driver   { background: rgba(56,189,248,0.12); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.2); }
+
+    .action-btns { display: flex; gap: 6px; align-items: center; }
+    .act-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      color: var(--text-sm);
+    }
+    .act-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .act-btn.wa:hover { border-color: #25d366; color: #25d366; }
+    .act-btn.del:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── DETAIL PANEL ── */
+    #detail-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 500;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 1rem;
+    }
+    #detail-overlay.open { display: flex; }
+    #detail-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 420px;
+      max-width: 100%;
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      padding: 1.5rem;
+      animation: slideIn 0.22s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .dp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+    .dp-close {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      color: var(--text-sm);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dp-close:hover { color: var(--text); }
+    .dp-fields { display: flex; flex-direction: column; gap: 8px; margin: 1.25rem 0; }
+    .dp-field { display: flex; gap: 8px; align-items: flex-start; }
+    .dp-field .k {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-sm);
+      min-width: 110px;
+      padding-top: 1px;
+    }
+    .dp-field .v { font-size: 0.82rem; color: var(--text); word-break: break-word; }
+    .dp-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .dp-btn {
+      flex: 1;
+      min-width: 100px;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-sm);
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .dp-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .dp-btn.primary { background: linear-gradient(135deg, var(--gold), #a8832c); color: #0e0e0e; border-color: transparent; }
+    .dp-btn.primary:hover { opacity: 0.9; }
+    .dp-btn.danger { color: var(--red); }
+    .dp-btn.danger:hover { border-color: var(--red); }
+    .dp-note { width: 100%; margin-top: 8px; }
+    .dp-note textarea {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.8rem;
+      resize: vertical;
+      min-height: 70px;
+      outline: none;
+    }
+    .dp-note textarea:focus { border-color: var(--gold); }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      z-index: 9999;
+      transition: transform 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+    .empty-state .big { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* Donut chart area */
+    .by-type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+      margin-top: 1rem;
+    }
+    .type-tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .type-tile .t-ico { font-size: 1.2rem; }
+    .type-tile .t-label { font-size: 0.7rem; color: var(--text-sm); }
+    .type-tile .t-count { font-size: 1.25rem; font-weight: 800; color: var(--text); line-height: 1; }
+
+    /* ── ROOMS ── */
+    .rooms-grid-admin {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .room-admin-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .room-admin-card.booked  { border-color: rgba(239,68,68,0.35); }
+    .room-admin-card.limited { border-color: rgba(245,158,11,0.35); }
+    .room-admin-card.available { border-color: rgba(34,197,94,0.2); }
+    .ra-header {
+      padding: 1rem 1.25rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .ra-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .ra-price { font-size: 0.75rem; color: var(--text-sm); margin-top: 2px; }
+    .avail-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .avail-badge.available { background: rgba(34,197,94,0.15);  color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    .avail-badge.limited   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .avail-badge.booked    { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .ra-avail-row {
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .ra-avail-label { font-size: 0.72rem; color: var(--text-sm); }
+    .ra-avail-num { font-size: 1.5rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .ra-avail-total { font-size: 0.72rem; color: var(--muted); }
+    .avail-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .avail-bar { height: 100%; border-radius: 3px; transition: width 0.4s; }
+    .ra-controls {
+      padding: 0.75rem 1.25rem 1rem;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .ra-ctrl-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.1rem;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .ra-ctrl-btn:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+    .ra-ctrl-btn.inc { color: var(--green); }
+    .ra-ctrl-btn.dec { color: #f87171; }
+    .ra-quick-btns { display: flex; gap: 6px; margin-left: auto; }
+    .ra-quick {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.68rem;
+      font-family: inherit;
+      color: var(--text-sm);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .ra-quick:hover { border-color: var(--gold); color: var(--gold); }
+    .ra-quick.danger:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── DATE RANGE FILTER ── */
+    .date-range-wrap { display: flex; align-items: center; gap: 6px; }
+    .date-range-wrap input[type="date"] {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.38rem 0.85rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.75rem;
+      outline: none;
+      cursor: pointer;
+      color-scheme: dark;
+    }
+    .date-range-wrap input[type="date"]:focus { border-color: var(--gold); }
+    .date-range-wrap label { font-size: 0.72rem; color: var(--text-sm); }
+    .date-clear-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.38rem 0.75rem;
+      color: var(--text-sm);
+      font-size: 0.72rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .date-clear-btn:hover { border-color: var(--red); color: var(--red); }
+    .export-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      color: var(--text-sm);
+      font-family: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .export-btn:hover { border-color: var(--green); color: var(--green); }
+    .new-booking-btn {
+      background: var(--gold);
+      border: none;
+      border-radius: 20px;
+      padding: 0.4rem 1.1rem;
+      color: #0e0e0e;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .new-booking-btn:hover { opacity: 0.85; }
+
+    /* ── NEW BOOKING MODAL ── */
+    #nb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 600;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #nb-overlay.open { display: flex; }
+    #nb-modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.75rem;
+      animation: slideIn 0.22s ease;
+    }
+    #nb-modal h2 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+    #nb-modal .nb-sub { font-size: 0.78rem; color: var(--text-sm); margin-bottom: 1.5rem; }
+    .nb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .nb-field { display: flex; flex-direction: column; gap: 5px; }
+    .nb-field.full { grid-column: 1 / -1; }
+    .nb-field label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sm); }
+    .nb-field input, .nb-field select, .nb-field textarea {
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .nb-field input:focus, .nb-field select:focus, .nb-field textarea:focus { border-color: var(--gold); }
+    .nb-field textarea { resize: vertical; min-height: 65px; }
+    .nb-field select option { background: #1a1a1a; }
+    .nb-actions { display: flex; gap: 8px; margin-top: 1.25rem; }
+    .nb-submit { flex: 1; background: linear-gradient(135deg, var(--gold), #a8832c); border: none; border-radius: 8px; padding: 0.75rem; color: #0e0e0e; font-family: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .nb-submit:hover { opacity: 0.9; }
+    .nb-cancel { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1.25rem; color: var(--text-sm); font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; }
+    .nb-cancel:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── SETTINGS VIEW ── */
+    .settings-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      max-width: 480px;
+    }
+    .settings-section h3 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+    .settings-section p { font-size: 0.78rem; color: var(--text-sm); margin-bottom: 1.25rem; line-height: 1.6; }
+    .settings-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 0.85rem; }
+    .settings-field label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sm); }
+    .settings-field input {
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .settings-field input:focus { border-color: var(--gold); }
+    .settings-save {
+      background: linear-gradient(135deg, var(--gold), #a8832c);
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1.75rem;
+      color: #0e0e0e;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .settings-save:hover { opacity: 0.9; }
+
+    /* ── CONTENT MANAGER ── */
+    .cm-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .cm-section h3 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .cm-section p.cm-sub { font-size: 0.72rem; color: var(--text-sm); margin-bottom: 1.25rem; }
+    .cm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .cm-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .cm-field label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sm); }
+    .cm-field input, .cm-field textarea {
+      background: #1a1a1a; border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.55rem 0.8rem; color: var(--text); font-family: inherit; font-size: 0.82rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .cm-field input:focus, .cm-field textarea:focus { border-color: var(--gold); }
+    .cm-field textarea { resize: vertical; min-height: 60px; }
+    .cm-field input[type="number"] { width: 100%; }
+    .cm-save {
+      background: linear-gradient(135deg, var(--gold), #a8832c); border: none; border-radius: 8px;
+      padding: 0.6rem 1.5rem; color: #0e0e0e; font-family: inherit; font-size: 0.8rem;
+      font-weight: 700; cursor: pointer; transition: opacity 0.2s;
+    }
+    .cm-save:hover { opacity: 0.9; }
+    .cm-room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .cm-room-card { background: #1a1a1a; border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .cm-room-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--gold); margin-bottom: 0.1rem; }
+    .cm-price-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.6rem; margin-bottom: 1rem; }
+
+    @media (max-width: 640px) {
+      #sidebar { width: 60px; }
+      .sb-logo span, .sb-item span:not(.ico), .sb-footer .sb-user, .logout-btn { display: none; }
+      .sb-logo { font-size: 0.7rem; padding: 1rem 0.5rem; text-align: center; }
+      .sb-item { justify-content: center; }
+      #page-content { padding: 1rem; }
+      #topbar { padding: 1rem; }
+      .nb-grid { grid-template-columns: 1fr; }
+      .date-range-wrap { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">FIRNIC</div>
+    <div class="login-sub">Admin Panel · Staff Only</div>
+    <input type="password" id="pw-input" placeholder="Enter admin password" autocomplete="current-password"/>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-error" id="login-err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sb-logo">F<span>Admin Panel</span></div>
+    <nav class="sb-nav">
+      <div class="sb-item active" data-view="dashboard" onclick="switchView('dashboard', this)">
+        <span class="ico">⊞</span><span>Dashboard</span>
+      </div>
+      <div class="sb-item" data-view="submissions" onclick="switchView('submissions', this)">
+        <span class="ico">📋</span><span>All Bookings</span>
+        <span class="sb-badge" id="new-badge">0</span>
+      </div>
+      <div class="sb-item" data-view="rooms" onclick="switchView('rooms', this)">
+        <span class="ico">🏨</span><span>Rooms</span>
+      </div>
+      <div class="sb-item" onclick="quickFilter('driver')">
+        <span class="ico">🧑‍✈️</span><span>Driver Apps</span>
+        <span class="sb-badge" id="driver-badge">0</span>
+      </div>
+      <div class="sb-item" onclick="quickFilter('event')">
+        <span class="ico">🎉</span><span>Events</span>
+      </div>
+      <div class="sb-item" data-view="content" onclick="switchView('content', this)">
+        <span class="ico">✏️</span><span>Content</span>
+      </div>
+      <div class="sb-item" data-view="settings" onclick="switchView('settings', this)">
+        <span class="ico">⚙️</span><span>Settings</span>
+      </div>
+      <div class="sb-item" style="margin-top:auto" onclick="window.open(location.origin,'_blank')">
+        <span class="ico">🌐</span><span>View Website</span>
+      </div>
+    </nav>
+    <div class="sb-footer">
+      <div class="sb-user">Signed in as <strong>Admin</strong></div>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main id="main">
+    <div id="topbar">
+      <div>
+        <h1 id="view-title">Dashboard</h1>
+        <div class="tb-sub" id="view-sub">Overview of all activity</div>
+      </div>
+      <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
+    </div>
+
+    <div id="page-content">
+
+      <!-- DASHBOARD VIEW -->
+      <div id="view-dashboard" class="view active">
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card"><div class="s-label">Total Submissions</div><div class="s-val" id="s-total">—</div><div class="s-sub">all time</div></div>
+          <div class="stat-card"><div class="s-label">New / Unread</div><div class="s-val" id="s-new" style="color:#f87171">—</div><div class="s-sub">need action</div></div>
+          <div class="stat-card"><div class="s-label">Today</div><div class="s-val" id="s-today" style="color:var(--green)">—</div><div class="s-sub">received today</div></div>
+          <div class="stat-card"><div class="s-label">Handled</div><div class="s-val" id="s-handled" style="color:#4ade80">—</div><div class="s-sub">completed</div></div>
+        </div>
+
+        <div class="section-title">Bookings by Category</div>
+        <div class="by-type-grid" id="by-type-grid"></div>
+
+        <div class="section-title" style="margin-top:2rem">Recent Activity</div>
+        <div class="activity-list" id="activity-list">
+          <div class="empty-state"><div class="big">📭</div>No submissions yet</div>
+        </div>
+      </div>
+
+      <!-- ROOMS VIEW -->
+      <div id="view-rooms" class="view">
+        <p style="color:var(--text-sm);font-size:0.82rem;margin-bottom:0.5rem">
+          Adjust available rooms here. Customers see live availability on the website — rooms at 0 show <strong style="color:#f87171">Fully Booked</strong>.
+        </p>
+        <div id="rooms-grid-admin" class="rooms-grid-admin"></div>
+      </div>
+
+      <!-- SUBMISSIONS VIEW -->
+      <div id="view-submissions" class="view">
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All</button>
+          <button class="filter-btn" data-filter="new" onclick="setFilter('new',this)">🔴 New</button>
+          <button class="filter-btn" data-filter="hotel" onclick="setFilter('hotel',this)">🏨 Hotel</button>
+          <button class="filter-btn" data-filter="massage" onclick="setFilter('massage',this)">💆 Massage</button>
+          <button class="filter-btn" data-filter="event" onclick="setFilter('event',this)">🎉 Events</button>
+          <button class="filter-btn" data-filter="transport" onclick="setFilter('transport',this)">🚗 Transport</button>
+          <button class="filter-btn" data-filter="driver" onclick="setFilter('driver',this)">🧑‍✈️ Drivers</button>
+          <button class="filter-btn" data-filter="contact" onclick="setFilter('contact',this)">📬 Contact</button>
+          <input type="text" class="search-input" id="search-input" placeholder="🔍  Search name or phone…" oninput="renderTable()"/>
+        </div>
+        <div class="filter-bar" style="margin-top:-0.5rem;margin-bottom:1rem">
+          <div class="date-range-wrap">
+            <label>From</label>
+            <input type="date" id="date-from" onchange="renderTable()" />
+            <label>To</label>
+            <input type="date" id="date-to" onchange="renderTable()" />
+            <button class="date-clear-btn" onclick="clearDateRange()">✕ Clear</button>
+          </div>
+          <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+          <button class="new-booking-btn" onclick="openNewBooking()">+ New Booking</button>
+        </div>
+        <div class="subs-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Name / Details</th>
+                <th>Phone</th>
+                <th>Received</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subs-body"></tbody>
+          </table>
+          <div id="table-empty" class="empty-state" style="display:none">
+            <div class="big">🔍</div>No submissions match this filter
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT VIEW -->
+      <div id="view-content" class="view">
+
+        <div class="cm-section">
+          <h3>🏨 Hotel Rooms</h3>
+          <p class="cm-sub">Edit room names, prices, and descriptions. Changes appear on the website immediately.</p>
+          <div class="cm-room-grid" id="cm-rooms-grid">
+            <div style="color:var(--text-sm);font-size:0.8rem">Loading…</div>
+          </div>
+        </div>
+
+        <div class="cm-section">
+          <h3>💆 Massage Prices (GHS)</h3>
+          <p class="cm-sub">Update session prices. Customers see the new prices immediately on the massage page.</p>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Deep Tissue / Sport</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-dt60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-dt90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-dt120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Thai with Oil</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-to60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-to90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-to120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Thai without Oil</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-td60" min="0" /></div>
+              <div class="cm-field"><label>90 min</label><input type="number" id="cm-td90" min="0" /></div>
+              <div class="cm-field"><label>120 min</label><input type="number" id="cm-td120" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:0.75rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Swedish</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>45 min</label><input type="number" id="cm-sw45" min="0" /></div>
+              <div class="cm-field"><label>60 min</label><input type="number" id="cm-sw60" min="0" /></div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <strong style="font-size:0.72rem;color:var(--text-sm);text-transform:uppercase;letter-spacing:1px">Speciality</strong>
+            <div class="cm-price-grid" style="margin-top:0.5rem">
+              <div class="cm-field"><label>Reflexology</label><input type="number" id="cm-ref" min="0" /></div>
+              <div class="cm-field"><label>Foot Massage</label><input type="number" id="cm-foot" min="0" /></div>
+              <div class="cm-field"><label>Neck &amp; Shoulder</label><input type="number" id="cm-ns" min="0" /></div>
+              <div class="cm-field"><label>Foot Vibration</label><input type="number" id="cm-fv" min="0" /></div>
+              <div class="cm-field"><label>Chair Massage</label><input type="number" id="cm-chair" min="0" /></div>
+            </div>
+          </div>
+          <button class="cm-save" onclick="saveMassagePrices()">Save Massage Prices →</button>
+        </div>
+
+        <div class="cm-section">
+          <h3>📞 Contact Details</h3>
+          <p class="cm-sub">Update the phone number, email, and address shown across the site.</p>
+          <div class="cm-grid">
+            <div class="cm-field"><label>Phone / WhatsApp (digits only)</label><input type="text" id="cm-phone" placeholder="233592997811" /></div>
+            <div class="cm-field"><label>Email Address</label><input type="email" id="cm-email" placeholder="firnicluxuriousprivatehotel@gmail.com" /></div>
+            <div class="cm-field"><label>Physical Address</label><input type="text" id="cm-address" placeholder="14 Ofankor Hills Estate, Accra" /></div>
+          </div>
+          <button class="cm-save" onclick="saveContactInfo()">Save Contact Info →</button>
+        </div>
+
+      </div>
+
+      <!-- SETTINGS VIEW -->
+      <div id="view-settings" class="view">
+        <div class="settings-section">
+          <h3>Change Admin Password</h3>
+          <p>Update the password used to access this admin panel. You will be signed out after saving.</p>
+          <div class="settings-field">
+            <label>Current Password</label>
+            <input type="password" id="set-cur-pw" placeholder="Current password" autocomplete="current-password"/>
+          </div>
+          <div class="settings-field">
+            <label>New Password</label>
+            <input type="password" id="set-new-pw" placeholder="New password (min 8 chars)" autocomplete="new-password"/>
+          </div>
+          <div class="settings-field">
+            <label>Confirm New Password</label>
+            <input type="password" id="set-conf-pw" placeholder="Repeat new password" autocomplete="new-password"/>
+          </div>
+          <button class="settings-save" onclick="savePassword()">Save Password →</button>
+        </div>
+        <div class="settings-section">
+          <h3>About This Panel</h3>
+          <p>Firnic Admin Panel · All form submissions, bookings and enquiries from the Firnic Group website are stored here.<br><br>
+          Server: <code style="background:#222;padding:2px 6px;border-radius:4px;font-size:0.78rem">http://localhost:3000</code><br>
+          Auto-refresh: every 30 seconds</p>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main>
+</div>
+
+<!-- DETAIL PANEL OVERLAY -->
+<div id="detail-overlay" onclick="closeDetail(event)">
+  <div id="detail-panel">
+    <div class="dp-header">
+      <div>
+        <div id="dp-type-badge"></div>
+        <h2 id="dp-name" style="font-size:1rem;margin-top:0.5rem;color:var(--gold)"></h2>
+        <div id="dp-time" style="font-size:0.72rem;color:var(--muted)"></div>
+      </div>
+      <button class="dp-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div id="dp-status-row" style="margin-bottom:1rem"></div>
+    <div class="dp-fields" id="dp-fields"></div>
+    <div class="dp-note">
+      <textarea id="dp-note-ta" placeholder="Add a note (e.g. 'Called, confirmed for Friday')…"></textarea>
+    </div>
+    <div class="dp-actions">
+      <button class="dp-btn primary" onclick="dpAction('confirmed')">✓ Confirm Booking</button>
+      <button class="dp-btn" style="color:#4ade80;border-color:rgba(34,197,94,0.3)" onclick="dpAction('handled')">✓ Mark Done</button>
+      <button class="dp-btn" onclick="dpAction('called')">📞 Called</button>
+      <button class="dp-btn wa" id="dp-wa-btn" onclick="openWhatsApp()">💬 WhatsApp</button>
+      <button class="dp-btn" style="color:#94a3b8" onclick="dpAction('cancelled')">✕ Cancel</button>
+      <button class="dp-btn danger" onclick="dpDelete()">🗑 Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW BOOKING MODAL -->
+<div id="nb-overlay" onclick="closeNewBooking(event)">
+  <div id="nb-modal">
+    <h2>New Manual Booking</h2>
+    <p class="nb-sub">Log a booking taken by phone or in person — it will appear in the bookings list instantly.</p>
+    <form id="nb-form" onsubmit="submitNewBooking(event)">
+      <div class="nb-grid">
+        <div class="nb-field">
+          <label>Full Name *</label>
+          <input type="text" name="name" placeholder="Customer name" required />
+        </div>
+        <div class="nb-field">
+          <label>Phone / WhatsApp *</label>
+          <input type="tel" name="phone" placeholder="+233 xxx xxx xxx" required />
+        </div>
+        <div class="nb-field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="email@example.com" />
+        </div>
+        <div class="nb-field">
+          <label>Booking Type *</label>
+          <select name="_type" required>
+            <option value="">— Select type —</option>
+            <option value="hotel">🏨 Hotel Booking</option>
+            <option value="massage">💆 Massage</option>
+            <option value="event">🎉 Event</option>
+            <option value="car">🚗 Car Rental</option>
+            <option value="driver">🧑‍✈️ Driver Application</option>
+            <option value="contact">📬 General Enquiry</option>
+          </select>
+        </div>
+        <div class="nb-field">
+          <label>Date (if applicable)</label>
+          <input type="date" name="booking_date" />
+        </div>
+        <div class="nb-field">
+          <label>Status</label>
+          <select name="status">
+            <option value="confirmed">Confirmed</option>
+            <option value="new">New / Pending</option>
+            <option value="called">Called</option>
+          </select>
+        </div>
+        <div class="nb-field full">
+          <label>Details / Notes</label>
+          <textarea name="notes" placeholder="Room type, dates, special requests, how they paid…"></textarea>
+        </div>
+      </div>
+      <div class="nb-actions">
+        <button type="button" class="nb-cancel" onclick="closeNewBooking()">Cancel</button>
+        <button type="submit" class="nb-submit" id="nb-submit-btn">Save Booking →</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+  const API = window.location.origin;
+  let token = localStorage.getItem('firnic_admin_token') || '';
+  let allSubs = [];
+  let currentFilter = 'all';
+  let currentDetailId = null;
+
+  const TYPE_META = {
+    hotel:    { icon:'🏨', label:'Hotel Booking' },
+    car:      { icon:'🚗', label:'Car Booking' },
+    ride:     { icon:'🚕', label:'Ride Order' },
+    delivery: { icon:'📦', label:'Delivery Order' },
+    massage:  { icon:'💆', label:'Massage Booking' },
+    event:    { icon:'🎉', label:'Event Enquiry' },
+    contact:  { icon:'📬', label:'Contact Message' },
+    driver:   { icon:'🧑‍✈️', label:'Driver Application' },
+    general:  { icon:'📋', label:'Submission' },
+  };
+
+  // ── Auth ────────────────────────────────────────────────────────────────────
+  async function doLogin() {
+    const pw = document.getElementById('pw-input').value;
+    try {
+      const r = await fetch(API + '/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        token = d.token;
+        localStorage.setItem('firnic_admin_token', token);
+        showApp();
+      } else {
+        document.getElementById('login-err').style.display = 'block';
+      }
+    } catch (e) {
+      document.getElementById('login-err').textContent = 'Cannot connect to server. Make sure it is running.';
+      document.getElementById('login-err').style.display = 'block';
+    }
+  }
+
+  async function doLogout() {
+    await fetch(API + '/admin/logout', { method:'POST', headers:{ Authorization:'Bearer '+token } });
+    localStorage.removeItem('firnic_admin_token');
+    token = '';
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('login-screen').style.display = 'flex';
+  }
+
+  function showApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    loadData();
+    setInterval(loadData, 30000); // auto-refresh every 30s
+  }
+
+  async function authFetch(url, opts={}) {
+    return fetch(url, { ...opts, headers: { 'Content-Type':'application/json', Authorization:'Bearer '+token, ...(opts.headers||{}) } });
+  }
+
+  // ── Load data ───────────────────────────────────────────────────────────────
+  async function loadData() {
+    try {
+      const [statsR, subsR] = await Promise.all([
+        authFetch(API + '/admin/api/stats'),
+        authFetch(API + '/admin/api/submissions'),
+      ]);
+      if (statsR.status === 401 || subsR.status === 401) { doLogout(); return; }
+      const stats = await statsR.json();
+      const subs  = await subsR.json();
+      allSubs = subs;
+      renderStats(stats);
+      renderActivity(subs.slice(0, 8));
+      renderTable();
+      updateBadge(stats.new);
+    } catch (e) { showToast('Connection error — is the server running?'); }
+  }
+
+  // ── Stats ───────────────────────────────────────────────────────────────────
+  function renderStats(stats) {
+    document.getElementById('s-total').textContent   = stats.total;
+    document.getElementById('s-new').textContent     = stats.new;
+    document.getElementById('s-today').textContent   = stats.today;
+    document.getElementById('s-handled').textContent = stats.handled;
+
+    const typeGrid = document.getElementById('by-type-grid');
+    typeGrid.innerHTML = '';
+    const order = ['hotel','massage','event','car','ride','delivery','driver','contact'];
+    order.forEach(t => {
+      const count = stats.byType?.[t] || 0;
+      if (!count) return;
+      const m = TYPE_META[t] || TYPE_META.general;
+      typeGrid.innerHTML += `<div class="type-tile">
+        <span class="t-ico">${m.icon}</span>
+        <div><div class="t-count">${count}</div><div class="t-label">${m.label}</div></div>
+      </div>`;
+    });
+    if (!typeGrid.innerHTML) typeGrid.innerHTML = '<div class="type-tile" style="opacity:0.4">No data yet</div>';
+  }
+
+  function updateBadge(n) {
+    const badge = document.getElementById('new-badge');
+    badge.textContent = n;
+    badge.classList.toggle('show', n > 0);
+    // Driver badge
+    const driverCount = allSubs.filter(s => s._type === 'driver' && s.status === 'new').length;
+    const db = document.getElementById('driver-badge');
+    if (db) { db.textContent = driverCount; db.classList.toggle('show', driverCount > 0); }
+  }
+
+  function quickFilter(type) {
+    switchView('submissions', document.querySelector('[data-view="submissions"]'));
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === type);
+    });
+    renderTable();
+  }
+
+  // ── Activity feed ───────────────────────────────────────────────────────────
+  function renderActivity(subs) {
+    const list = document.getElementById('activity-list');
+    if (!subs.length) {
+      list.innerHTML = '<div class="empty-state"><div class="big">📭</div>No submissions yet. Forms will appear here when customers fill them in.</div>';
+      return;
+    }
+    list.innerHTML = subs.map(s => {
+      const m = TYPE_META[s._type] || TYPE_META.general;
+      const name = s.name || s['full-name'] || s.fullName || s.customer_name || 'Unknown';
+      const phone = s.phone || s.mobile || s.whatsapp || '';
+      return `<div class="activity-item" onclick="openDetail('${s.id}')">
+        <div class="ai-type">${m.icon}</div>
+        <div class="ai-info">
+          <div class="ai-name">${esc(name)} <span class="badge badge-${esc(s._type||'general')}" style="font-size:0.6rem">${m.label}</span></div>
+          <div class="ai-meta">${esc(phone)} ${s.note ? '· 📝 '+esc(s.note) : ''}</div>
+        </div>
+        <div class="ai-time">${timeAgo(s.timestamp)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Table ───────────────────────────────────────────────────────────────────
+  function setFilter(f, el) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    renderTable();
+  }
+
+  function renderTable() {
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const dateFrom = document.getElementById('date-from')?.value;
+    const dateTo   = document.getElementById('date-to')?.value;
+    let subs = allSubs;
+    if (currentFilter === 'new') subs = subs.filter(s => s.status === 'new');
+    else if (currentFilter === 'transport') subs = subs.filter(s => ['car','ride','delivery'].includes(s._type));
+    else if (currentFilter !== 'all') subs = subs.filter(s => s._type === currentFilter);
+    if (search) subs = subs.filter(s => JSON.stringify(s).toLowerCase().includes(search));
+    if (dateFrom) subs = subs.filter(s => s.timestamp && new Date(s.timestamp) >= new Date(dateFrom));
+    if (dateTo) {
+      const end = new Date(dateTo); end.setHours(23,59,59,999);
+      subs = subs.filter(s => s.timestamp && new Date(s.timestamp) <= end);
+    }
+
+    const body = document.getElementById('subs-body');
+    const empty = document.getElementById('table-empty');
+    if (!subs.length) {
+      body.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    body.innerHTML = subs.map(s => {
+      const m = TYPE_META[s._type] || TYPE_META.general;
+      const name  = s.name || s['full-name'] || s.fullName || s.customer_name || '—';
+      const phone = s.phone || s.mobile || s.whatsapp || '—';
+      const statusBadge = `<span class="badge badge-${esc(s.status||'new')}">${esc(s.status||'new')}</span>`;
+      const typeBadge   = `<span class="badge badge-${esc(s._type||'general')}">${m.icon} ${m.label}</span>`;
+      return `<tr onclick="openDetail('${s.id}')">
+        <td>${statusBadge}</td>
+        <td>${typeBadge}</td>
+        <td><div class="td-name">${esc(name)}</div>${s.note ? '<div class="td-phone">📝 '+esc(s.note)+'</div>' : ''}</td>
+        <td><div class="td-phone">${esc(phone)}</div></td>
+        <td class="td-time">${formatDate(s.timestamp)}</td>
+        <td>
+          <div class="action-btns" onclick="event.stopPropagation()">
+            <button class="act-btn" onclick="quickStatus('${s.id}','handled')">✓</button>
+            <button class="act-btn wa" onclick="wa('${(s.phone||s.mobile||'')}')">💬</button>
+            <button class="act-btn del" onclick="delSub('${s.id}')">✕</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Detail panel ────────────────────────────────────────────────────────────
+  function openDetail(id) {
+    const s = allSubs.find(x => x.id === id);
+    if (!s) return;
+    currentDetailId = id;
+    const m = TYPE_META[s._type] || TYPE_META.general;
+    const name  = s.name || s['full-name'] || s.fullName || s.customer_name || 'Unknown';
+    const phone = s.phone || s.mobile || s.whatsapp || '';
+
+    document.getElementById('dp-type-badge').innerHTML = `<span class="badge badge-${esc(s._type||'general')}">${m.icon} ${m.label}</span>`;
+    document.getElementById('dp-name').textContent     = name;
+    document.getElementById('dp-time').textContent     = formatDate(s.timestamp);
+    document.getElementById('dp-status-row').innerHTML = `<span class="badge badge-${esc(s.status||'new')}">${esc(s.status||'new')}</span>`;
+    document.getElementById('dp-note-ta').value        = s.note || '';
+
+    // Build fields
+    const skip = new Set(['id','timestamp','status','_type','_page','_time','note','updatedAt']);
+    const fields = Object.entries(s)
+      .filter(([k]) => !skip.has(k))
+      .map(([k, v]) => `<div class="dp-field"><span class="k">${esc(k.replace(/_/g,' '))}</span><span class="v">${esc(v)}</span></div>`)
+      .join('');
+    document.getElementById('dp-fields').innerHTML = fields || '<div style="color:var(--muted);font-size:0.8rem">No additional fields</div>';
+
+    const waNum = (phone || '').replace(/\D/g, '');
+    document.getElementById('dp-wa-btn').style.display = waNum ? '' : 'none';
+    document.getElementById('dp-wa-btn').dataset.phone = waNum;
+
+    document.getElementById('detail-overlay').classList.add('open');
+  }
+
+  function closeDetail(e) {
+    if (e && e.target !== document.getElementById('detail-overlay')) return;
+    document.getElementById('detail-overlay').classList.remove('open');
+    currentDetailId = null;
+  }
+
+  async function dpAction(status) {
+    if (!currentDetailId) return;
+    const sub  = allSubs.find(s => s.id === currentDetailId);
+    const note = document.getElementById('dp-note-ta').value.trim();
+    const r = await authFetch(API + '/admin/api/submissions/' + currentDetailId, {
+      method: 'PATCH',
+      body: JSON.stringify({ status, note })
+    });
+    if (!r.ok) { showToast('Failed to update — please try again'); return; }
+
+    // Auto-decrement room when a hotel booking is confirmed (only if not already confirmed)
+    if (status === 'confirmed' && sub && sub.status !== 'confirmed' && sub._type === 'hotel' && sub.room_type) {
+      const roomMap = {
+        'Mini Royal':      'mini-royal',
+        'Grand Chamber':   'grand-chamber',
+        'Elegant Retreat': 'elegant-retreat',
+        'Cozy Alcove':     'cozy-alcove',
+        'Royal Sanctuary': 'royal-sanctuary',
+      };
+      const match = Object.keys(roomMap).find(k => sub.room_type.includes(k));
+      if (match) {
+        await authFetch(API + '/admin/api/rooms/' + roomMap[match], {
+          method: 'PATCH',
+          body: JSON.stringify({ delta: -1 })
+        });
+        showToast('Confirmed — room availability updated');
+      } else {
+        showToast('Marked as confirmed');
+      }
+    } else {
+      showToast('Marked as ' + status);
+    }
+
+    await loadData();
+    document.getElementById('detail-overlay').classList.remove('open');
+  }
+
+  async function dpDelete() {
+    if (!currentDetailId) return;
+    if (!confirm('Delete this submission permanently?')) return;
+    await authFetch(API + '/admin/api/submissions/' + currentDetailId, { method: 'DELETE' });
+    showToast('Deleted');
+    document.getElementById('detail-overlay').classList.remove('open');
+    await loadData();
+  }
+
+  function openWhatsApp() {
+    const phone = document.getElementById('dp-wa-btn').dataset.phone;
+    if (phone) window.open(`https://wa.me/${phone}`, '_blank');
+  }
+
+  async function quickStatus(id, status, silent=false) {
+    await authFetch(API + '/admin/api/submissions/' + id, { method:'PATCH', body:JSON.stringify({status}) });
+    if (!silent) { showToast('Updated'); await loadData(); }
+  }
+
+  async function delSub(id) {
+    if (!confirm('Delete this submission?')) return;
+    await authFetch(API + '/admin/api/submissions/' + id, { method:'DELETE' });
+    showToast('Deleted');
+    await loadData();
+  }
+
+  function wa(phone) {
+    const n = (phone || '').replace(/\D/g, '');
+    if (n) window.open(`https://wa.me/${n}`, '_blank');
+  }
+
+  // ── Navigation ──────────────────────────────────────────────────────────────
+  // ── Rooms ────────────────────────────────────────────────────────────────────
+  let allRooms = [];
+
+  async function loadRooms() {
+    const r = await authFetch(API + '/admin/api/rooms');
+    allRooms = await r.json();
+    renderRooms();
+  }
+
+  function renderRooms() {
+    const grid = document.getElementById('rooms-grid-admin');
+    if (!allRooms.length) { grid.innerHTML = '<div class="empty-state"><div class="big">🏨</div>No rooms configured</div>'; return; }
+    grid.innerHTML = allRooms.map(room => {
+      const pct = room.total > 0 ? Math.round((room.available / room.total) * 100) : 0;
+      const status = room.available === 0 ? 'booked' : room.available <= 1 ? 'limited' : 'available';
+      const statusLabel = { booked:'Fully Booked', limited:'Only ' + room.available + ' left', available: room.available + ' Available' }[status];
+      const barColor = { booked:'#ef4444', limited:'#f59e0b', available:'#22c55e' }[status];
+      return `<div class="room-admin-card ${status}" id="room-card-${room.id}">
+        <div class="ra-header">
+          <div>
+            <div class="ra-name">${esc(room.name)}</div>
+            <div class="ra-price">GHS ${room.price.toLocaleString()} / night</div>
+          </div>
+          <span class="avail-badge ${status}">${statusLabel}</span>
+        </div>
+        <div class="ra-avail-row">
+          <div>
+            <div class="ra-avail-label">Available</div>
+            <div class="ra-avail-num">${room.available}</div>
+            <div class="ra-avail-total">of ${room.total} total</div>
+          </div>
+          <div class="avail-bar-wrap">
+            <div class="avail-bar" style="width:${pct}%;background:${barColor}"></div>
+          </div>
+        </div>
+        <div class="ra-controls">
+          <button class="ra-ctrl-btn dec" onclick="adjustRoom('${room.id}', -1)" title="Decrease">−</button>
+          <button class="ra-ctrl-btn inc" onclick="adjustRoom('${room.id}', +1)" title="Increase">+</button>
+          <div class="ra-quick-btns">
+            <button class="ra-quick" onclick="setRoom('${room.id}', ${room.total})">All available</button>
+            <button class="ra-quick danger" onclick="setRoom('${room.id}', 0)">Fully booked</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function adjustRoom(id, delta) {
+    const r = await authFetch(API + '/admin/api/rooms/' + id, { method:'PATCH', body: JSON.stringify({ delta }) });
+    const updated = await r.json();
+    const idx = allRooms.findIndex(r => r.id === id);
+    if (idx !== -1) allRooms[idx] = updated;
+    renderRooms();
+    showToast('Availability updated');
+  }
+
+  async function setRoom(id, available) {
+    const r = await authFetch(API + '/admin/api/rooms/' + id, { method:'PATCH', body: JSON.stringify({ available }) });
+    const updated = await r.json();
+    const idx = allRooms.findIndex(r => r.id === id);
+    if (idx !== -1) allRooms[idx] = updated;
+    renderRooms();
+    showToast(available === 0 ? 'Marked fully booked' : 'All rooms available');
+  }
+
+  const VIEW_TITLES = {
+    dashboard:   ['Dashboard', 'Overview of all activity'],
+    submissions: ['Bookings & Enquiries', 'All form submissions'],
+    rooms:       ['Room Availability', 'Control what customers see live'],
+    content:     ['Content Manager', 'Edit prices, rooms, and contact info'],
+    settings:    ['Settings', 'Manage password and preferences'],
+  };
+  function switchView(name, el) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    el.classList.add('active');
+    const [title, sub] = VIEW_TITLES[name] || [name, ''];
+    document.getElementById('view-title').textContent = title;
+    document.getElementById('view-sub').textContent   = sub;
+    if (name === 'rooms') loadRooms();
+    if (name === 'content') loadContent();
+  }
+
+  // ── Content Manager ──────────────────────────────────────────────────────────
+  let contentData = {};
+
+  async function loadContent() {
+    try {
+      const [cr, rr] = await Promise.all([
+        authFetch(API + '/admin/api/content'),
+        authFetch(API + '/admin/api/rooms'),
+      ]);
+      contentData = await cr.json();
+      allRooms = await rr.json();
+      renderContentRooms();
+      renderMassagePrices();
+      renderContactInfo();
+    } catch(e) { showToast('Failed to load content'); }
+  }
+
+  function renderContentRooms() {
+    const grid = document.getElementById('cm-rooms-grid');
+    if (!allRooms.length) { grid.innerHTML = '<div style="color:var(--text-sm)">No rooms found</div>'; return; }
+    grid.innerHTML = allRooms.map(r => `
+      <div class="cm-room-card">
+        <h4>${esc(r.name)}</h4>
+        <div class="cm-field"><label>Room Name</label><input type="text" id="cmr-name-${r.id}" value="${esc(r.name)}" /></div>
+        <div class="cm-field"><label>Price per Night (GHS)</label><input type="number" id="cmr-price-${r.id}" value="${r.price}" min="0" /></div>
+        <div class="cm-field"><label>Description</label><textarea id="cmr-desc-${r.id}">${esc(r.description||'')}</textarea></div>
+        <button class="cm-save" onclick="saveRoomDetails('${r.id}')">Save Room →</button>
+      </div>`).join('');
+  }
+
+  async function saveRoomDetails(id) {
+    const name  = document.getElementById('cmr-name-'+id)?.value.trim();
+    const price = parseInt(document.getElementById('cmr-price-'+id)?.value, 10);
+    const description = document.getElementById('cmr-desc-'+id)?.value.trim();
+    if (!name || isNaN(price) || price <= 0) { showToast('Please enter a valid name and price'); return; }
+    const r = await authFetch(API + '/admin/api/rooms/' + id, {
+      method: 'PATCH', body: JSON.stringify({ name, price, description })
+    });
+    if (!r.ok) { showToast('Failed to save room'); return; }
+    const updated = await r.json();
+    const idx = allRooms.findIndex(r => r.id === id);
+    if (idx !== -1) allRooms[idx] = updated;
+    showToast('Room updated — changes live on website');
+    renderContentRooms();
+  }
+
+  function renderMassagePrices() {
+    const m = contentData.massage || {};
+    const map = {
+      'cm-dt60': 'deep_tissue_60', 'cm-dt90': 'deep_tissue_90', 'cm-dt120': 'deep_tissue_120',
+      'cm-to60': 'thai_oil_60',   'cm-to90': 'thai_oil_90',    'cm-to120': 'thai_oil_120',
+      'cm-td60': 'thai_dry_60',   'cm-td90': 'thai_dry_90',    'cm-td120': 'thai_dry_120',
+      'cm-sw45': 'swedish_45',    'cm-sw60': 'swedish_60',
+      'cm-ref': 'reflexology', 'cm-foot': 'foot', 'cm-ns': 'neck_shoulder',
+      'cm-fv': 'foot_vibration', 'cm-chair': 'chair',
+    };
+    Object.entries(map).forEach(([elId, key]) => {
+      const el = document.getElementById(elId);
+      if (el && m[key] != null) el.value = m[key];
+    });
+  }
+
+  async function saveMassagePrices() {
+    const map = {
+      'cm-dt60': 'deep_tissue_60', 'cm-dt90': 'deep_tissue_90', 'cm-dt120': 'deep_tissue_120',
+      'cm-to60': 'thai_oil_60',   'cm-to90': 'thai_oil_90',    'cm-to120': 'thai_oil_120',
+      'cm-td60': 'thai_dry_60',   'cm-td90': 'thai_dry_90',    'cm-td120': 'thai_dry_120',
+      'cm-sw45': 'swedish_45',    'cm-sw60': 'swedish_60',
+      'cm-ref': 'reflexology', 'cm-foot': 'foot', 'cm-ns': 'neck_shoulder',
+      'cm-fv': 'foot_vibration', 'cm-chair': 'chair',
+    };
+    const massage = {};
+    for (const [elId, key] of Object.entries(map)) {
+      const val = parseInt(document.getElementById(elId)?.value, 10);
+      if (!isNaN(val) && val >= 0) massage[key] = val;
+    }
+    const r = await authFetch(API + '/admin/api/content', {
+      method: 'PATCH', body: JSON.stringify({ massage })
+    });
+    if (!r.ok) { showToast('Failed to save prices'); return; }
+    const d = await r.json();
+    contentData = d.content;
+    showToast('Massage prices updated — live on website');
+  }
+
+  function renderContactInfo() {
+    const c = contentData.contact || {};
+    if (c.phone)   document.getElementById('cm-phone').value   = c.phone;
+    if (c.email)   document.getElementById('cm-email').value   = c.email;
+    if (c.address) document.getElementById('cm-address').value = c.address;
+  }
+
+  async function saveContactInfo() {
+    const phone   = document.getElementById('cm-phone').value.trim().replace(/\D/g,'');
+    const email   = document.getElementById('cm-email').value.trim();
+    const address = document.getElementById('cm-address').value.trim();
+    if (!phone || !email) { showToast('Phone and email are required'); return; }
+    const r = await authFetch(API + '/admin/api/content', {
+      method: 'PATCH', body: JSON.stringify({ contact: { phone, email, address } })
+    });
+    if (!r.ok) { showToast('Failed to save contact info'); return; }
+    const d = await r.json();
+    contentData = d.content;
+    showToast('Contact info saved');
+  }
+
+  // ── Utilities ────────────────────────────────────────────────────────────────
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function timeAgo(ts) {
+    const diff = Date.now() - new Date(ts).getTime();
+    if (diff < 60000)  return 'just now';
+    if (diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+    if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+    return Math.floor(diff/86400000) + 'd ago';
+  }
+
+  function formatDate(ts) {
+    if (!ts) return '—';
+    const d = new Date(ts);
+    return d.toLocaleDateString('en-GH', { day:'2-digit', month:'short' }) + ' ' +
+           d.toLocaleTimeString('en-GH', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── CSV Export ──────────────────────────────────────────────────────────────
+  function exportCSV() {
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const dateFrom = document.getElementById('date-from')?.value;
+    const dateTo   = document.getElementById('date-to')?.value;
+    let subs = allSubs;
+    if (currentFilter === 'new') subs = subs.filter(s => s.status === 'new');
+    else if (currentFilter === 'transport') subs = subs.filter(s => ['car','ride','delivery'].includes(s._type));
+    else if (currentFilter !== 'all') subs = subs.filter(s => s._type === currentFilter);
+    if (search) subs = subs.filter(s => JSON.stringify(s).toLowerCase().includes(search));
+    if (dateFrom) subs = subs.filter(s => s.timestamp && new Date(s.timestamp) >= new Date(dateFrom));
+    if (dateTo) { const end = new Date(dateTo); end.setHours(23,59,59,999); subs = subs.filter(s => s.timestamp && new Date(s.timestamp) <= end); }
+
+    if (!subs.length) { showToast('No data to export'); return; }
+
+    // Collect all unique keys
+    const keys = ['id','_type','status','name','phone','email','timestamp'];
+    subs.forEach(s => Object.keys(s).forEach(k => { if (!keys.includes(k)) keys.push(k); }));
+
+    const escape = v => '"' + String(v || '').replace(/"/g, '""') + '"';
+    const header = keys.map(escape).join(',');
+    const rows = subs.map(s => keys.map(k => escape(s[k] || '')).join(','));
+    const csv = [header, ...rows].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date().toISOString().slice(0,10);
+    a.download = `firnic-bookings-${currentFilter}-${now}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV exported (' + subs.length + ' rows)');
+  }
+
+  function clearDateRange() {
+    document.getElementById('date-from').value = '';
+    document.getElementById('date-to').value = '';
+    renderTable();
+  }
+
+  // ── New Booking Modal ────────────────────────────────────────────────────────
+  function openNewBooking() {
+    document.getElementById('nb-form').reset();
+    document.getElementById('nb-overlay').classList.add('open');
+  }
+
+  function closeNewBooking(e) {
+    if (e && e.target !== document.getElementById('nb-overlay')) return;
+    document.getElementById('nb-overlay').classList.remove('open');
+  }
+
+  async function submitNewBooking(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('nb-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    const data = {};
+    new FormData(form).forEach((v, k) => { if (v) data[k] = v; });
+    data._page = '/admin/manual';
+    data._time = new Date().toLocaleString('en-GH', { timeZone: 'Africa/Accra' });
+    data._manual = true;
+    const type = data._type;
+    delete data._type;
+
+    try {
+      const r = await authFetch(API + '/admin/api/bookings', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, _type: type })
+      });
+      if (!r.ok) throw new Error('Server error');
+      const d = await r.json();
+      if (!d.ok) throw new Error(d.error || 'Failed');
+      showToast('Booking saved!');
+      document.getElementById('nb-overlay').classList.remove('open');
+      await loadData();
+    } catch(err) {
+      showToast('Error: ' + err.message);
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Save Booking →';
+  }
+
+  // ── Password change ──────────────────────────────────────────────────────────
+  async function savePassword() {
+    const cur  = document.getElementById('set-cur-pw').value.trim();
+    const nw   = document.getElementById('set-new-pw').value.trim();
+    const conf = document.getElementById('set-conf-pw').value.trim();
+
+    if (!cur || !nw || !conf) { showToast('Please fill in all fields'); return; }
+    if (nw.length < 8) { showToast('New password must be at least 8 characters'); return; }
+    if (nw !== conf) { showToast('New passwords do not match'); return; }
+
+    try {
+      const r = await authFetch(API + '/admin/api/change-password', {
+        method: 'POST',
+        body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        showToast('Password changed — signing out');
+        setTimeout(doLogout, 1500);
+      } else {
+        showToast(d.error || 'Incorrect current password');
+      }
+    } catch(err) {
+      showToast('Error saving password');
+    }
+  }
+
+  // ── Enter key on login ───────────────────────────────────────────────────────
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  // ── Auto-login if token exists ───────────────────────────────────────────────
+  if (token) {
+    authFetch(API + '/admin/api/stats').then(r => {
+      if (r.ok) showApp();
+      else { localStorage.removeItem('firnic_admin_token'); token = ''; }
+    }).catch(() => {});
+  }
+</script>
+</body>
+</html>

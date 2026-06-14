@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Car Rental Service | Safe, Reliable & Professional | Accra, Ghana</title>
+  <meta name="description" content="Firnic Car Rental Service offers daily, corporate, event and airport car hire in Accra, Ghana. Simple booking, transparent pricing, well-maintained vehicles." />
+  <link rel="canonical" href="https://firnicgroup.com/cars/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Firnic Group" />
+  <meta property="og:url" content="https://firnicgroup.com/cars/" />
+  <meta property="og:title" content="Firnic Car Rental Service | Safe, Reliable & Professional | Accra, Ghana" />
+  <meta property="og:description" content="Firnic Car Rental Service offers daily, corporate, event and airport car hire in Accra, Ghana. Simple booking, transparent pricing, well-maintained vehicles." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" />
+  <meta property="og:locale" content="en_GH" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Firnic Car Rental Service | Safe, Reliable & Professional | Accra, Ghana" />
+  <meta name="twitter:description" content="Firnic Car Rental Service offers daily, corporate, event and airport car hire in Accra, Ghana. Simple booking, transparent pricing, well-maintained vehicles." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" />
+  <!-- Google Analytics — replace G-XXXXXXXXXX with your real Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/firnic.css" />
+  <style>
+    /* HERO */
+    #hero {
+      position: relative; min-height: 92svh;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; filter: brightness(0.45);
+    }
+    #hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 70%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5% 5.5rem; max-width: 760px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(201,168,76,0.4); color: var(--gold-lt);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; padding: 0.35rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 300; line-height: 1.05; letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--gold); }
+    .hero-content p {
+      color: var(--muted); font-size: 1rem; font-weight: 300;
+      max-width: 500px; margin-bottom: 2.25rem; line-height: 1.85;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-badges {
+      display: flex; gap: 2rem; margin-top: 2.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border2);
+      flex-wrap: wrap;
+    }
+    .h-badge { display: flex; align-items: center; gap: 0.5rem; }
+    .h-badge .ico { font-size: 1.1rem; }
+    .h-badge span {
+      font-size: 0.72rem; font-weight: 600;
+      color: rgba(240,236,228,0.7); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+    .about-grid { display: grid; gap: 4rem; align-items: center; margin-top: 3rem; }
+    @media (min-width: 820px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+    .about-img { overflow: hidden; height: 420px; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; font-size: 0.95rem; }
+    .divider { width: 40px; height: 1px; background: var(--gold); margin: 1.25rem 0; }
+
+    /* WHY */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .why-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.75rem; transition: border-color 0.2s, transform 0.2s;
+    }
+    .why-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .why-card .ico { font-size: 1.6rem; margin-bottom: 0.85rem; }
+    .why-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+    .why-tagline {
+      font-size: 0.92rem; color: var(--muted); font-style: italic;
+      margin-top: 2.5rem; border-left: 2px solid var(--gold);
+      padding-left: 1.25rem; max-width: 600px; line-height: 1.75;
+    }
+
+    /* SERVICES */
+    #services { background: var(--surface); }
+    .services-wrap { display: grid; gap: 4rem; align-items: start; margin-top: 3rem; }
+    @media (min-width: 820px) { .services-wrap { grid-template-columns: 1fr 1fr; } }
+    .services-img { overflow: hidden; height: 380px; }
+    .services-img img { width: 100%; height: 100%; object-fit: cover; }
+    .services-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .svc-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.25rem; background: var(--surface2);
+      border: 1px solid var(--border2); transition: border-color 0.2s;
+    }
+    .svc-item:hover { border-color: rgba(201,168,76,0.35); }
+    .svc-item .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); margin-top: 5px; flex-shrink: 0; }
+    .svc-item p { font-size: 0.85rem; line-height: 1.55; }
+    .svc-note {
+      margin-top: 1.25rem; padding: 1rem 1.25rem;
+      background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2);
+      font-size: 0.82rem; color: var(--muted); line-height: 1.65;
+    }
+    .svc-note strong { color: var(--gold); }
+
+    /* STEPS */
+    #steps { background: var(--dark); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .step-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--gold); color: var(--black);
+      font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+    .step-card h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .step-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .steps-cta { text-align: center; margin-top: 3rem; }
+    .steps-cta p { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; }
+
+    /* BOOK FORM */
+    #book { background: var(--surface); }
+    .book-wrap { display: grid; gap: 4rem; align-items: start; }
+    @media (min-width: 820px) { .book-wrap { grid-template-columns: 1fr 1fr; } }
+    .book-info p { color: var(--muted); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .bc-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .bc-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--muted); }
+    .bc-item .ico { font-size: 1rem; }
+    .bc-item a { color: var(--muted); transition: color 0.2s; }
+    .bc-item a:hover { color: var(--gold); }
+    .book-form {
+      background: var(--dark); border: 1px solid var(--border2);
+      padding: 2.25rem;
+    }
+    .book-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem;
+    }
+    .book-form p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .f-group label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 0.35rem;
+    }
+    .f-group input, .f-group select, .f-group textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border2);
+      padding: 0.8rem 1rem; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .f-group input:focus, .f-group select:focus, .f-group textarea:focus { border-color: var(--gold); }
+    .f-group select option { background: var(--surface); color: var(--text); }
+    .f-group textarea { resize: vertical; min-height: 80px; }
+    .form-stack { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+    .submit-btn {
+      width: 100%; background: var(--gold); border: none;
+      padding: 1rem; color: var(--black);
+      font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* BECOME A DRIVER */
+    #drive { background: var(--dark); }
+    .drive-inner { display: grid; gap: 4rem; align-items: start; }
+    @media (min-width: 900px) { .drive-inner { grid-template-columns: 1fr 1fr; } }
+    .drive-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1.25rem; }
+    .driver-perks { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .perk {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.9rem 1.25rem; background: var(--surface);
+      border: 1px solid var(--border2);
+    }
+    .perk .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .perk p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .driver-form {
+      background: var(--dark); border: 1px solid var(--border2);
+      padding: 2.25rem;
+    }
+    .driver-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem;
+    }
+    .driver-form > p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    @media (max-width: 640px) {
+      #hero { min-height: 88svh; }
+      .hero-content { padding: 0 1.25rem 4rem; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="logo">Firnic<em>.</em><span>Car Rental</span></a>
+  <ul class="nav-links">
+    <li><a href="../hotel/">Hotel</a></li>
+    <li><a href="#services">Our Services</a></li>
+    <li><a href="#drive">Become a Driver</a></li>
+    <li><a href="../events/">Events</a></li>
+    <li><a href="#book" class="nav-cta">Book a Car</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../hotel/" onclick="toggleMenu()">Hotel</a>
+  <a href="#services" onclick="toggleMenu()">Our Services</a>
+  <a href="#drive"    onclick="toggleMenu()">Become a Driver</a>
+  <a href="../events/" onclick="toggleMenu()">Events</a>
+  <a href="#book"     onclick="toggleMenu()">Book a Car Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80" alt="Volkswagen Amarok — Firnic Car Rental" fetchpriority="high" />
+  <div class="hero-content">
+    <div class="hero-tag">Firnic Car Rental · Accra, Ghana</div>
+    <h1>Safety, Accessibility<br>&amp; <em>Discretion</em> Assured</h1>
+    <p>A trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs — simple, reliable, and professional.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-gold">Book A Car Now →</a>
+      <a href="./driver.html" class="btn-outline">Become a Driver</a>
+    </div>
+    <div class="hero-badges">
+      <div class="h-badge"><span class="ico">✈️</span><span>Airport Pickup</span></div>
+      <div class="h-badge"><span class="ico">🛡️</span><span>Safe &amp; Convenient</span></div>
+      <div class="h-badge"><span class="ico">📞</span><span>24/7 Support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="eyebrow">About Us</div>
+    <h2>About Firnic Car Rental Service</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80" alt="Volkswagen Amarok — Firnic Car Rental" loading="lazy" />
+    </div>
+    <div class="about-text reveal reveal-d1">
+      <p>Firnic Car Rental Service is a trusted service under the Firnic Group, offering a curated selection of vehicles to meet diverse travel needs. Whether you're running daily errands, attending events, travelling for business, or heading out of town, we make vehicle rental simple, reliable, and professional.</p>
+      <div class="divider"></div>
+      <p>Our focus is on quality vehicles, transparent pricing, and seamless booking, so you can move with confidence wherever your journey takes you.</p>
+      <a href="#book" class="btn-gold" style="margin-top:1.5rem;">Book Your Car →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="reveal">
+    <div class="eyebrow">Why Choose Us</div>
+    <h2>Why Choose Firnic Car Rental?</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="ico">🚗</div><h3>Well-Maintained Vehicles</h3><p>All our vehicles are regularly serviced and kept in excellent condition for a smooth, safe journey.</p></div>
+    <div class="why-card reveal reveal-d1"><div class="ico">📅</div><h3>Flexible Hire Options</h3><p>Flexible hire options for both short-term and long-term needs — hours, days, or months.</p></div>
+    <div class="why-card reveal reveal-d2"><div class="ico">✅</div><h3>Simple Booking Process</h3><p>Our booking process is straightforward and fast. Choose, select dates, submit and confirm.</p></div>
+    <div class="why-card reveal"><div class="ico">💰</div><h3>Transparent Pricing</h3><p>Competitive and transparent pricing — no hidden fees, no surprises. What you see is what you pay.</p></div>
+    <div class="why-card reveal reveal-d1"><div class="ico">🏢</div><h3>Personal, Corporate &amp; Events</h3><p>Suitable for personal errands, corporate travel, and special occasions including weddings.</p></div>
+    <div class="why-card reveal reveal-d2"><div class="ico">📞</div><h3>24/7 Support</h3><p>Our team is available around the clock to assist you throughout your booking and journey.</p></div>
+  </div>
+  <p class="why-tagline reveal">"At Firnic, we believe car hire should be stress-free, straightforward, and tailored to your needs."</p>
+</section>
+
+<!-- OUR SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="eyebrow">Car Rental Services</div>
+    <h2>Our Car Rental Services</h2>
+    <p class="sec-sub">We offer car rental services designed to suit different purposes and schedules. Whether you need a vehicle for a few hours, a full day, or an extended period, our options are structured to give you maximum convenience.</p>
+  </div>
+  <div class="services-wrap">
+    <div class="services-img reveal">
+      <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80" alt="Volkswagen Amarok Fleet" loading="lazy" />
+    </div>
+    <div>
+      <div class="eyebrow reveal" style="margin-bottom:1rem;">Our Services Include</div>
+      <div class="services-list">
+        <div class="svc-item reveal"><div class="dot"></div><p>Daily and short-term car hire</p></div>
+        <div class="svc-item reveal reveal-d1"><div class="dot"></div><p>Long-term and corporate rentals</p></div>
+        <div class="svc-item reveal reveal-d1"><div class="dot"></div><p>Event and special-occasion car hire</p></div>
+        <div class="svc-item reveal reveal-d2"><div class="dot"></div><p>Airport and city travel vehicle hire</p></div>
+        <div class="svc-item reveal reveal-d2"><div class="dot"></div><p>Out-of-Accra rentals with a professional driver provided</p></div>
+      </div>
+      <div class="svc-note reveal">
+        <strong>Self-drive</strong> is available for rentals within Accra.<br>
+        <span style="font-size:0.78rem;opacity:0.75;">(Availability may vary by vehicle and booking arrangement.)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps">
+  <div class="reveal">
+    <div class="eyebrow">How It Works</div>
+    <h2>Book Your Car in Simple Steps</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal"><div class="step-num">1</div><h3>Choose Your Vehicle</h3><p>Choose your preferred vehicle from our available fleet.</p></div>
+    <div class="step-card reveal reveal-d1"><div class="step-num">2</div><h3>Select Your Dates</h3><p>Select your pickup date, return date, and preferred time.</p></div>
+    <div class="step-card reveal reveal-d2"><div class="step-num">3</div><h3>Submit Your Request</h3><p>Submit your booking request through the form and our team will confirm.</p></div>
+    <div class="step-card reveal reveal-d3"><div class="step-num">4</div><h3>Get Confirmation</h3><p>Receive your confirmation and all the next steps from our team.</p></div>
+  </div>
+  <div class="steps-cta reveal">
+    <a href="#book" class="btn-gold">Book a Car Now →</a>
+    <p>Our team is available to assist you throughout the booking process.</p>
+  </div>
+</section>
+
+<!-- BOOK / CONTACT -->
+<section id="book">
+  <div class="reveal" style="margin-bottom:3rem;">
+    <div class="eyebrow">Make a Booking</div>
+    <h2>Book Your Car Now</h2>
+  </div>
+  <div class="book-wrap">
+    <div class="book-info reveal">
+      <p>Ready to get moving? Fill in the booking form and our team will confirm your reservation within a few hours. You can also reach us directly by phone or email.</p>
+      <div class="bc-list">
+        <div class="bc-item"><span class="ico">📍</span><span>Ofankor Hills Estate, Accra, Ghana</span></div>
+        <div class="bc-item"><span class="ico">✉️</span><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></div>
+        <div class="bc-item"><span class="ico">✉️</span><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></div>
+        <div class="bc-item"><span class="ico">📞</span><a href="tel:+233592997811">+233 592 997 811</a></div>
+      </div>
+    </div>
+    <form class="book-form reveal" data-firnic-form="car">
+      <h3>Car Booking Request</h3>
+      <p>We'll confirm within 2 hours and send you full details.</p>
+      <div class="form-stack">
+        <div class="form-row">
+          <div class="f-group">
+            <label for="car-name">Full Name *</label>
+            <input type="text" id="car-name" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="f-group">
+            <label for="car-phone">Phone Number *</label>
+            <input type="tel" id="car-phone" name="phone" placeholder="+233 xxx xxx xxx" required />
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="car-email">Email Address</label>
+          <input type="email" id="car-email" name="email" placeholder="your@email.com" />
+        </div>
+        <div class="f-group">
+          <label for="car-type">Rental Type *</label>
+          <select id="car-type" name="rental_type" required>
+            <option value="">— Select rental type —</option>
+            <option value="Daily / Short-term">Daily / Short-term Hire</option>
+            <option value="Long-term / Corporate">Long-term / Corporate Rental</option>
+            <option value="Event / Occasion">Event &amp; Special-Occasion Hire</option>
+            <option value="Airport Pickup">Airport Pickup / Drop-off</option>
+            <option value="City Travel">City Travel</option>
+            <option value="Out-of-Accra">Out-of-Accra Trip (Driver Provided)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="f-group">
+            <label for="car-pickup">Pickup Date *</label>
+            <input type="date" id="car-pickup" name="pickup_date" required />
+          </div>
+          <div class="f-group">
+            <label for="car-return">Return Date</label>
+            <input type="date" id="car-return" name="return_date" />
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="car-notes">Additional Details</label>
+          <textarea id="car-notes" name="notes" placeholder="Pickup location, destination, special requests, vehicle preference…"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Send Booking Request →</button>
+    </form>
+  </div>
+</section>
+
+<!-- BECOME A DRIVER -->
+<section id="drive">
+  <div class="reveal">
+    <div class="eyebrow">Join Our Team</div>
+    <h2>Become a Firnic Driver</h2>
+  </div>
+  <div class="drive-inner">
+    <div class="drive-text reveal">
+      <p>We're always looking for trustworthy self-owner drivers to serve our growing client base. Join the Firnic driver network and earn consistently from structured, pre-booked trips across Ghana.</p>
+      <p>No street haggling. No random ride-hailing. Just reliable bookings and premium clients.</p>
+      <div class="driver-perks">
+        <div class="perk"><span class="ico">💼</span><p>Consistent bookings from Firnic's hotel, events, and corporate clients</p></div>
+        <div class="perk"><span class="ico">💰</span><p>Transparent, competitive earnings with no hidden deductions</p></div>
+        <div class="perk"><span class="ico">📱</span><p>Simple booking coordination — no complex apps required</p></div>
+        <div class="perk"><span class="ico">🌟</span><p>Build your reputation under a trusted, growing brand</p></div>
+      </div>
+    </div>
+    <div class="driver-form reveal reveal-d1" style="display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
+      <div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold);margin-bottom:0.5rem;">Ready to Join?</h3>
+        <p style="font-size:0.88rem;color:var(--muted);line-height:1.75;">Visit our dedicated driver application page to see full requirements, how it works, and submit your complete application.</p>
+      </div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.7;">
+        <p>✓ &nbsp;Full application takes under 5 minutes</p>
+        <p style="margin-top:0.4rem;">✓ &nbsp;Applications reviewed within 24–48 hours</p>
+        <p style="margin-top:0.4rem;">✓ &nbsp;Limited spots available per region</p>
+      </div>
+      <a href="./driver.html" class="btn-gold" style="align-self:flex-start;">Apply Now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="f-brand">
+      <a href="../" class="logo">Firnic<em>.</em></a>
+      <p>Firnic Car Rental Service · Ofankor Hills Estate, Accra, Ghana</p>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Car Hire &amp; Rentals</a></li>
+        <li><a href="#services">Corporate Vehicle Rentals</a></li>
+        <li><a href="#services">Event &amp; Special-Occasion Hire</a></li>
+        <li><a href="#services">Airport Transfers</a></li>
+        <li><a href="#drive">Become a Driver</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Firnic Group</h4>
+      <ul>
+        <li><a href="../hotel/">Firnic Hotel</a></li>
+        <li><a href="../massage/">Firnic Massage Studio</a></li>
+        <li><a href="../events/">Firnic Events</a></li>
+        <li><a href="../">Firnic Group Home</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+233592997811">+233 592 997 811</a></li>
+        <li><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></li>
+        <li><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>&copy; 2026 Firnic Group of Companies. All rights reserved.</p>
+    <div class="pay-methods">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#fff">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#fff" letter-spacing="0.5">AMEX</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#fff">AIRTEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#fff">TELECEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script>
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('car-pickup').min = today;
+  document.getElementById('car-return').min = today;
+  document.getElementById('car-pickup').addEventListener('change', function() {
+    document.getElementById('car-return').min = this.value || today;
+  });
+</script>
+<script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>

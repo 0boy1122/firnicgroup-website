@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Firnic Group | Accra, Ghana</title>
+  <meta name="description" content="Contact Firnic Group in Accra, Ghana. Hotel bookings, massage, events and transport enquiries. Call or email — we respond within 24 hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --gold: #c9a84c; --gold-lt: #e8c97a; --black: #080808; --dark: #0e0e0e; --surface: #161616; --surface2: #1e1e1e; --border: rgba(201,168,76,0.15); --text: #f0ebe0; --muted: #9b9080; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 70px; background: rgba(8,8,8,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text); letter-spacing: 1px; }
+    .logo em { color: var(--gold); font-style: normal; }
+    .back-link { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; }
+    .back-link:hover { color: var(--gold); }
+
+    .page-header { padding: 8rem 5% 4rem; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 600; color: var(--text); line-height: 1.1; margin-bottom: 0.75rem; }
+    .sub { color: var(--muted); font-size: 1rem; max-width: 480px; font-weight: 300; }
+
+    .contact-section { padding: 5rem 5%; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; }
+    @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1.4fr; } }
+
+    .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+
+    .c-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--text); margin-bottom: 1.25rem; }
+
+    .c-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+    .c-ico { width: 40px; height: 40px; border-radius: 8px; background: rgba(201,168,76,0.08); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .c-item h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 0.25rem; }
+    .c-item p, .c-item a { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .c-item a:hover { color: var(--gold); }
+
+    .divs-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .div-link { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.88rem; transition: border-color 0.2s; }
+    .div-link:hover { border-color: rgba(201,168,76,0.4); color: var(--gold); }
+    .div-link span { color: var(--muted); font-size: 0.8rem; }
+
+    .contact-form-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .form-head { background: linear-gradient(135deg, #0e0a02, var(--surface2)); border-bottom: 1px solid var(--border); padding: 1.75rem 2rem; }
+    .form-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .form-head p { font-size: 0.83rem; color: var(--muted); font-weight: 300; }
+    form { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .f-row { grid-template-columns: 1fr; } }
+    .f-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .f-field label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .f-field input, .f-field select, .f-field textarea { background: var(--dark); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 0.7rem 0.9rem; color: var(--text); font-size: 0.875rem; font-family: inherit; outline: none; transition: border-color 0.2s; width: 100%; appearance: none; }
+    .f-field input::placeholder, .f-field textarea::placeholder { color: #444; }
+    .f-field input:focus, .f-field select:focus, .f-field textarea:focus { border-color: rgba(201,168,76,0.5); }
+    .f-field select option { background: #1e1e1e; }
+    .f-submit { background: var(--gold); color: var(--black); border: none; padding: 0.9rem; border-radius: 6px; font-size: 0.85rem; font-weight: 700; font-family: inherit; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+    .f-submit:hover { background: var(--gold-lt); }
+
+    footer { background: var(--black); border-top: 1px solid var(--border); padding: 2rem 5%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    footer p { font-size: 0.75rem; color: #444; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      nav { height: 56px; padding: 0 1rem; }
+      section { padding: 3rem 1rem; }
+      .contact-wrap { grid-template-columns: 1fr; padding: 1.5rem 1rem; }
+      .info-side { padding: 1.5rem 1rem; }
+      form { padding: 1.5rem 1rem; }
+      .f-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="logo">Firnic<em>.</em></a>
+  <div class="nav-links" style="display:none;gap:2rem;align-items:center;">
+    <a href="/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Home</a>
+    <a href="/index.html#hotel" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Hotel</a>
+    <a href="/massage/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Massage</a>
+    <a href="/events/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Events</a>
+    <a href="/cars/index.html" style="font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Car Rental</a>
+    <a href="/contact/index.html" style="font-size:0.78rem;font-weight:500;color:var(--gold);letter-spacing:0.5px;text-transform:uppercase;">Contact</a>
+    <a href="tel:+233592997811" class="nav-book" style="border:1px solid var(--gold);color:var(--gold);padding:0.45rem 1.2rem;border-radius:4px;font-weight:600;font-size:0.78rem;letter-spacing:0.5px;text-transform:uppercase;">Call Us</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" style="display:none;position:fixed;top:70px;left:0;right:0;background:rgba(8,8,8,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1.5rem 5%;z-index:299;flex-direction:column;gap:1.25rem;">
+  <a href="/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Home</a>
+  <a href="/index.html#hotel" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Hotel</a>
+  <a href="/massage/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Massage</a>
+  <a href="/events/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Events</a>
+  <a href="/cars/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Car Rental</a>
+  <a href="/contact/index.html" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:1rem;border-bottom:1px solid var(--border);">Contact</a>
+  <a href="tel:+233592997811" onclick="toggleMenu()" style="font-size:0.9rem;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:0.5px;">Call Us</a>
+</div>
+<style>
+  @media (min-width: 900px) { nav .nav-links { display: flex !important; } nav .hamburger { display: none; } }
+  .mobile-menu.open { display: flex !important; }
+</style>
+
+<div class="page-header">
+  <div class="eyebrow">Firnic Group</div>
+  <h1>Contact Us</h1>
+  <p class="sub">We'd love to hear from you. Reach out for hotel bookings, event enquiries, car hire, or anything else.</p>
+</div>
+
+<div class="contact-section">
+  <div class="contact-grid">
+
+    <div class="contact-info reveal">
+      <div class="c-block">
+        <h3>Get in Touch</h3>
+        <div class="c-item">
+          <div class="c-ico">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>Police Station Rd, Franko Estates<br>Ofankor Hills Estate, Accra, Ghana</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-ico">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:+233592997811">+233 592 997 811</a>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-ico">✉️</div>
+          <div>
+            <h4>General Enquiries</h4>
+            <a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-ico">💼</div>
+          <div>
+            <h4>Sales</h4>
+            <a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-ico">🏨</div>
+          <div>
+            <h4>Hotel Bookings</h4>
+            <a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-block">
+        <h3>Our Services</h3>
+        <div class="divs-list">
+          <a href="/index.html" class="div-link">🏨 Firnic Luxurious Hotel <span>→</span></a>
+          <a href="/massage/index.html" class="div-link">💆 Prestige Massage Studio <span>→</span></a>
+          <a href="/events/index.html" class="div-link">🎉 Events &amp; Celebrations <span>→</span></a>
+          <a href="/cars/index.html" class="div-link">🚘 Transport &amp; Car Hire <span>→</span></a>
+          <a href="/drivers/index.html" class="div-link">🧭 Become a Driver <span>→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap reveal">
+      <div class="form-head">
+        <h3>Send Us a Message</h3>
+        <p>Fill out the form and our team will respond within 24 hours.</p>
+      </div>
+      <form data-firnic-form="contact">
+        <div class="f-row">
+          <div class="f-field">
+            <label>First Name *</label>
+            <input type="text" name="first_name" placeholder="Kofi" required />
+          </div>
+          <div class="f-field">
+            <label>Last Name *</label>
+            <input type="text" name="last_name" placeholder="Mensah" required />
+          </div>
+        </div>
+        <div class="f-field">
+          <label>Email *</label>
+          <input type="email" name="email" placeholder="you@email.com" required />
+        </div>
+        <div class="f-field">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="+233 24 000 0000" />
+        </div>
+        <div class="f-field">
+          <label>Subject *</label>
+          <select name="subject" required>
+            <option value="" disabled selected>Select a subject</option>
+            <option>Hotel Room Booking</option>
+            <option>Event / Wedding Enquiry</option>
+            <option>Car Hire Enquiry</option>
+            <option>Massage Appointment</option>
+            <option>Become a Driver</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Message *</label>
+          <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+        </div>
+        <button type="submit" class="f-submit">Send Message →</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="../index.html" class="logo">Firnic<em style="color:var(--gold);font-style:normal;">.</em></a>
+  <div>
+    <p style="font-size:0.62rem;color:#3a3a3a;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.5rem;">We accept the following payment methods</p>
+    <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Visa" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#FFFFFF">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="Mastercard" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="American Express" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#2557D6"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#FFFFFF" letter-spacing="0.5">AMEX</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="MTN Mobile Money" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Airtel Tigo Money" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#E40000"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="#FFFFFF">AIRTEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Telecel Cash" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#7B2FBE"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#FFFFFF">TELECEL</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none" title="Paystack" style="border-radius:4px;opacity:0.7;"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none" title="PayPal" style="border-radius:4px;opacity:0.7;"><rect width="52" height="28" rx="4" fill="#F5F7FA" stroke="#d0d0d0" stroke-width="0.5"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="10"><tspan fill="#003087">Pay</tspan><tspan fill="#009CDE">Pal</tspan></text></svg>
+    </div>
+    <p style="margin-top:0.75rem;font-size:0.72rem;color:#3a3a3a;">&copy; 2025 Firnic Group of Companies Limited · Ofankor Hills Estate, Accra, Ghana</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+  <!-- Aria AI Widget -->
+  <script src="../assets/js/form-submit.js"></script>
+  <script src="../assets/js/aria-widget.js"></script>
+</body>
+</html>

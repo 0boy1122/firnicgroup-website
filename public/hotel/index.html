@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firnic Luxurious Private Hotel — Accra, Ghana</title>
+  <meta name="description" content="Firnic Luxurious Private Hotel in Accra, Ghana. Experience elegance, exclusivity, and total privacy. Book your stay today." />
+  <link rel="canonical" href="https://firnicgroup.com/hotel/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Firnic Group" />
+  <meta property="og:url" content="https://firnicgroup.com/hotel/" />
+  <meta property="og:title" content="Firnic Luxurious Private Hotel — Accra, Ghana" />
+  <meta property="og:description" content="Firnic Luxurious Private Hotel in Accra, Ghana. Experience elegance, exclusivity, and total privacy. Book your stay today." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" />
+  <meta property="og:locale" content="en_GH" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Firnic Luxurious Private Hotel — Accra, Ghana" />
+  <meta name="twitter:description" content="Firnic Luxurious Private Hotel in Accra, Ghana. Experience elegance, exclusivity, and total privacy. Book your stay today." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" />
+  <!-- Google Analytics — replace G-XXXXXXXXXX with your real Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/firnic.css" />
+  <style>
+    /* HERO */
+    #hero {
+      position: relative; min-height: 100svh;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.3) 55%, rgba(8,8,8,0.1) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5% 6rem; max-width: 800px;
+    }
+    .hero-tag {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 300; line-height: 1.03; letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em { font-style: italic; color: var(--gold); }
+    .hero-content p {
+      color: var(--muted); font-size: 1rem; font-weight: 300;
+      max-width: 500px; margin-bottom: 2.5rem; line-height: 1.85;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-dots {
+      position: absolute; bottom: 2.5rem; right: 5%; z-index: 3;
+      display: flex; gap: 0.5rem;
+    }
+    .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.28); cursor: pointer; transition: background 0.3s;
+    }
+    .hero-dot.active { background: var(--gold); }
+
+    /* ABOUT */
+    #about { background: var(--dark); }
+    .about-inner { display: grid; gap: 5rem; align-items: center; }
+    @media (min-width: 900px) { .about-inner { grid-template-columns: 1fr 1fr; } }
+    .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1.25rem; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border);
+    }
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem; font-weight: 600; color: var(--gold); line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-top: 0.35rem;
+    }
+    .about-img { position: relative; }
+    .about-img img { width: 100%; height: 480px; object-fit: cover; }
+    .about-badge {
+      position: absolute; bottom: -1.5rem; left: -1.5rem;
+      background: var(--gold); color: var(--black); padding: 1.25rem 1.75rem;
+    }
+    .about-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700; display: block; line-height: 1;
+    }
+    .about-badge span { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* ROOMS */
+    .rooms-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .room-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
+    .room-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); }
+    .room-img { height: 230px; overflow: hidden; }
+    .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .room-card:hover .room-img img { transform: scale(1.04); }
+    .room-body { padding: 1.6rem; }
+    .room-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .room-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .room-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .room-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--border2);
+    }
+    .room-price { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 700; color: var(--gold); }
+    .room-price span { font-size: 0.72rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 300; }
+    .room-avail {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; margin-bottom: 0.75rem; display: inline-block;
+    }
+    .room-avail.available { background: rgba(34,197,94,0.12); color: #4ade80; }
+    .room-avail.limited   { background: rgba(245,158,11,0.12); color: #fbbf24; }
+    .room-avail.booked    { background: rgba(239,68,68,0.12);  color: #f87171; }
+    .room-card.booked .btn-sm { opacity: 0.35; pointer-events: none; }
+
+    /* GALLERY */
+    #gallery { background: var(--dark); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px; gap: 0.75rem;
+      margin-top: 2.5rem; overflow: hidden;
+    }
+    .g-img { overflow: hidden; }
+    .g-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .g-img:hover img { transform: scale(1.06); }
+    .g-img.tall { grid-row: span 2; }
+    .g-img.wide { grid-column: span 2; }
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; }
+      .g-img.tall { grid-row: span 1; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .g-img.wide, .g-img.tall { grid-column: span 1; grid-row: span 1; }
+    }
+
+    /* AMENITIES */
+    .amenities-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .amenity {
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.75rem; transition: border-color 0.3s;
+    }
+    .amenity:hover { border-color: rgba(201,168,76,0.35); }
+    .amenity .ico { font-size: 1.75rem; margin-bottom: 1rem; }
+    .amenity h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .amenity p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+    /* EXPERIENCE */
+    #experience { background: var(--dark); }
+    .exp-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
+    @media (min-width: 768px) { .exp-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1100px) { .exp-grid { grid-template-columns: 2fr 1fr 1fr; } }
+    .exp-card { position: relative; overflow: hidden; height: 320px; }
+    .exp-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .exp-card:hover img { transform: scale(1.05); }
+    .exp-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.1) 60%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+    }
+    .exp-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .exp-overlay h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .exp-overlay p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* BOOK */
+    #book { text-align: center; }
+    .book-inner { max-width: 760px; margin: 0 auto; }
+    .book-inner > p { color: var(--muted); margin: 0.75rem 0 2.5rem; font-size: 0.95rem; line-height: 1.8; }
+
+    .hotel-form {
+      background: var(--dark); border: 1px solid var(--border2);
+      padding: 2.5rem; text-align: left; margin-bottom: 2.5rem;
+    }
+    .hotel-form h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 600; margin-bottom: 1.75rem; color: var(--text);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--surface); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; font-size: 0.88rem;
+      font-family: inherit; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .submit-btn {
+      margin-top: 1.25rem; width: 100%; padding: 1rem;
+      background: var(--gold); color: #080808;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    .book-divider {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .book-divider::before, .book-divider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+    .book-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .book-opt {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      background: var(--surface); border: 1px solid var(--border2);
+      padding: 1.25rem 1.75rem; min-width: 140px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .book-opt:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .b-ico { font-size: 1.4rem; }
+    .b-lbl { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .b-sub { font-size: 0.7rem; color: var(--muted); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .hotel-form { padding: 1.5rem; } }
+
+    @media (max-width: 640px) {
+      #hero { min-height: 92svh; }
+      .hero-content { padding: 0 1.25rem 5rem; }
+      .hero-actions { flex-direction: column; }
+      .about-badge { left: 0.5rem; bottom: -1rem; padding: 1rem 1.25rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.94); align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 82vh;
+      object-fit: contain; border: 1px solid rgba(201,168,76,0.2);
+      user-select: none; transition: opacity 0.18s;
+    }
+    #lb-caption {
+      margin-top: 0.85rem; font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    #lb-counter { font-size: 0.68rem; color: rgba(255,255,255,0.28); margin-top: 0.3rem; }
+    .lb-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold); font-size: 1.5rem; width: 48px; height: 48px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001; line-height: 1;
+    }
+    .lb-btn:hover { background: rgba(201,168,76,0.22); }
+    #lb-prev { left: 1rem; }
+    #lb-next { right: 1rem; }
+    #lb-close {
+      position: fixed; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: #ccc; font-size: 1.1rem; width: 38px; height: 38px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 9001;
+    }
+    #lb-close:hover { background: rgba(239,68,68,0.2); color: #fff; }
+    .g-img { cursor: zoom-in; }
+
+    /* PRICE ESTIMATE */
+    .price-estimate {
+      margin-top: 1rem; padding: 1rem 1.25rem;
+      background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.22);
+      display: none;
+    }
+    .price-estimate.visible { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .pe-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .pe-val { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+    .pe-nights { font-size: 0.76rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="logo">Firnic<em>.</em><span>Luxurious Hotel</span></a>
+  <ul class="nav-links">
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="../massage/">Massage</a></li>
+    <li><a href="#book" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#rooms"      onclick="toggleMenu()">Rooms &amp; Suites</a>
+  <a href="#gallery"    onclick="toggleMenu()">Photo Gallery</a>
+  <a href="#amenities"  onclick="toggleMenu()">Amenities</a>
+  <a href="#experience" onclick="toggleMenu()">Experience</a>
+  <a href="#book"       onclick="toggleMenu()">Book Your Stay</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-slides" id="hero-slides">
+    <div class="hero-slide active"><img src="../assets/exterior/IMG_1088.jpeg" alt="Firnic Hotel Exterior" /></div>
+    <div class="hero-slide"><img src="../assets/exterior/IMG_1091.jpeg" alt="Firnic Hotel" /></div>
+    <div class="hero-slide"><img src="../assets/exterior/IMG_1092.jpeg" alt="Firnic Hotel Grounds" /></div>
+    <div class="hero-slide"><img src="../assets/interior/IMG_0977-1.jpeg" alt="Firnic Prestige Suite" /></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Accra, Ghana</div>
+    <h1>Firnic <em>Luxurious</em><br>Private Hotel</h1>
+    <p>Redefining hospitality with elegance and exclusivity. Experience the ultimate retreat where your safety, comfort, and privacy are our absolute top priorities.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-gold">Book Your Stay →</a>
+      <a href="#rooms" class="btn-outline">View Rooms</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="hero-dots"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2>Where Privacy Meets <em style="font-style:italic;color:var(--gold);">Luxury</em></h2>
+      <p>Firnic Luxurious Private Hotel is Accra's premier destination for guests who demand the very best. Nestled in a tranquil, secure location, our hotel offers an intimate atmosphere that larger establishments simply cannot match.</p>
+      <p>Every detail — from the premium furnishings in each room to the attentive, discreet service — has been carefully curated to ensure your stay is nothing short of extraordinary.</p>
+      <div class="about-stats">
+        <div><div class="stat-val">5</div><div class="stat-lbl">Room Categories</div></div>
+        <div><div class="stat-val">24/7</div><div class="stat-lbl">Security &amp; Service</div></div>
+        <div><div class="stat-val">100%</div><div class="stat-lbl">Privacy Assured</div></div>
+      </div>
+    </div>
+    <div class="about-img reveal reveal-d1">
+      <img src="../assets/exterior/IMG_1099.jpeg" alt="Firnic Hotel Building" loading="lazy" />
+      <div class="about-badge">
+        <strong>★ 5</strong>
+        <span>Star Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms">
+  <div class="reveal">
+    <div class="eyebrow">Accommodation</div>
+    <h2>Rooms &amp; Suites</h2>
+    <p class="sec-sub">Each room is thoughtfully designed to blend comfort with elegance — offering everything you need for a perfect stay in Accra.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card reveal" data-room-id="mini-royal">
+      <div class="room-img"><img src="../assets/interior/IMG_0961-1.jpeg" alt="Mini Royal Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room</div>
+        <h3>Mini Royal</h3>
+        <p>A well-appointed room with air conditioning, en-suite bathroom, flat screen TV, and daily housekeeping.</p>
+        <div class="room-avail" id="avail-mini-royal"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 450 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-mini-royal">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-d1" data-room-id="elegant-retreat">
+      <div class="room-img"><img src="../assets/interior/elegant-retreat/elegant-retreat-01.jpeg" alt="Elegant Retreat Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room</div>
+        <h3>Elegant Retreat</h3>
+        <p>Elegant room with premium furnishings, luxury toiletries, and beautiful views of the estate.</p>
+        <div class="room-avail" id="avail-elegant-retreat"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 550 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-elegant-retreat">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-d2" data-room-id="cozy-alcove">
+      <div class="room-img"><img src="../assets/interior/cozy-alcove/cozy-alcove-03.jpeg" alt="Cozy Alcove Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room</div>
+        <h3>Cozy Alcove</h3>
+        <p>A cozy, intimate space with quality furnishings, all essential amenities, and a warm, welcoming atmosphere.</p>
+        <div class="room-avail" id="avail-cozy-alcove"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 600 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-cozy-alcove">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-d3" data-room-id="grand-chamber">
+      <div class="room-img"><img src="../assets/interior/grand-chamber/grand-chamber-01.jpeg" alt="Grand Chamber Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Room</div>
+        <h3>Grand Chamber</h3>
+        <p>Spacious chamber with premium bedding, minibar, work desk, and all the amenities for a comfortable stay.</p>
+        <div class="room-avail" id="avail-grand-chamber"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 650 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-grand-chamber">Book →</a>
+        </div>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-d1" data-room-id="royal-sanctuary">
+      <div class="room-img"><img src="../assets/interior/royal-sanctuary/royal-sanctuary-01.jpeg" alt="Royal Sanctuary Room" loading="lazy" /></div>
+      <div class="room-body">
+        <div class="room-tag">Suite</div>
+        <h3>Royal Sanctuary</h3>
+        <p>Our premier accommodation — a spacious sanctuary with refined finishes, premium comfort, and exclusive amenities throughout.</p>
+        <div class="room-avail" id="avail-royal-sanctuary"></div>
+        <div class="room-footer">
+          <div class="room-price">GHS 700 <span>/ night</span></div>
+          <a href="#book" class="btn-sm" id="book-royal-sanctuary">Book →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="reveal">
+    <div class="eyebrow">Photo Gallery</div>
+    <h2>Inside Firnic Hotel</h2>
+    <p class="sec-sub">A glimpse into the spaces, rooms, and surroundings that make Firnic truly special.</p>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="g-img wide"><img src="../assets/exterior/IMG_1089.jpeg" alt="Hotel Exterior" loading="lazy" /></div>
+    <div class="g-img tall"><img src="../assets/interior/grand-chamber/grand-chamber-01.jpeg" alt="Grand Chamber Room" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/grand-chamber/grand-chamber-06.jpeg" alt="Room Lounge Area" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/exterior/IMG_1095.jpeg" alt="Hotel Exterior" loading="lazy" /></div>
+    <div class="g-img wide"><img src="../assets/interior/grand-chamber/grand-chamber-10.jpeg" alt="Grand Chamber Sitting Area" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/grand-chamber/grand-chamber-05.jpeg" alt="Room TV and Lounge" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/exterior/IMG_1100.jpeg" alt="Hotel Building" loading="lazy" /></div>
+    <div class="g-img tall"><img src="../assets/interior/cozy-alcove/cozy-alcove-03.jpeg" alt="Cozy Alcove Room" loading="lazy" /></div>
+    <div class="g-img wide"><img src="../assets/interior/room-new-03.jpeg" alt="Hotel Room" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/royal-sanctuary/royal-sanctuary-01.jpeg" alt="Royal Sanctuary Room" loading="lazy" /></div>
+    <div class="g-img wide"><img src="../assets/interior/room-new-09.jpeg" alt="Hotel Room" loading="lazy" /></div>
+    <div class="g-img wide"><img src="../assets/interior/elegant-retreat/elegant-retreat-01.jpeg" alt="Elegant Retreat Room" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/elegant-retreat/elegant-retreat-02.jpeg" alt="Room TV Area" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/elegant-retreat/elegant-retreat-03.jpeg" alt="Hotel Room Detail" loading="lazy" /></div>
+    <div class="g-img"><img src="../assets/interior/elegant-retreat/elegant-retreat-04.jpeg" alt="Room Amenities" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="reveal">
+    <div class="eyebrow">Facilities</div>
+    <h2>Hotel Amenities</h2>
+    <p class="sec-sub">Everything you need for a seamless and memorable stay, all under one roof.</p>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity reveal"><div class="ico">❄️</div><h3>Air Conditioning</h3><p>All rooms are fully air-conditioned for your comfort throughout your stay.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">📶</div><h3>Free Wi-Fi</h3><p>High-speed internet access throughout the hotel — rooms, lounge, and common areas.</p></div>
+    <div class="amenity reveal reveal-d2"><div class="ico">🍽️</div><h3>In-Room Dining</h3><p>Order meals to your room at any time. Fresh, quality food prepared on request.</p></div>
+    <div class="amenity reveal reveal-d3"><div class="ico">🔒</div><h3>24/7 Security</h3><p>Our dedicated security team ensures a safe and peaceful environment around the clock.</p></div>
+    <div class="amenity reveal"><div class="ico">🧹</div><h3>Daily Housekeeping</h3><p>Professional housekeeping service provided daily to maintain immaculate rooms.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">🚗</div><h3>Free Parking</h3><p>Secure, on-site parking available for all hotel guests at no extra charge.</p></div>
+    <div class="amenity reveal reveal-d2"><div class="ico">🌡️</div><h3>Heater</h3><p>In-room heaters available for a comfortable, temperature-controlled environment at any time.</p></div>
+    <div class="amenity reveal reveal-d3"><div class="ico">❄️</div><h3>Fridge</h3><p>Each room is equipped with a refrigerator to keep your drinks and refreshments cool.</p></div>
+    <div class="amenity reveal"><div class="ico">⚡</div><h3>Standby Generator</h3><p>Uninterrupted power supply with a standby generator — no disruptions to your comfort.</p></div>
+    <div class="amenity reveal reveal-d1"><div class="ico">📺</div><h3>Flat Screen TV</h3><p>All rooms equipped with large flat screen televisions and a wide variety of channels.</p></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <div class="eyebrow">The Firnic Experience</div>
+    <h2>More Than Just a Hotel Stay</h2>
+    <p class="sec-sub">From the moment you arrive, every detail is taken care of so you can fully relax and enjoy.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <img src="../assets/exterior/IMG_1093.jpeg" alt="Hotel Grounds" loading="lazy" />
+      <div class="exp-overlay">
+        <div class="exp-tag">Surroundings</div>
+        <h3>Serene Private Grounds</h3>
+        <p>Beautifully landscaped gardens and secure private grounds — your retreat from the city.</p>
+      </div>
+    </div>
+    <div class="exp-card reveal reveal-d1">
+      <img src="../assets/interior/IMG_0988-1.jpeg" alt="Room Detail" loading="lazy" />
+      <div class="exp-overlay">
+        <div class="exp-tag">Interiors</div>
+        <h3>Premium Furnishings</h3>
+        <p>Every room is fitted with quality furniture, linens, and finishes selected for comfort and style.</p>
+      </div>
+    </div>
+    <div class="exp-card reveal reveal-d2">
+      <img src="../assets/interior/IMG_0990-1.jpeg" alt="Room Amenities" loading="lazy" />
+      <div class="exp-overlay">
+        <div class="exp-tag">Service</div>
+        <h3>Attentive, Discreet</h3>
+        <p>Our team is always on hand, ensuring your every need is met with warmth and professionalism.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="book-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Reservations</div>
+    <h2 class="reveal">Book Your Stay</h2>
+    <p class="reveal">Fill in your details and we'll confirm your reservation within the hour. Prefer to reach us directly? Use the options below.</p>
+
+    <form class="hotel-form reveal reveal-d1" id="hotelBookingForm">
+      <h3>Reservation Request</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-name">Full Name</label>
+          <input type="text" id="h-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="h-phone">Phone Number</label>
+          <input type="tel" id="h-phone" name="phone" placeholder="+233 ..." required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-email">Email Address</label>
+          <input type="email" id="h-email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="h-room">Room Type</label>
+          <select id="h-room" name="room_type" required>
+            <option value="" disabled selected>Select a room</option>
+            <option value="Mini Royal — GHS 450/night">Mini Royal — GHS 450 / night</option>
+            <option value="Elegant Retreat — GHS 550/night">Elegant Retreat — GHS 550 / night</option>
+            <option value="Cozy Alcove — GHS 600/night">Cozy Alcove — GHS 600 / night</option>
+            <option value="Grand Chamber — GHS 650/night">Grand Chamber — GHS 650 / night</option>
+            <option value="Royal Sanctuary — GHS 700/night">Royal Sanctuary — GHS 700 / night</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-checkin">Check-In Date</label>
+          <input type="date" id="h-checkin" name="checkin_date" required />
+        </div>
+        <div class="form-group">
+          <label for="h-checkout">Check-Out Date</label>
+          <input type="date" id="h-checkout" name="checkout_date" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="h-guests">Number of Guests</label>
+          <select id="h-guests" name="guest_count">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="h-requests">Special Requests</label>
+          <input type="text" id="h-requests" name="special_requests" placeholder="Early check-in, dietary needs, etc." />
+        </div>
+      </div>
+
+      <div class="price-estimate" id="price-estimate">
+        <div>
+          <div class="pe-label">Estimated Total</div>
+          <div class="pe-val" id="pe-total"></div>
+          <div class="pe-nights" id="pe-nights"></div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--muted);line-height:1.6;max-width:220px;">
+          Final price confirmed at check-in. Includes all standard amenities.
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="hotelPayBtn">Book &amp; Pay →</button>
+    </form>
+
+    <div class="book-divider reveal">Or reach us directly</div>
+
+    <div class="book-options reveal">
+      <a href="tel:+233592997811" class="book-opt">
+        <span class="b-ico">📞</span>
+        <span class="b-lbl">Call Us</span>
+        <span class="b-sub">+233 592 997 811</span>
+      </a>
+      <a href="mailto:firnicluxuriousprivatehotel@gmail.com" class="book-opt">
+        <span class="b-ico">✉️</span>
+        <span class="b-lbl">Email Us</span>
+        <span class="b-sub">firnicluxuriousprivatehotel@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lb-close" onclick="lbClose()" aria-label="Close">&#10005;</button>
+  <button class="lb-btn" id="lb-prev" onclick="lbStep(-1)" aria-label="Previous">&#8249;</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-btn" id="lb-next" onclick="lbStep(1)" aria-label="Next">&#8250;</button>
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="f-brand">
+      <a href="../" class="logo">Firnic<em>.</em></a>
+      <p>Firnic Luxurious Private Hotel — Accra, Ghana. Where elegance, privacy, and comfort meet.</p>
+    </div>
+    <div class="f-col">
+      <h4>Accommodation</h4>
+      <ul>
+        <li><a href="#rooms">Mini Royal</a></li>
+        <li><a href="#rooms">Elegant Retreat</a></li>
+        <li><a href="#rooms">Cozy Alcove</a></li>
+        <li><a href="#rooms">Grand Chamber</a></li>
+        <li><a href="#rooms">Royal Sanctuary</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="../massage/">Massage Studio</a></li>
+        <li><a href="../events/">Events &amp; Venue</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+233592997811">+233 592 997 811</a></li>
+        <li><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></li>
+        <li><span style="color:var(--muted)">Ofankor Hills Estate, Accra</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>&copy; 2026 Firnic Luxurious Private Hotel. All rights reserved.</p>
+    <div class="pay-methods">
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#1A1F71"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" font-style="italic" fill="#fff">VISA</text></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#252525"/><circle cx="20" cy="14" r="9" fill="#EB001B"/><circle cx="32" cy="14" r="9" fill="#F79E1B"/><path d="M26 5.5a9 9 0 0 1 0 17A9 9 0 0 1 26 5.5z" fill="#FF5F00"/></svg>
+      <svg width="46" height="25" viewBox="0 0 52 28" fill="none"><rect width="52" height="28" rx="4" fill="#FFCC00"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#000">MTN</text></svg>
+      <svg width="54" height="25" viewBox="0 0 68 28" fill="none"><rect width="68" height="28" rx="4" fill="#00C3F7"/><text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#0D0D0D">PAYSTACK</text></svg>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Mobile menu ── */
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+  /* ── Hero slideshow ── */
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsEl  = document.getElementById('hero-dots');
+  let current = 0, timer;
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 5000);
+  }
+  timer = setInterval(() => goTo(current + 1), 5000);
+
+  /* ── Scroll reveal ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── Gallery lightbox ── */
+  const lbGallery = [];
+  document.querySelectorAll('.gallery-grid .g-img img').forEach((img, i) => {
+    lbGallery.push({ src: img.src, alt: img.alt });
+    img.parentElement.addEventListener('click', () => lbOpen(i));
+  });
+  let lbIdx = 0;
+  const lbEl  = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  function lbOpen(i) {
+    lbIdx = i;
+    lbShow();
+    lbEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function lbClose() {
+    lbEl.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lbStep(dir) {
+    lbIdx = (lbIdx + dir + lbGallery.length) % lbGallery.length;
+    lbImg.style.opacity = '0';
+    setTimeout(lbShow, 180);
+  }
+  function lbShow() {
+    const item = lbGallery[lbIdx];
+    lbImg.src = item.src;
+    lbImg.alt = item.alt;
+    lbImg.style.opacity = '1';
+    document.getElementById('lb-caption').textContent = item.alt;
+    document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + lbGallery.length;
+  }
+  lbEl.addEventListener('click', e => { if (e.target === lbEl) lbClose(); });
+  document.addEventListener('keydown', e => {
+    if (!lbEl.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft')  lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+  });
+
+  /* ── Room "Book →" pre-fills room type dropdown ── */
+  const ROOM_OPTIONS = {
+    'mini-royal':       'Mini Royal — GHS 450/night',
+    'elegant-retreat':  'Elegant Retreat — GHS 550/night',
+    'cozy-alcove':      'Cozy Alcove — GHS 600/night',
+    'grand-chamber':    'Grand Chamber — GHS 650/night',
+    'royal-sanctuary':  'Royal Sanctuary — GHS 700/night',
+  };
+  document.querySelectorAll('[data-room-id] .btn-sm').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const card   = this.closest('[data-room-id]');
+      const roomId = card ? card.dataset.roomId : null;
+      const select = document.getElementById('h-room');
+      if (roomId && ROOM_OPTIONS[roomId] && select) {
+        select.value = ROOM_OPTIONS[roomId];
+        updatePriceEstimate();
+      }
+    });
+  });
+</script>
+<script>
+  /* ── Date fields + price estimate ── */
+  const ROOM_PRICES = {
+    'Mini Royal — GHS 450/night':      450,
+    'Elegant Retreat — GHS 550/night': 550,
+    'Cozy Alcove — GHS 600/night':     600,
+    'Grand Chamber — GHS 650/night':   650,
+    'Royal Sanctuary — GHS 700/night': 700,
+  };
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('h-checkin').min  = today;
+  document.getElementById('h-checkout').min = today;
+  document.getElementById('h-checkin').addEventListener('change', function() {
+    const co = document.getElementById('h-checkout');
+    co.min = this.value || today;
+    if (co.value && co.value <= this.value) co.value = '';
+    updatePriceEstimate();
+  });
+  document.getElementById('h-checkout').addEventListener('change', updatePriceEstimate);
+  document.getElementById('h-room').addEventListener('change', updatePriceEstimate);
+
+  function updatePriceEstimate() {
+    const ci    = document.getElementById('h-checkin').value;
+    const co    = document.getElementById('h-checkout').value;
+    const room  = document.getElementById('h-room').value;
+    const panel = document.getElementById('price-estimate');
+    if (!ci || !co || !room) { panel.classList.remove('visible'); return; }
+    const nights = Math.round((new Date(co) - new Date(ci)) / 86400000);
+    if (nights <= 0) { panel.classList.remove('visible'); return; }
+    const rate  = ROOM_PRICES[room];
+    if (!rate) { panel.classList.remove('visible'); return; }
+    const total = nights * rate;
+    document.getElementById('pe-total').textContent = 'GHS ' + total.toLocaleString();
+    document.getElementById('pe-nights').textContent = nights + (nights === 1 ? ' night' : ' nights') + ' × GHS ' + rate + ' / night';
+    panel.classList.add('visible');
+  }
+</script>
+<script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/paystack.js"></script>
+<script>
+  document.getElementById('hotelBookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form   = this;
+    var btn    = document.getElementById('hotelPayBtn');
+    var orig   = btn.textContent;
+    var total  = document.getElementById('pe-total').textContent;
+    var amount = parseFloat(total.replace(/[^0-9.]/g, ''));
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    if (!amount || amount <= 0) {
+      showBanner(form, false, '⚠ Please select a room type and valid check-in / check-out dates first.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Opening payment…';
+
+    firnicPay({
+      email:  document.getElementById('h-email').value.trim(),
+      amount: amount,
+      name:   document.getElementById('h-name').value.trim(),
+      meta:   { booking_type: 'hotel', room: document.getElementById('h-room').value },
+      onSuccess: function (ref) {
+        btn.textContent = 'Confirming…';
+        var addH = function (n, v) {
+          var h = document.createElement('input');
+          h.type = 'hidden'; h.name = n; h.value = v; h.dataset.ps = '1';
+          form.appendChild(h);
+        };
+        addH('payment_ref',    ref);
+        addH('payment_amount', total);
+        addH('payment_status', 'paid');
+
+        window.firnicSubmit({ preventDefault: function(){}, target: form }, 'hotel')
+          .finally(function () {
+            form.querySelectorAll('[data-ps]').forEach(function (el) { el.remove(); });
+            btn.disabled = false;
+            btn.textContent = orig;
+          });
+      },
+      onClose: function () {
+        btn.disabled = false;
+        btn.textContent = orig;
+      }
+    });
+  });
+
+  function showBanner(form, ok, html) {
+    var b = form.querySelector('.firnic-banner');
+    if (!b) { b = document.createElement('div'); b.className = 'firnic-banner'; form.appendChild(b); }
+    b.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;font-size:0.85rem;font-weight:500;line-height:1.6;text-align:center;animation:firnicFadeIn 0.3s ease;' +
+      'background:' + (ok ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)') + ';' +
+      'border:1px solid ' + (ok ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)') + ';' +
+      'color:' + (ok ? '#86efac' : '#fca5a5') + ';';
+    b.innerHTML = html;
+    b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+<script src="../assets/js/aria-widget.js"></script>
+<script>
+  /* ── Live room availability ── */
+  (async function loadAvailability() {
+    try {
+      const res = await fetch('/api/availability');
+      if (!res.ok) return;
+      const rooms = await res.json();
+      rooms.forEach(room => {
+        const badge = document.getElementById('avail-' + room.id);
+        const card  = document.querySelector('[data-room-id="' + room.id + '"]');
+        if (!badge || !card) return;
+        if (room.status === 'booked') {
+          badge.textContent = 'Fully Booked';
+          badge.className = 'room-avail booked';
+          card.classList.add('booked');
+        } else if (room.status === 'limited') {
+          badge.textContent = 'Only ' + room.available + ' left';
+          badge.className = 'room-avail limited';
+        } else {
+          badge.textContent = room.available + ' Available';
+          badge.className = 'room-avail available';
+        }
+      });
+    } catch (e) {}
+  })();
+</script>
+</body>
+</html>
