@@ -909,18 +909,27 @@ async function handler(req, res) {
   // Strip leading slash first (before normalize) so '/' → '' → ROOT on Windows
   const stripped = urlPath.replace(/^\/+/, '');
   const safePath = path.normalize(stripped || '.').replace(/^(\.\.(\/|\\|$))+/, '');
-  let   filePath = path.resolve(ROOT, safePath);
+  const staticRoots = IS_READ_ONLY_HOST ? [path.join(ROOT, 'public'), ROOT] : [ROOT, path.join(ROOT, 'public')];
+  let filePath = null;
+
+  for (const staticRoot of staticRoots) {
+    let candidate = path.resolve(staticRoot, safePath);
+    if (!candidate.startsWith(staticRoot + path.sep) && candidate !== staticRoot) continue;
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) {
+      candidate = path.join(candidate, 'index.html');
+    }
+    if (fs.existsSync(candidate)) {
+      filePath = candidate;
+      break;
+    }
+  }
 
   // Reject if resolved path escapes root
-  if (!filePath.startsWith(ROOT + path.sep) && filePath !== ROOT) {
+  if (!filePath) filePath = path.resolve(staticRoots[0], safePath);
+  if (!staticRoots.some(staticRoot => filePath.startsWith(staticRoot + path.sep) || filePath === staticRoot)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('Forbidden');
     return;
-  }
-
-  // Serve index.html for directories
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
-    filePath = path.join(filePath, 'index.html');
   }
 
   // Only serve files within allowed extensions
