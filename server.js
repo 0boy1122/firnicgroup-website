@@ -8,9 +8,11 @@ const { URL } = require('url');
 
 const ROOT     = __dirname;
 const DATA_DIR = path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(ROOT, 'data'));
+const HAS_EXTERNAL_DB = Boolean(process.env.DATABASE_URL);
+const IS_READ_ONLY_HOST = Boolean(process.env.VERCEL);
 
 // Ensure data dir exists
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!fs.existsSync(DATA_DIR) && !IS_READ_ONLY_HOST) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 function seedDataFile(filename, fallback) {
   const target = path.join(DATA_DIR, filename);
@@ -21,6 +23,8 @@ function seedDataFile(filename, fallback) {
     fs.copyFileSync(source, target);
     return;
   }
+
+  if (IS_READ_ONLY_HOST) return;
 
   fs.writeFileSync(target, fallback, 'utf8');
 }
@@ -165,20 +169,42 @@ function saveSessions() {
   const now = Date.now();
   // Prune expired before saving
   for (const [t, exp] of SESSIONS) { if (exp <= now) SESSIONS.delete(t); }
+  if (IS_READ_ONLY_HOST) return;
   fs.writeFileSync(SESSION_FILE, JSON.stringify([...SESSIONS.entries()]), 'utf8');
 }
+function signSession(expiresAt, nonce) {
+  return crypto
+    .createHmac('sha256', ADMIN_PASSWORD || 'firnic-session')
+    .update(`${expiresAt}.${nonce}`)
+    .digest('hex');
+}
 function createSession() {
-  const token     = crypto.randomBytes(32).toString('hex');
   const expiresAt = Date.now() + SESSION_TTL_MS;
+  const nonce     = crypto.randomBytes(16).toString('hex');
+  const signed    = `${expiresAt}.${nonce}.${signSession(expiresAt, nonce)}`;
+  const token     = IS_READ_ONLY_HOST ? signed : crypto.randomBytes(32).toString('hex');
   SESSIONS.set(token, expiresAt);
   saveSessions();
   return token;
+}
+function verifySignedSession(token) {
+  const parts = token.split('.');
+  if (parts.length !== 3) return false;
+  const [expRaw, nonce, sig] = parts;
+  const expiresAt = Number(expRaw);
+  if (!Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
+  const expected = signSession(expiresAt, nonce);
+  try {
+    return crypto.timingSafeEqual(Buffer.from(sig, 'hex'), Buffer.from(expected, 'hex'));
+  } catch {
+    return false;
+  }
 }
 function authCheck(req) {
   const token = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
   if (!token) return false;
   const exp = SESSIONS.get(token);
-  if (!exp) return false;
+  if (!exp) return verifySignedSession(token);
   if (Date.now() > exp) { SESSIONS.delete(token); return false; }
   return true;
 }
@@ -517,8 +543,8 @@ function setCORS(req, res) {
   res.setHeader('Vary', 'Origin');
 }
 
-// ── HTTP Server ───────────────────────────────────────────────────────────────
-http.createServer(async (req, res) => {
+// ── HTTP Handler ──────────────────────────────────────────────────────────────
+async function handler(req, res) {
   let urlPath;
   try {
     const urlObj = new URL(req.url, `http://localhost:${PORT}`);
@@ -928,18 +954,26 @@ http.createServer(async (req, res) => {
     res.end(data);
   });
 
-}).listen(PORT, () => {
-  console.log(`\n✓ Firnic website  → http://localhost:${PORT}`);
-  console.log(`✓ Admin panel     → http://localhost:${PORT}/admin/`);
-  console.log(`✓ AI chat (Groq)  → ${GROQ_API_KEY ? 'enabled' : 'disabled (add GROQ_API_KEY to .env)'}`);
-  console.log(`✓ Email           → ${transporter ? 'enabled' : 'disabled (add SMTP_USER + SMTP_PASS to .env)'}\n`);
+}
 
-  // Keep-alive: ping self every 14 min so Render free tier doesn't spin down
-  const SELF = process.env.RENDER_EXTERNAL_URL;
-  if (SELF) {
-    setInterval(() => {
-      https.get(SELF + '/api/availability', () => {}).on('error', () => {});
-    }, 14 * 60 * 1000);
-    console.log('✓ Keep-alive ping enabled');
-  }
-});
+function startServer() {
+  http.createServer(handler).listen(PORT, () => {
+    console.log(`\n✓ Firnic website  → http://localhost:${PORT}`);
+    console.log(`✓ Admin panel     → http://localhost:${PORT}/admin/`);
+    console.log(`✓ AI chat (Groq)  → ${GROQ_API_KEY ? 'enabled' : 'disabled (add GROQ_API_KEY to .env)'}`);
+    console.log(`✓ Email           → ${transporter ? 'enabled' : 'disabled (add SMTP_USER + SMTP_PASS to .env)'}\n`);
+
+    // Keep-alive: ping self every 14 min so Render free tier doesn't spin down
+    const SELF = process.env.RENDER_EXTERNAL_URL;
+    if (SELF) {
+      setInterval(() => {
+        https.get(SELF + '/api/availability', () => {}).on('error', () => {});
+      }, 14 * 60 * 1000);
+      console.log('✓ Keep-alive ping enabled');
+    }
+  });
+}
+
+if (require.main === module) startServer();
+
+module.exports = handler;

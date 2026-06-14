@@ -2,7 +2,30 @@
 
 This project is a long-running Node server that writes bookings, sessions, room inventory, and editable content to JSON files. Use a host that can either provide persistent storage or connect the app to a database.
 
-## Recommended Free Path: Koyeb + Neon Postgres
+## Recommended Free Path: Vercel + Neon Postgres
+
+Vercel can host this project now that writable app data is stored in Postgres through `DATABASE_URL`. Vercel's function filesystem is read-only except temporary scratch space, so do not deploy without the database variable.
+
+1. Push the repo to GitHub.
+2. Create a new Vercel project from the GitHub repo.
+3. Keep the default build settings. The included `vercel.json` routes all requests through `api/index.js`.
+4. Add environment variables:
+
+```sh
+DATABASE_URL=postgresql://...
+PGSSLMODE=require
+ADMIN_PASSWORD=...
+GROQ_API_KEY=...
+SMTP_USER=...
+SMTP_PASS=...
+NOTIFY_EMAIL=...
+```
+
+Only `DATABASE_URL`, `PGSSLMODE`, and `ADMIN_PASSWORD` are required for the site, admin panel, and persistent data. Groq and SMTP are optional.
+
+On first request, the app creates a `firnic_state` table and seeds room/content data from the repo. Submissions, room availability, and editable content are then stored in Postgres.
+
+## Alternative Free Path: Koyeb + Neon Postgres
 
 Koyeb has a free web Service, but its local filesystem is ephemeral. Use `DATABASE_URL` with a free Postgres provider such as Neon or Supabase so bookings and admin edits persist.
 
