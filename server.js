@@ -740,27 +740,33 @@ async function handler(req, res) {
       let emailed = false;
       let filesNote = false;
       if (transporter) {
-        const rows = Object.entries(entry)
-          .filter(([k]) => !k.startsWith('_') && !['id','status','updatedAt','agree'].includes(k))
-          .map(([k, v]) => {
-            const sk = k.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            const sv = String(v).replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            return `<tr><td style="padding:6px 12px;font-weight:600;background:#f5f5f5;border:1px solid #ddd;white-space:nowrap">${sk}</td><td style="padding:6px 12px;border:1px solid #ddd">${sv}</td></tr>`;
-          }).join('');
-        await transporter.sendMail({
-          from: `"Firnic Website" <${process.env.SMTP_USER}>`,
-          to:   process.env.NOTIFY_EMAIL || 'firnicluxuriousprivatehotel@gmail.com',
-          subject: '🧑‍✈️ Driver Application — Firnic Group',
-          html: `<div style="font-family:sans-serif;max-width:600px">
-            <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group — Driver Application</h2></div>
-            <table style="width:100%;border-collapse:collapse;margin-top:16px">${rows}</table>
-            <p style="margin-top:16px;color:#555;font-size:0.85rem">${attachments.length} document(s) attached.</p>
-            <p style="margin-top:8px"><a href="${process.env.RENDER_EXTERNAL_URL||'http://localhost:'+PORT}/admin/" style="background:#c9a84c;color:#0e0e0e;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700">View in Admin →</a></p>
-          </div>`,
-          attachments
-        });
-        try { await sendUserConfirmation(entry); } catch {}
-        emailed = true;
+        try {
+          const rows = Object.entries(entry)
+            .filter(([k]) => !k.startsWith('_') && !['id','status','updatedAt','agree'].includes(k))
+            .map(([k, v]) => {
+              const sk = k.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+              const sv = String(v).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+              return `<tr><td style="padding:6px 12px;font-weight:600;background:#f5f5f5;border:1px solid #ddd;white-space:nowrap">${sk}</td><td style="padding:6px 12px;border:1px solid #ddd">${sv}</td></tr>`;
+            }).join('');
+          const adminUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : (process.env.RENDER_EXTERNAL_URL || 'http://localhost:' + PORT);
+          await transporter.sendMail({
+            from: `"Firnic Website" <${process.env.SMTP_USER}>`,
+            to:   process.env.NOTIFY_EMAIL || 'firnicluxuriousprivatehotel@gmail.com',
+            subject: 'Driver Application - Firnic Group',
+            html: `<div style="font-family:sans-serif;max-width:600px">
+              <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group - Driver Application</h2></div>
+              <table style="width:100%;border-collapse:collapse;margin-top:16px">${rows}</table>
+              <p style="margin-top:16px;color:#555;font-size:0.85rem">${attachments.length} document(s) attached.</p>
+              <p style="margin-top:8px"><a href="${adminUrl}/admin/" style="background:#c9a84c;color:#0e0e0e;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700">View in Admin</a></p>
+            </div>`,
+            attachments
+          });
+          try { await sendUserConfirmation(entry); } catch {}
+          emailed = true;
+        } catch (mailError) {
+          console.error('[driver-apply-email]', mailError.message);
+          filesNote = true;
+        }
       } else {
         filesNote = true;
       }
