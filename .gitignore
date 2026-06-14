@@ -14,7 +14,7 @@ skills-lock.json
 *.zip
 *.mov
 *.MOV
-driver firnic.avif
+/driver firnic.avif
 /IMG_*.jpeg
 /Royal santuary*.jpeg
 /cozy alcove/

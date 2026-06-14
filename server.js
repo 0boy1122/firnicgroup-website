@@ -106,6 +106,30 @@ async function writeState(key, filePath, data) {
   );
 }
 
+const ADMIN_PASSWORD_FILE = path.join(DATA_DIR, 'admin-password.json');
+async function getAdminPassword() {
+  const stored = await readState('adminPassword', ADMIN_PASSWORD_FILE, null);
+  const password = typeof stored === 'string' && stored ? stored : (process.env.ADMIN_PASSWORD || ADMIN_PASSWORD || '');
+  ADMIN_PASSWORD = password;
+  return password;
+}
+
+async function setAdminPassword(newPassword) {
+  ADMIN_PASSWORD = newPassword;
+  process.env.ADMIN_PASSWORD = newPassword;
+  if (getPgPool()) {
+    await writeState('adminPassword', ADMIN_PASSWORD_FILE, newPassword);
+    return;
+  }
+  let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
+  if (/^ADMIN_PASSWORD\s*=/m.test(envContent)) {
+    envContent = envContent.replace(/^ADMIN_PASSWORD\s*=.*$/m, `ADMIN_PASSWORD=${newPassword}`);
+  } else {
+    envContent += `\nADMIN_PASSWORD=${newPassword}\n`;
+  }
+  fs.writeFileSync(envPath, envContent, 'utf8');
+}
+
 // Only serve these safe web file types — everything else is blocked
 const MIME = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
@@ -200,11 +224,14 @@ function verifySignedSession(token) {
     return false;
   }
 }
-function authCheck(req) {
+async function authCheck(req) {
   const token = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
   if (!token) return false;
   const exp = SESSIONS.get(token);
-  if (!exp) return verifySignedSession(token);
+  if (!exp) {
+    await getAdminPassword();
+    return verifySignedSession(token);
+  }
   if (Date.now() > exp) { SESSIONS.delete(token); return false; }
   return true;
 }
@@ -749,13 +776,14 @@ async function handler(req, res) {
 
   // POST /admin/login ── rate-limited
   if (urlPath === '/admin/login' && req.method === 'POST') {
-    if (!ADMIN_PASSWORD) return json(res, 503, { ok: false, error: 'Admin not configured. Set ADMIN_PASSWORD environment variable.' });
+    const configuredAdminPassword = await getAdminPassword();
+    if (!configuredAdminPassword) return json(res, 503, { ok: false, error: 'Admin not configured. Set ADMIN_PASSWORD environment variable.' });
     const ip = getClientIP(req);
     if (isLockedOut(ip)) {
       return json(res, 429, { ok: false, error: 'Too many attempts. Try again in 15 minutes.' });
     }
     const { password } = await parseBody(req);
-    if (typeof password !== 'string' || password !== ADMIN_PASSWORD) {
+    if (typeof password !== 'string' || password !== configuredAdminPassword) {
       recordFailedLogin(ip);
       const rec = loginAttempts.get(ip);
       const left = Math.max(0, LOGIN_MAX_TRIES - (rec?.count || 0));
@@ -777,7 +805,7 @@ async function handler(req, res) {
 
   // All /admin/api/* routes require auth
   if (urlPath.startsWith('/admin/api/')) {
-    if (!authCheck(req)) return json(res, 401, { error: 'Unauthorised or session expired' });
+    if (!(await authCheck(req))) return json(res, 401, { error: 'Unauthorised or session expired' });
 
     // GET /admin/api/submissions
     if (urlPath === '/admin/api/submissions' && req.method === 'GET') {
@@ -872,27 +900,19 @@ async function handler(req, res) {
     if (urlPath === '/admin/api/change-password' && req.method === 'POST') {
       const body = await parseBody(req);
       const { currentPassword, newPassword } = body;
-      if (typeof currentPassword !== 'string' || typeof newPassword !== 'string') {
-        return json(res, 400, { ok: false, error: 'Invalid request' });
-      }
-      if (currentPassword !== ADMIN_PASSWORD) {
+    if (typeof currentPassword !== 'string' || typeof newPassword !== 'string') {
+      return json(res, 400, { ok: false, error: 'Invalid request' });
+    }
+      const configuredAdminPassword = await getAdminPassword();
+      if (currentPassword !== configuredAdminPassword) {
         return json(res, 401, { ok: false, error: 'Incorrect current password' });
       }
       if (newPassword.length < 8) {
         return json(res, 400, { ok: false, error: 'Password must be at least 8 characters' });
       }
-      // Update .env file
+      // Update persistent admin password storage
       try {
-        let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
-        if (/^ADMIN_PASSWORD\s*=/m.test(envContent)) {
-          envContent = envContent.replace(/^ADMIN_PASSWORD\s*=.*$/m, `ADMIN_PASSWORD=${newPassword}`);
-        } else {
-          envContent += `\nADMIN_PASSWORD=${newPassword}\n`;
-        }
-        fs.writeFileSync(envPath, envContent, 'utf8');
-        // Update in-memory variable
-        process.env.ADMIN_PASSWORD = newPassword;
-        ADMIN_PASSWORD = newPassword;
+        await setAdminPassword(newPassword);
         // Invalidate all sessions so new password is required
         SESSIONS.clear();
         saveSessions();
