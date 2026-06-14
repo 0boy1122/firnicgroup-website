@@ -553,6 +553,20 @@ async function handler(req, res) {
     res.writeHead(400); res.end('Bad request'); return;
   }
 
+  if (IS_READ_ONLY_HOST && urlPath === '/' && req.method === 'GET') {
+    const homeCandidates = [
+      path.join(ROOT, 'public', 'index.html'),
+      path.join(ROOT, 'index.html')
+    ];
+    const homePath = homeCandidates.find(candidate => fs.existsSync(candidate));
+    if (homePath) {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      fs.createReadStream(homePath).pipe(res);
+      return;
+    }
+  }
+
   setCORS(req, res);
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
