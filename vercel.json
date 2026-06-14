@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.js": {
-      "includeFiles": "{index.html,robots.txt,sitemap.xml,admin/**,assets/**,cars/**,contact/**,drivers/**,events/**,hotel/**,massage/**,data/content.json,data/rooms.json}"
+      "includeFiles": "data/**"
     }
   },
   "rewrites": [
