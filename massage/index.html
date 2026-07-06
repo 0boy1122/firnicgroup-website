@@ -406,7 +406,7 @@
     <h2 class="reveal">Book Your Session</h2>
     <p class="reveal">Fill in your details and we'll confirm your appointment. Available Monday – Sunday.</p>
 
-    <form class="massage-form reveal reveal-d1" data-firnic-form="massage">
+    <form class="massage-form reveal reveal-d1" id="massageBookingForm">
       <h3>Session Request</h3>
 
       <div class="form-row">
@@ -481,7 +481,7 @@
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">Request Appointment →</button>
+      <button type="submit" class="submit-btn" id="massagePayBtn">Book &amp; Pay →</button>
     </form>
 
     <div class="book-divider reveal">Or reach us directly</div>
@@ -574,6 +574,69 @@
   }).catch(() => {});
 </script>
 <script src="../assets/js/form-submit.js"></script>
+<script src="../assets/js/paystack.js"></script>
+<script>
+  document.getElementById('massageBookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = this;
+    var btn = document.getElementById('massagePayBtn');
+    var orig = btn.textContent;
+    var treatment = document.getElementById('m-treatment').value;
+    var amountMatch = treatment.match(/GHS\s*([0-9,.]+)/i);
+    var amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : 0;
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    if (!amount || amount <= 0) {
+      showPaymentBanner(form, false, 'Please select a treatment with a valid price before paying.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Opening payment...';
+
+    firnicPay({
+      email: document.getElementById('m-email').value.trim(),
+      amount: amount,
+      name: document.getElementById('m-name').value.trim(),
+      meta: { booking_type: 'massage', treatment: treatment },
+      onSuccess: function (ref) {
+        btn.textContent = 'Confirming...';
+        var addH = function (n, v) {
+          var h = document.createElement('input');
+          h.type = 'hidden'; h.name = n; h.value = v; h.dataset.ps = '1';
+          form.appendChild(h);
+        };
+        addH('payment_ref', ref);
+        addH('payment_amount', 'GHS ' + amount.toLocaleString());
+        addH('payment_status', 'paid');
+        addH('payment_provider', 'Paystack');
+
+        window.firnicSubmit({ preventDefault: function(){}, target: form }, 'massage')
+          .finally(function () {
+            form.querySelectorAll('[data-ps]').forEach(function (el) { el.remove(); });
+            btn.disabled = false;
+            btn.textContent = orig;
+          });
+      },
+      onClose: function () {
+        btn.disabled = false;
+        btn.textContent = orig;
+      }
+    });
+  });
+
+  function showPaymentBanner(form, ok, html) {
+    var b = form.querySelector('.firnic-banner');
+    if (!b) { b = document.createElement('div'); b.className = 'firnic-banner'; form.appendChild(b); }
+    b.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;font-size:0.85rem;font-weight:500;line-height:1.6;text-align:center;animation:firnicFadeIn 0.3s ease;' +
+      'background:' + (ok ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)') + ';' +
+      'border:1px solid ' + (ok ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)') + ';' +
+      'color:' + (ok ? '#86efac' : '#fca5a5') + ';';
+    b.innerHTML = html;
+    b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
 <script src="../assets/js/aria-widget.js"></script>
 </body>
 </html>
