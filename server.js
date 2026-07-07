@@ -321,11 +321,11 @@ Services:
 1. FIRNIC HOTEL — Luxury hotel, Ofankor Hills Estate, Accra
    Rooms: Standard GHS 450/night | Deluxe GHS 550/night | Junior Suite GHS 700/night | Executive Suite GHS 950/night
    Amenities: Pool, spa, restaurant, free WiFi, airport transfer, 24h concierge
-   Book: firnicluxuriousprivatehotel@gmail.com | +233 592 997 811
+   Book: info@firnicgroup.com | +233 592 997 811
 
 2. FIRNIC EXECUTIVE CARS — Premium chauffeur & self-drive car hire
    Self-drive: 1 day GHS 1,500 | 3 days GHS 4,200 | 1 week GHS 9,500
-   Book: firnicluxuriousprivatehotel@gmail.com | +233 592 997 811
+   Book: info@firnicgroup.com | +233 592 997 811
 
 3. FIRNIC PRESTIGE MASSAGE STUDIO
    Deep Tissue: GHS 280/380/480 (60/90/120 min)
@@ -337,7 +337,7 @@ Services:
 
 5. FIRNIC TRANSPORT HUB — Ride hailing & delivery in Accra
 
-CONTACT: +233 592 997 811 | firnicluxuriousprivatehotel@gmail.com | 14 Ofankor Hills Estate, Accra
+CONTACT: +233 592 997 811 | info@firnicgroup.com | 14 Ofankor Hills Estate, Accra
 
 Rules: Be warm and concise. Give specific prices when asked. Direct to the booking form or call +233 592 997 811 for bookings. Keep replies under 120 words unless listing. Never fabricate information.`;
 
@@ -497,7 +497,7 @@ async function sendFormEmail(entry) {
     }).join('');
   await transporter.sendMail({
     from: `"Firnic Website" <${process.env.SMTP_USER}>`,
-    to:   process.env.NOTIFY_EMAIL || 'firnicluxuriousprivatehotel@gmail.com',
+    to:   process.env.NOTIFY_EMAIL || 'info@firnicgroup.com',
     subject,
     html: `<div style="font-family:sans-serif;max-width:600px">
       <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group — New Submission</h2></div>
@@ -542,7 +542,7 @@ async function sendUserConfirmation(entry) {
         </a>
       </div>
       <div style="background:#f5f5f5;padding:16px 28px;font-size:0.78rem;color:#888">
-        Firnic Group · +233 592 997 811 · firnicluxuriousprivatehotel@gmail.com · 14 Ofankor Hills Estate, Accra
+        Firnic Group · +233 592 997 811 · info@firnicgroup.com · 14 Ofankor Hills Estate, Accra
       </div>
     </div>`
   });
@@ -751,7 +751,7 @@ async function handler(req, res) {
           const adminUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : (process.env.RENDER_EXTERNAL_URL || 'http://localhost:' + PORT);
           await transporter.sendMail({
             from: `"Firnic Website" <${process.env.SMTP_USER}>`,
-            to:   process.env.NOTIFY_EMAIL || 'firnicluxuriousprivatehotel@gmail.com',
+            to:   process.env.NOTIFY_EMAIL || 'info@firnicgroup.com',
             subject: 'Driver Application - Firnic Group',
             html: `<div style="font-family:sans-serif;max-width:600px">
               <div style="background:#0e0e0e;padding:20px 24px"><h2 style="color:#c9a84c;margin:0;font-size:1.1rem">Firnic Group - Driver Application</h2></div>

@@ -680,7 +680,7 @@
       <h4>Contact</h4>
       <ul>
         <li><a href="tel:+233592997811">+233 592 997 811</a></li>
-        <li><a href="mailto:firnicluxuriousprivatehotel@gmail.com">firnicluxuriousprivatehotel@gmail.com</a></li>
+        <li><a href="mailto:info@firnicgroup.com">info@firnicgroup.com</a></li>
         <li><span>Ofankor Hills Estate, Accra</span></li>
       </ul>
     </div>
@@ -738,7 +738,7 @@
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Server error');
       if (data.filesNote) {
-        showBanner(true, '✅ <strong>Application received!</strong><br>Please email your documents (licence, registration, insurance, roadworthiness + vehicle photos) to <strong style="color:#4ade80">firnicluxuriousprivatehotel@gmail.com</strong> with your name as the subject line.');
+        showBanner(true, '✅ <strong>Application received!</strong><br>Please email your documents (licence, registration, insurance, roadworthiness + vehicle photos) to <strong style="color:#4ade80">info@firnicgroup.com</strong> with your name as the subject line.');
       } else {
         showBanner(true, '✅ <strong>Application submitted!</strong> Your documents have been received. We will review and contact you within 24–48 hours.');
       }
@@ -751,7 +751,7 @@
         }
       });
     } catch (err) {
-      showBanner(false, '⚠ Could not submit. Please try again or email us at <strong>firnicluxuriousprivatehotel@gmail.com</strong> or call <strong>+233 592 997 811</strong>.');
+      showBanner(false, '⚠ Could not submit. Please try again or email us at <strong>info@firnicgroup.com</strong> or call <strong>+233 592 997 811</strong>.');
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = orig; }
     }
